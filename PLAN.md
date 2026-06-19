@@ -10,7 +10,7 @@ The initial focus is layout, themes, styling, navigation, and reusable content c
 
 Use `site.typ` as the bundle entrypoint and central site manifest. It should import the package, define site configuration and navigation, and call `jtd.site(...)` once. The `jtd.site(...)` function should emit all shared assets and recursively generate Typst `document(...)` elements from the navigation data.
 
-Page files should own their page-level layout selection by applying a `jtd.page(...)` show rule. Page title, source path, and output path should normally come from the corresponding navigation entry.
+Page files should own their page-level title and layout selection by applying a `jtd.page(...)` show rule. Navigation entries should own only navigation labels, source paths, and output paths. For now, titles are required in both places and do not need to match.
 
 There should not be a separate `config.typ` file in the intended authoring model.
 
@@ -122,7 +122,7 @@ typst watch --features bundle,html --format bundle site.typ dist
 )
 ```
 
-`site.typ` should not call a page-layout helper around page content and should not manually list page `document(...)` elements. It should define shared site data and call `jtd.site(...)`. The page bundle structure is derived from nav entries with `title`, `src`, and `path`.
+`site.typ` should not call a page-layout helper around page content and should not manually list page `document(...)` elements. It should define shared site data and call `jtd.site(...)`. The page bundle structure is derived from nav entries with `title`, `src`, and `path`, where `title` is only the navigation label.
 
 ## Intended Page Shape
 
@@ -132,6 +132,7 @@ Each page imports the package and applies `jtd.page(...)` as a show rule:
 #import "@local/justypdocs:0.0.1" as jtd
 
 #show: jtd.page(
+  title: "Home",
   layout: "minimal",
 )
 
@@ -146,18 +147,19 @@ a typst template for a static webpage
 
 The page owns:
 
+- Its page title.
 - Its layout choice, such as `"default"` or `"minimal"`.
 - Its body content.
 - Any page-local layout options added later.
 
 The corresponding nav entry owns:
 
-- The page title.
+- The navigation title/label.
 - The source Typst file path.
 - The output path.
 - The fact that the page is part of the bundle.
 
-`jtd.page(...)` may still accept optional page metadata such as `title`, `description`, or `path` as overrides or fallbacks, but the default authoring model should pull these from nav metadata.
+For now, `jtd.page(...)` should require `title`. The nav `title` and page `title` are intentionally independent: nav title affects sidebar, breadcrumbs, child-page lists, and other navigation components; page title affects only that page's layout rendering and metadata where supported.
 
 ## `jtd.site(...)`
 
@@ -169,7 +171,7 @@ Responsibilities:
 - Store or expose config/nav so `jtd.page(...)` can render layouts for included documents.
 - Recursively walk the `nav` tree.
 - For every page node with `src` and `path`, emit a bundle `document(...)`.
-- Pass the nav title to `document(..., title: ...)` when possible.
+- Use nav `title` only for navigation UI. Do not treat it as the page title.
 - Emit shared CSS assets.
 - Emit shared JavaScript assets.
 - Emit generated theme CSS variables.
@@ -193,7 +195,7 @@ default configurations can be declared in-file if `config` is unavailable in the
 Conceptually, page nodes should emit documents like:
 
 ```typst
-#document(page.path, title: page.title)[
+#document(page.path)[
   #include page.src
 ]
 ```
@@ -201,7 +203,7 @@ Conceptually, page nodes should emit documents like:
 or, if supported by Typst for dynamic paths:
 
 ```typst
-#document(page.path, title: page.title, include page.src)
+#document(page.path, include page.src)
 ```
 
 The implementation should verify which form works best with dynamic `src` paths.
@@ -212,7 +214,7 @@ The implementation should verify which form works best with dynamic `src` paths.
 
 Responsibilities:
 
-- Accept page metadata such as `title`, `description`, and `layout`.
+- Require page `title` and accept page metadata such as `description` and `layout`.
 - Retrieve site config/nav registered by `jtd.site(...)`.
 - Retrieve current page metadata from the nav tree when available.
 - Render the selected layout shell.
@@ -395,7 +397,7 @@ Example:
 
 A page node should contain:
 
-- `title`: the title of the page.
+- `title`: the navigation title/label for the page.
 - `src`: the source Typst file to include.
 - `path`: the output path in the generated website.
 
@@ -405,6 +407,8 @@ A section node should contain:
 - `children`: nested nav nodes.
 
 Optional later fields can include `description`, `layout`, `nav-exclude`, `external`, or other metadata.
+
+Page titles are not sourced from nav nodes. Each page file should define its own page title with `jtd.page(title: ...)`. This page title may differ from the nav title.
 
 Implement helpers:
 
@@ -487,6 +491,7 @@ During implementation, verify:
 - `site.typ` only needs config/nav definitions and a single `jtd.site(...)` call.
 - `jtd.site(...)` recursively emits documents from nav entries with `src` and `path`.
 - Page files can apply `#show: jtd.page(...)` and render with the selected layout.
+- Page files require `jtd.page(title: ...)` and use that title independently from nav labels.
 - Nested page asset paths work correctly.
 - Light and dark themes render correctly.
 - Custom theme overrides work through Typst dictionaries.
@@ -506,7 +511,7 @@ During implementation, verify:
 6. Add minimal JavaScript for mobile menu and nav expansion.
 7. Add Elembic components for callouts, buttons, labels, cards, and page-local UI.
 8. Add examples for light, dark, and custom themes.
-9. Document the authoring model: `site.typ` owns config/nav and calls `jtd.site(...)`, while each page owns `jtd.page(...)` and content.
+9. Document the authoring model: `site.typ` owns config/nav and calls `jtd.site(...)`, while each page owns `jtd.page(title: ...)`, layout selection, and content.
 10. Later, add a post-processing search indexer.
 
 ## Design Recommendation
