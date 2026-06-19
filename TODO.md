@@ -16,18 +16,20 @@
 - [ ] Define config type/fields.
 - [ ] Define nav node types: page node and section node.
 - [ ] Define page metadata type/fields.
+- [ ] Make nav page node `id` required and unique.
 - [ ] Make nav `title` a navigation label only.
-- [ ] Make `jtd.page(title: ...)` required and independent from nav `title`.
+- [ ] Make `jtd.page(id: ..., title: ...)` required, with page title independent from nav `title`.
 - [ ] Add source comments documenting each public API.
 
 ## 3. Implement Elembic Nav/Node Types
 
-- [ ] Define a page-node type with `title`, `src`, and `path`.
+- [ ] Define a page-node type with `id`, `title`, `src`, and `path`.
 - [ ] Define a section-node type with `title` and `children`.
 - [ ] Define a recursive nav type if practical; otherwise validate recursive children manually.
 - [ ] Add constructors/helpers if useful: `nav-page(...)`, `nav-section(...)`.
 - [ ] Support raw dictionary nav nodes if that keeps authoring ergonomic.
 - [ ] Validate malformed nodes with useful errors.
+- [ ] Validate duplicate page ids with useful errors.
 - [ ] Keep nav node titles scoped to navigation UI only.
 
 ## 4. Implement Nav Model Helpers
@@ -39,6 +41,10 @@
 - [ ] Implement `breadcrumbs-for(path, nav)` using nav titles.
 - [ ] Implement `children-for(path, nav)` using nav titles.
 - [ ] Implement `is-active(path, item)`.
+- [ ] Implement `nav-entry-by-id(id, nav)`.
+- [ ] Implement `path-for-id(id, nav)`.
+- [ ] Implement `breadcrumbs-for-id(id, nav)` using nav titles.
+- [ ] Implement `children-for-id(id, nav)` using nav titles.
 - [ ] Implement `emit-documents(nav)`.
 - [ ] Use dynamic `include page.src`, since dynamic include/import works.
 
@@ -46,30 +52,35 @@
 
 - [ ] Accept `config` and `nav`.
 - [ ] Cast/validate config and nav with Elembic types where possible.
+- [ ] Validate that every nav page node has `id`, `title`, `src`, and `path`.
+- [ ] Validate that nav page ids are unique.
 - [ ] Expose config/nav via metadata or another queryable mechanism.
 - [ ] Emit shared CSS assets.
 - [ ] Emit shared JS assets.
 - [ ] Emit generated theme CSS variables.
 - [ ] Recursively emit one `document(page.path)[#include page.src]` per nav page node.
+- [ ] Emit/query metadata associating each generated document with `page.id` if useful.
 - [ ] Do not use nav `title` as the page title.
 
 ## 6. Implement Page Lookup/Context
 
 - [ ] Let `jtd.page(...)` retrieve site config/nav.
-- [ ] Let `jtd.page(...)` identify the current nav page where possible.
-- [ ] Determine whether current bundle output path is accessible.
-- [ ] If not, support explicit fallback `jtd.page(path: ...)`.
+- [ ] Let `jtd.page(...)` identify the current nav page by `id`.
+- [ ] Validate that `jtd.page(id: ...)` exists in the registered nav metadata when building a site.
+- [ ] Use `jtd.page(path: ...)` only as an optional fallback/debug aid if needed.
 - [ ] Document standalone page compilation behavior in source comments.
 
 ## 7. Implement `jtd.page(...)`
 
 - [ ] Implement as a show-rule/template function.
+- [ ] Require `id`.
 - [ ] Require `title`.
 - [ ] Accept `layout`, `description`, optional `path`, `tags`, `categories`, and future-oriented metadata fields.
 - [ ] Emit/queryable frontmatter-like metadata for future features.
 - [ ] Use page `title` for page-level layout rendering and metadata where supported.
 - [ ] Do not infer page title from nav.
 - [ ] Retrieve nav title only for navigation UI.
+- [ ] Look up nav metadata by page `id`.
 - [ ] Dispatch to selected layout.
 - [ ] Support initial layouts: `default` and `minimal`.
 
@@ -146,6 +157,7 @@
 - [ ] Include nested nav pages.
 - [ ] Include default and minimal layout pages.
 - [ ] Demonstrate differing nav title and page title.
+- [ ] Demonstrate matching nav page id and `jtd.page(id: ...)`.
 - [ ] Demonstrate page tags/categories/frontmatter metadata.
 - [ ] Demonstrate callouts, buttons, labels, cards, code, and tables.
 
@@ -154,11 +166,15 @@
 - [ ] Run `typst compile --features bundle,html --format bundle examples/basic/site.typ dist`.
 - [ ] Verify all HTML pages are emitted from nav.
 - [ ] Verify users do not manually declare page `document(...)` elements.
+- [ ] Verify duplicate page ids fail with a useful error.
+- [ ] Verify missing `jtd.page(id: ...)` fails with a useful error.
+- [ ] Verify unknown `jtd.page(id: ...)` fails with a useful error when building a site.
 - [ ] Verify CSS/JS assets are emitted.
 - [ ] Verify nested page asset paths work.
 - [ ] Verify nav titles appear in navigation.
 - [ ] Verify page titles appear in page layouts/metadata.
 - [ ] Verify nav title and page title can differ.
+- [ ] Verify page lookup by id drives nav-derived features.
 - [ ] Verify page metadata is emitted/queryable for future features.
 - [ ] Verify active nav state and breadcrumbs.
 - [ ] Verify mobile menu behavior.
@@ -170,6 +186,7 @@
 - [ ] Add source comments for `page.typ` API.
 - [ ] Add source comments for config schema.
 - [ ] Add source comments for nav section/page node schemas.
+- [ ] Document that nav page `id` is required, unique, and intended to be stable.
 - [ ] Explicitly comment that nav `title` and page `title` are separate.
 - [ ] Add source comments for layouts.
 - [ ] Add source comments for theme customization.
