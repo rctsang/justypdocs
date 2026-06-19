@@ -16,7 +16,7 @@
 - [ ] Define config type/fields.
 - [ ] Define nav node types: page node and section node.
 - [ ] Define page metadata type/fields.
-- [ ] Make nav page node `id` required and unique.
+- [ ] Make every nav node `id` required and globally unique.
 - [ ] Make nav `title` a navigation label only.
 - [ ] Make `jtd.page(id: ..., title: ...)` required, with page title independent from nav `title`.
 - [ ] Add source comments documenting each public API.
@@ -24,12 +24,13 @@
 ## 3. Implement Elembic Nav/Node Types
 
 - [ ] Define a page-node type with `id`, `title`, `src`, and `path`.
-- [ ] Define a section-node type with `title` and `children`.
+- [ ] Define a section-node type with `id`, `title`, and `children`.
+- [ ] Plan for page nodes to support `children` later, while keeping it out of scope unless needed.
 - [ ] Define a recursive nav type if practical; otherwise validate recursive children manually.
 - [ ] Add constructors/helpers if useful: `nav-page(...)`, `nav-section(...)`.
 - [ ] Support raw dictionary nav nodes if that keeps authoring ergonomic.
 - [ ] Validate malformed nodes with useful errors.
-- [ ] Validate duplicate page ids with useful errors.
+- [ ] Validate duplicate nav node ids with useful errors.
 - [ ] Keep nav node titles scoped to navigation UI only.
 
 ## 4. Implement Nav Model Helpers
@@ -38,14 +39,12 @@
 - [ ] Detect/cast section nodes.
 - [ ] Recursively traverse nav.
 - [ ] Implement `pages-from-nav(nav)`.
-- [ ] Implement `breadcrumbs-for(path, nav)` using nav titles.
-- [ ] Implement `children-for(path, nav)` using nav titles.
-- [ ] Implement `is-active(path, item)`.
-- [ ] Implement `nav-entry-by-id(id, nav)`.
-- [ ] Implement `path-for-id(id, nav)`.
-- [ ] Implement `breadcrumbs-for-id(id, nav)` using nav titles.
-- [ ] Implement `children-for-id(id, nav)` using nav titles.
-- [ ] Implement `emit-documents(nav)`.
+- [ ] Implement `entry-by-id(id, nav)`.
+- [ ] Have `entry-by-id(id, nav)` return `(entry: node, trail: ids)`.
+- [ ] Ensure `trail` is an array of nav node ids only.
+- [ ] Implement internal `emit-documents(nav)` using `pages-from-nav(nav)`.
+- [ ] Defer path-based helpers.
+- [ ] Defer dedicated breadcrumb/children helpers; breadcrumbs should resolve ids through `entry-by-id`.
 - [ ] Use dynamic `include page.src`, since dynamic include/import works.
 
 ## 5. Implement `jtd.site(...)`
@@ -53,7 +52,8 @@
 - [ ] Accept `config` and `nav`.
 - [ ] Cast/validate config and nav with Elembic types where possible.
 - [ ] Validate that every nav page node has `id`, `title`, `src`, and `path`.
-- [ ] Validate that nav page ids are unique.
+- [ ] Validate that every nav section node has `id`, `title`, and `children`.
+- [ ] Validate that all nav node ids are unique.
 - [ ] Expose config/nav via metadata or another queryable mechanism.
 - [ ] Emit shared CSS assets.
 - [ ] Emit shared JS assets.
@@ -67,6 +67,7 @@
 - [ ] Let `jtd.page(...)` retrieve site config/nav.
 - [ ] Let `jtd.page(...)` identify the current nav page by `id`.
 - [ ] Validate that `jtd.page(id: ...)` exists in the registered nav metadata when building a site.
+- [ ] Use `entry-by-id(id, nav).trail` for active nav and breadcrumb context.
 - [ ] Use `jtd.page(path: ...)` only as an optional fallback/debug aid if needed.
 - [ ] Document standalone page compilation behavior in source comments.
 
@@ -157,7 +158,7 @@
 - [ ] Include nested nav pages.
 - [ ] Include default and minimal layout pages.
 - [ ] Demonstrate differing nav title and page title.
-- [ ] Demonstrate matching nav page id and `jtd.page(id: ...)`.
+- [ ] Demonstrate matching nav page node id and `jtd.page(id: ...)`.
 - [ ] Demonstrate page tags/categories/frontmatter metadata.
 - [ ] Demonstrate callouts, buttons, labels, cards, code, and tables.
 
@@ -166,7 +167,7 @@
 - [ ] Run `typst compile --features bundle,html --format bundle examples/basic/site.typ dist`.
 - [ ] Verify all HTML pages are emitted from nav.
 - [ ] Verify users do not manually declare page `document(...)` elements.
-- [ ] Verify duplicate page ids fail with a useful error.
+- [ ] Verify duplicate nav node ids fail with a useful error.
 - [ ] Verify missing `jtd.page(id: ...)` fails with a useful error.
 - [ ] Verify unknown `jtd.page(id: ...)` fails with a useful error when building a site.
 - [ ] Verify CSS/JS assets are emitted.
@@ -186,7 +187,7 @@
 - [ ] Add source comments for `page.typ` API.
 - [ ] Add source comments for config schema.
 - [ ] Add source comments for nav section/page node schemas.
-- [ ] Document that nav page `id` is required, unique, and intended to be stable.
+- [ ] Document that every nav node `id` is required, globally unique, and intended to be stable.
 - [ ] Explicitly comment that nav `title` and page `title` are separate.
 - [ ] Add source comments for layouts.
 - [ ] Add source comments for theme customization.
