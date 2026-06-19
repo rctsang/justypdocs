@@ -2,12 +2,12 @@
 
 ## 1. Create Package Skeleton
 
-- [ ] Add `typst.toml`.
-- [ ] Add `src/lib.typ`, `src/site.typ`, `src/page.typ`, `src/layouts.typ`, `src/nav.typ`, `src/theme.typ`, `src/components.typ`, `src/assets.typ`, and `src/types.typ`.
-- [ ] Add authored CSS files under `assets/css/`.
-- [ ] Add authored JS under `assets/js/site.js`.
-- [ ] Add `examples/basic/site.typ`.
-- [ ] Add example pages under `examples/basic/pages/`.
+- [x] Add `typst.toml`.
+- [x] Add `src/lib.typ`, `src/site.typ`, `src/page.typ`, `src/layouts.typ`, `src/nav.typ`, `src/theme.typ`, `src/components.typ`, `src/assets.typ`, and `src/types.typ`.
+- [x] Add authored CSS files under `assets/css/`.
+- [x] Add authored JS under `assets/js/site.js`.
+- [x] Add `examples/basic/site.typ`.
+- [x] Add example pages under `examples/basic/pages/`.
 
 ## 2. Define Public API With Elembic
 
