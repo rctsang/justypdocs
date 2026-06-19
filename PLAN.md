@@ -193,8 +193,6 @@ Example call:
 )
 ```
 
-~~The implementation should investigate the best mechanism for sharing `config` and `nav` from `jtd.site(...)` to later `jtd.page(...)` calls in included documents. Likely options include an Elembic settings element or Typst state/context patterns.~~
-
 `config` and `nav` can be exposed via metadata, then queried for within helper functions in included documents.
 the data will not be available to the document if compiled standalone, but when that is the case, presumably it doesn't matter, as `config` and `nav` are for building the entire website anyways.
 default configurations can be declared in-file if `config` is unavailable in the query, but is needed for the document content (which also shouldn't be the case)
