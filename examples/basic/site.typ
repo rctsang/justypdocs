@@ -5,6 +5,7 @@
   description: "A basic justypdocs example site.",
   base-url: "/",
   footer: [Built with justypdocs],
+  theme: jtd.themes.light,
 )
 
 #let nav = (
@@ -28,5 +29,4 @@
   ),
 )
 
-// TODO: Enable once jtd.site(...) is implemented.
-// #jtd.site(config: config, nav: nav)
+#jtd.site(config: config, nav: nav)

@@ -1,2 +1,2 @@
 // Static asset emission helpers.
-// TODO: Copy authored CSS/JS assets and emit generated theme CSS.
+// TODO: Copy authored CSS/JS assets and emit generated theme CSS in task 5/9.

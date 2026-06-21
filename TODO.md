@@ -11,15 +11,15 @@
 
 ## 2. Define Public API With Elembic
 
-- [ ] Export `jtd.site(...)`, `jtd.page(...)`, `jtd.themes`, component constructors, and public types from `src/lib.typ`.
-- [ ] Use Elembic elements/types where practical for API objects and validation.
-- [ ] Define config type/fields.
-- [ ] Define nav node types: page node and section node.
-- [ ] Define page metadata type/fields.
-- [ ] Make every nav node `id` required and globally unique.
-- [ ] Make nav `title` a navigation label only.
-- [ ] Make `jtd.page(id: ..., title: ...)` required, with page title independent from nav `title`.
-- [ ] Add source comments documenting each public API.
+- [x] Export `jtd.site(...)`, `jtd.page(...)`, `jtd.themes`, component constructors, and public types from `src/lib.typ`.
+- [x] Use Elembic elements/types where practical for API objects and validation.
+- [x] Define config type/fields.
+- [x] Define nav node types: page node and section node.
+- [x] Define page metadata type/fields.
+- [x] Make every nav node `id` required and globally unique.
+- [x] Make nav `title` a navigation label only.
+- [x] Make `jtd.page(id: ..., title: ...)` required, with page title independent from nav `title`.
+- [x] Add source comments documenting each public API.
 
 ## 3. Implement Elembic Nav/Node Types
 
