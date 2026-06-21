@@ -11,14 +11,16 @@
 
 ## 2. Define Public API With Elembic
 
-- [x] Export `jtd.site(...)`, `jtd.page(...)`, `jtd.themes`, component constructors, and public types from `src/lib.typ`.
-- [x] Use Elembic elements/types where practical for API objects and validation.
+- [ ] Export `jtd.site(...)`, `jtd.page(...)`, `jtd.themes`, component constructors, and public types from `src/lib.typ`.
+- [ ] Use Elembic elements/types where practical for API objects and validation.
+- [ ] Define `jtd.site` as an Elembic element, not a plain function.
+- [ ] Define `jtd.page` as an Elembic element with a required body, usable as `#show: jtd.page.with(...)`.
 - [x] Define config type/fields.
 - [x] Define nav node types: page node and section node.
 - [x] Define page metadata type/fields.
 - [x] Make every nav node `id` required and globally unique.
 - [x] Make nav `title` a navigation label only.
-- [x] Make `jtd.page(id: ..., title: ...)` required, with page title independent from nav `title`.
+- [x] Make `jtd.page.with(id: ..., title: ...)` required, with page title independent from nav `title`.
 - [x] Add source comments documenting each public API.
 
 ## 3. Implement Elembic Nav/Node Types
@@ -50,6 +52,7 @@
 ## 5. Implement `jtd.site(...)`
 
 - [ ] Accept `config` and `nav`.
+- [ ] Implement as an Elembic element display function.
 - [ ] Cast/validate config and nav with Elembic types where possible.
 - [ ] Validate that every nav page node has `id`, `title`, `src`, and `path`.
 - [ ] Validate that every nav section node has `id`, `title`, and `children`.
@@ -64,20 +67,21 @@
 
 ## 6. Implement Page Lookup/Context
 
-- [ ] Let `jtd.page(...)` retrieve site config/nav.
-- [ ] Let `jtd.page(...)` identify the current nav page by `id`.
-- [ ] Validate that `jtd.page(id: ...)` exists in the registered nav metadata when building a site.
+- [ ] Let the `jtd.page` element retrieve site config/nav.
+- [ ] Let the `jtd.page` element identify the current nav page by `id`.
+- [ ] Validate that `jtd.page.with(id: ...)` exists in the registered nav metadata when building a site.
 - [ ] Use `entry-by-id(id, nav).trail` for active nav and breadcrumb context.
-- [ ] Use `jtd.page(path: ...)` only as an optional fallback/debug aid if needed.
+- [ ] Use `jtd.page.with(path: ...)` only as an optional fallback/debug aid if needed.
 - [ ] Document standalone page compilation behavior in source comments.
 
 ## 7. Implement `jtd.page(...)`
 
-- [ ] Implement as a show-rule/template function.
+- [ ] Implement as an Elembic element with a required `body` field.
+- [ ] Support page usage via `#show: jtd.page.with(id: ..., title: ...)`.
 - [ ] Require `id`.
 - [ ] Require `title`.
 - [ ] Accept `layout`, `description`, optional `path`, `tags`, `categories`, and future-oriented metadata fields.
-- [ ] Emit/queryable frontmatter-like metadata for future features.
+- [ ] Emit/queryable frontmatter-like metadata from the element display function for future features.
 - [ ] Use page `title` for page-level layout rendering and metadata where supported.
 - [ ] Do not infer page title from nav.
 - [ ] Retrieve nav title only for navigation UI.
@@ -118,14 +122,14 @@
 - [ ] Render mobile header.
 - [ ] Render breadcrumbs using nav titles.
 - [ ] Render main content wrapper.
-- [ ] Render page title from `jtd.page(title: ...)` where layout requires it.
+- [ ] Render page title from `jtd.page.with(title: ...)` where layout requires it.
 - [ ] Render footer.
 
 ## 11. Implement Minimal Layout
 
 - [ ] Render a simpler page shell.
 - [ ] Include shared CSS/JS.
-- [ ] Render page title from `jtd.page(title: ...)` where appropriate.
+- [ ] Render page title from `jtd.page.with(title: ...)` where appropriate.
 - [ ] Render content without full sidebar.
 - [ ] Preserve theme typography and colors.
 
@@ -158,7 +162,7 @@
 - [ ] Include nested nav pages.
 - [ ] Include default and minimal layout pages.
 - [ ] Demonstrate differing nav title and page title.
-- [ ] Demonstrate matching nav page node id and `jtd.page(id: ...)`.
+- [ ] Demonstrate matching nav page node id and `jtd.page.with(id: ...)`.
 - [ ] Demonstrate page tags/categories/frontmatter metadata.
 - [ ] Demonstrate callouts, buttons, labels, cards, code, and tables.
 
@@ -168,8 +172,8 @@
 - [ ] Verify all HTML pages are emitted from nav.
 - [ ] Verify users do not manually declare page `document(...)` elements.
 - [ ] Verify duplicate nav node ids fail with a useful error.
-- [ ] Verify missing `jtd.page(id: ...)` fails with a useful error.
-- [ ] Verify unknown `jtd.page(id: ...)` fails with a useful error when building a site.
+- [ ] Verify missing `jtd.page.with(id: ...)` fails with a useful error.
+- [ ] Verify unknown `jtd.page.with(id: ...)` fails with a useful error when building a site.
 - [ ] Verify CSS/JS assets are emitted.
 - [ ] Verify nested page asset paths work.
 - [ ] Verify nav titles appear in navigation.

@@ -8,9 +8,9 @@ The initial focus is layout, themes, styling, navigation, and reusable content c
 
 ## Core Architecture
 
-Use `site.typ` as the bundle entrypoint and central site manifest. It should import the package, define site configuration and navigation, and call `jtd.site(...)` once. The `jtd.site(...)` function should emit all shared assets and recursively generate Typst `document(...)` elements from the navigation data.
+Use `site.typ` as the bundle entrypoint and central site manifest. It should import the package, define site configuration and navigation, and place `jtd.site(...)` once. The `jtd.site` Elembic element should emit all shared assets and recursively generate Typst `document(...)` elements from the navigation data.
 
-Page files should own their page-level title and layout selection by applying a `jtd.page(...)` show rule. Navigation entries should own navigation labels, source paths, output paths, and stable identifiers. For now, every nav node must have a globally unique `id`, and every page file must declare the id of its corresponding nav page node; titles are required in both places and do not need to match.
+Page files should own their page-level title and layout selection by applying `jtd.page.with(...)` as a show rule. `jtd.page` should be an Elembic element with a required body, letting the idiomatic page syntax remain `#show: jtd.page.with(id: ..., title: ...)`. Navigation entries should own navigation labels, source paths, output paths, and stable identifiers. For now, every nav node must have a globally unique `id`, and every page file must declare the id of its corresponding nav page node; titles are required in both places and do not need to match.
 
 There should not be a separate `config.typ` file in the intended authoring model.
 
@@ -129,12 +129,12 @@ typst watch --features bundle,html --format bundle site.typ dist
 
 ## Intended Page Shape
 
-Each page imports the package and applies `jtd.page(...)` as a show rule:
+Each page imports the package and applies `jtd.page.with(...)` as a show rule:
 
 ```typst
 #import "@local/justypdocs:0.0.1" as jtd
 
-#show: jtd.page(
+#show: jtd.page.with(
   id: "home",
   title: "Home",
   layout: "minimal",
@@ -165,16 +165,16 @@ The corresponding nav entry owns:
 - The output path.
 - The fact that the page is part of the bundle.
 
-For now, `jtd.page(...)` should require both `id` and `title`. The `id` must match a unique nav page node id. The nav `title` and page `title` are intentionally independent: nav title affects sidebar, breadcrumbs, child-page lists, and other navigation components; page title affects only that page's layout rendering and metadata where supported.
+For now, `jtd.page` should require both `id` and `title`. The `id` must match a unique nav page node id. The nav `title` and page `title` are intentionally independent: nav title affects sidebar, breadcrumbs, child-page lists, and other navigation components; page title affects only that page's layout rendering and metadata where supported.
 
 ## `jtd.site(...)`
 
-`jtd.site(...)` is responsible for registering site-wide data and emitting shared assets.
+`jtd.site` should be an Elembic element responsible for registering site-wide data and emitting shared assets.
 
 Responsibilities:
 
 - Accept `config` and `nav`.
-- Store or expose config/nav so `jtd.page(...)` can render layouts for included documents.
+- Store or expose config/nav so the `jtd.page` element can render layouts for included documents.
 - Recursively walk the `nav` tree.
 - For every page node with `id`, `src`, and `path`, emit a bundle `document(...)`.
 - Validate that every page node has a unique `id`.
@@ -216,13 +216,20 @@ Dynamic `include page.src` works and should be used for nav-driven page emission
 
 ## `jtd.page(...)`
 
-`jtd.page(...)` should be a show-rule/template function that wraps page content in a selected layout.
+`jtd.page` should be an Elembic element with a required `body` field. Page files should use it via Typst's function `.with(...)` partial application in a show rule:
+
+```typst
+#show: jtd.page.with(id: "home", title: "Home")
+```
+
+This keeps page authoring ergonomic while making the page wrapper a real Elembic element.
 
 Responsibilities:
 
 - Require page `id` and `title`, and accept page metadata such as `description` and `layout`.
 - Retrieve site config/nav registered by `jtd.site(...)`.
 - Retrieve current page metadata from the nav tree by id when available.
+- Emit frontmatter-like metadata from the `page` element display function, including `id`, `title`, `description`, `tags`, and `categories`.
 - Render the selected layout shell.
 - Render sidebar, header, breadcrumbs, main content, and footer where appropriate.
 - Compute active nav state from the current output path or explicit page path metadata.
@@ -406,7 +413,7 @@ Example:
 
 A page node should contain:
 
-- `id`: a globally unique stable identifier used by `jtd.page(...)` to look up nav information.
+- `id`: a globally unique stable identifier used by `jtd.page.with(...)` to look up nav information.
 - `title`: the navigation title/label for the page.
 - `src`: the source Typst file to include.
 - `path`: the output path in the generated website.
@@ -419,9 +426,9 @@ A section node should contain:
 
 Optional later fields can include `description`, `layout`, `nav-exclude`, `external`, or other metadata. Page nodes may eventually support `children` too, making it possible for pages to act as nav parents. Explicit `path` remains required for page nodes in the initial version; slug/path generation is deferred.
 
-Page titles are not sourced from nav nodes. Each page file should define its own page title with `jtd.page(id: ..., title: ...)`. This page title may differ from the nav title.
+Page titles are not sourced from nav nodes. Each page file should define its own page title with `#show: jtd.page.with(id: ..., title: ...)`. This page title may differ from the nav title.
 
-Each page file should also define its nav lookup id with `jtd.page(id: ...)`. This id must match exactly one nav page node and should remain stable even if the page source path, output path, nav label, or page title changes.
+Each page file should also define its nav lookup id with `jtd.page.with(id: ...)`. This id must match exactly one nav page node and should remain stable even if the page source path, output path, nav label, or page title changes.
 
 Implement only the minimal nav helpers needed for v1:
 
@@ -434,7 +441,7 @@ Validation of nav shape should be handled by Elembic types where practical, not 
 Active navigation should be generated by looking up the current page's `id` in the nav tree and checking whether a rendered item id appears in `entry-by-id(current-id, nav).trail`. This avoids relying on bundle output path introspection.
 
 ```typst
-#show: jtd.page(
+#show: jtd.page.with(
   id: "guide-install",
   title: "Install",
 )
@@ -503,8 +510,8 @@ During implementation, verify:
 - `site.typ` only needs config/nav definitions and a single `jtd.site(...)` call.
 - `jtd.site(...)` recursively emits documents from nav entries with `id`, `src`, and `path`.
 - `jtd.site(...)` rejects duplicate nav node ids.
-- Page files can apply `#show: jtd.page(...)` and render with the selected layout.
-- Page files require `jtd.page(id: ..., title: ...)` and use page title independently from nav labels.
+- Page files can apply `#show: jtd.page.with(...)` and render with the selected layout.
+- Page files require `jtd.page.with(id: ..., title: ...)` and use page title independently from nav labels.
 - Nested page asset paths work correctly.
 - Light and dark themes render correctly.
 - Custom theme overrides work through Typst dictionaries.
@@ -518,13 +525,13 @@ During implementation, verify:
 
 1. Create the package skeleton and minimal example `site.typ` with config/nav and a single `jtd.site(...)` call.
 2. Implement `jtd.site(...)` to accept config/nav, expose them to pages, validate globally unique nav node ids, emit shared assets, and recursively emit `document(...)` elements from nav page nodes.
-3. Implement `jtd.page(...)` as a page-level show rule with `default` and `minimal` layout support.
+3. Implement `jtd.page` as a page Elembic element usable through `#show: jtd.page.with(...)`, with `default` and `minimal` layout support.
 4. Implement theme dictionaries and generated theme CSS variables.
 5. Port Just the Docs layout, navigation, and content styles into authored CSS files.
 6. Add minimal JavaScript for mobile menu and nav expansion.
 7. Add Elembic components for callouts, buttons, labels, cards, and page-local UI.
 8. Add examples for light, dark, and custom themes.
-9. Document the authoring model: `site.typ` owns config/nav and calls `jtd.site(...)`, while each page owns `jtd.page(id: ..., title: ...)`, layout selection, and content.
+9. Document the authoring model: `site.typ` owns config/nav and places `jtd.site(...)`, while each page owns `#show: jtd.page.with(id: ..., title: ...)`, layout selection, and content.
 10. Later, add a post-processing search indexer.
 
 ## Design Recommendation
