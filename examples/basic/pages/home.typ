@@ -1,6 +1,6 @@
 #import "../../../src/lib.typ" as jtd
 
-#show: jtd.page(id: "home", title: "Justypdocs", layout: "minimal")
+#show: jtd.page.with(id: "home", title: "Justypdocs", layout: "minimal")
 
 = Justypdocs
 

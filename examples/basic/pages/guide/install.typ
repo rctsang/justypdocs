@@ -1,6 +1,6 @@
 #import "../../../../src/lib.typ" as jtd
 
-#show: jtd.page(id: "guide-install", title: "Installing Justypdocs")
+#show: jtd.page.with(id: "guide-install", title: "Installing Justypdocs")
 
 = Install
 

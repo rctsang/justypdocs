@@ -11,10 +11,10 @@
 
 ## 2. Define Public API With Elembic
 
-- [ ] Export `jtd.site(...)`, `jtd.page(...)`, `jtd.themes`, component constructors, and public types from `src/lib.typ`.
-- [ ] Use Elembic elements/types where practical for API objects and validation.
-- [ ] Define `jtd.site` as an Elembic element, not a plain function.
-- [ ] Define `jtd.page` as an Elembic element with a required body, usable as `#show: jtd.page.with(...)`.
+- [x] Export `jtd.site(...)`, `jtd.page(...)`, `jtd.themes`, component constructors, and public types from `src/lib.typ`.
+- [x] Use Elembic elements/types where practical for API objects and validation.
+- [x] Define `jtd.site` as an Elembic element, not a plain function.
+- [x] Define `jtd.page` as an Elembic element with a required body, usable as `#show: jtd.page.with(...)`.
 - [x] Define config type/fields.
 - [x] Define nav node types: page node and section node.
 - [x] Define page metadata type/fields.
