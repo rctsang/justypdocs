@@ -25,15 +25,15 @@
 
 ## 3. Implement Elembic Nav/Node Types
 
-- [ ] Define a page-node type with `id`, `title`, `src`, and `path`.
-- [ ] Define a section-node type with `id`, `title`, and `children`.
-- [ ] Plan for page nodes to support `children` later, while keeping it out of scope unless needed.
-- [ ] Define a recursive nav type if practical; otherwise validate recursive children manually.
-- [ ] Add constructors/helpers if useful: `nav-page(...)`, `nav-section(...)`.
-- [ ] Support raw dictionary nav nodes if that keeps authoring ergonomic.
-- [ ] Validate malformed nodes with useful errors.
-- [ ] Validate duplicate nav node ids with useful errors.
-- [ ] Keep nav node titles scoped to navigation UI only.
+- [x] Define a page-node type with `id`, `title`, `src`, and `path`.
+- [x] Define a section-node type with `id`, `title`, and `children`.
+- [x] Plan for page nodes to support `children` later, while keeping it out of scope unless needed.
+- [x] Define a recursive nav type if practical; otherwise validate recursive children manually.
+- [x] Add constructors/helpers if useful: `nav-page(...)`, `nav-section(...)`.
+- [x] Support raw dictionary nav nodes if that keeps authoring ergonomic.
+- [x] Validate malformed nodes with useful errors.
+- [x] Validate duplicate nav node ids with useful errors.
+- [x] Keep nav node titles scoped to navigation UI only.
 
 ## 4. Implement Nav Model Helpers
 
@@ -54,9 +54,9 @@
 - [ ] Accept `config` and `nav`.
 - [ ] Implement as an Elembic element display function.
 - [ ] Cast/validate config and nav with Elembic types where possible.
-- [ ] Validate that every nav page node has `id`, `title`, `src`, and `path`.
-- [ ] Validate that every nav section node has `id`, `title`, and `children`.
-- [ ] Validate that all nav node ids are unique.
+- [x] Validate that every nav page node has `id`, `title`, `src`, and `path`.
+- [x] Validate that every nav section node has `id`, `title`, and `children`.
+- [x] Validate that all nav node ids are unique.
 - [ ] Expose config/nav via metadata or another queryable mechanism.
 - [ ] Emit shared CSS assets.
 - [ ] Emit shared JS assets.

@@ -29,6 +29,9 @@
 )
 
 // Page nodes represent emitted bundle documents.
+// Page nodes may eventually gain `children`, allowing pages to act as nav
+// parents. For the initial implementation, page routing stays explicit with a
+// required `path`, and only section nodes contain children.
 #let nav-page = e.types.declare(
   "justypdocs-nav-page",
   prefix: prefix,
@@ -62,9 +65,67 @@
   casts: ((from: dictionary),),
 )
 
-// Loose nav-node type for public fields. Recursive validation happens in nav helpers.
+// Loose nav-node type for individual node casts. The public `nav` type below
+// owns recursive validation and duplicate-id checks.
 #let nav-node = e.types.union(nav-page, nav-section)
-#let nav = e.types.array(nav-node)
+
+// Recursively cast raw user nav data into normalized Elembic nav node values.
+#let cast-nav-nodes(nodes, seen: ()) = {
+  assert(type(nodes) == array, message: "justypdocs: nav must be an array of nodes")
+
+  let normalized = ()
+  for raw in nodes {
+    // Shape determines whether it is a section or page: section nodes have
+    // `children`; page nodes have `src` and `path`.
+    let node-type = if type(raw) == dictionary and "children" in raw {
+      nav-section
+    } else {
+      nav-page
+    }
+
+    let (ok, node) = e.types.cast(raw, node-type)
+    assert(ok, message: "justypdocs: invalid nav node: " + repr(node))
+
+    assert(
+      node.id not in seen,
+      message: "justypdocs: duplicate nav node id " + repr(node.id),
+    )
+    seen.push(node.id)
+
+    if "children" in node {
+      let (children, next-seen) = cast-nav-nodes(node.children, seen: seen)
+      node.children = children
+      seen = next-seen
+    }
+
+    normalized.push(node)
+  }
+
+  (normalized, seen)
+}
+
+// Recursive navigation tree. This is the authoritative public nav type.
+#let nav = e.types.declare(
+  "justypdocs-nav",
+  prefix: prefix,
+  doc: "Recursive justypdocs navigation tree.",
+  fields: (
+    e.field("nodes", array, required: true, named: true,
+      doc: "Normalized recursive nav nodes."),
+  ),
+  casts: (
+    (
+      from: array,
+      with: nav => nodes => {
+        let (nodes, _) = cast-nav-nodes(nodes)
+        nav(nodes: nodes)
+      },
+    ),
+  ),
+)
+
+// Convenience accessor for code that operates on normalized nav values.
+#let nav-nodes(nav) = nav.nodes
 
 // Metadata declared by each page with `jtd.page(...)`.
 #let page-metadata = e.types.declare(
