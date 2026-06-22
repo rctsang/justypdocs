@@ -124,9 +124,6 @@
   ),
 )
 
-// Convenience accessor for code that operates on normalized nav values.
-#let nav-nodes(nav) = nav.nodes
-
 // Metadata declared by each page with `jtd.page(...)`.
 #let page-metadata = e.types.declare(
   "justypdocs-page-metadata",
