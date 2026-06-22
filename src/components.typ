@@ -4,8 +4,7 @@
 // behavior will be expanded in the component implementation task.
 
 #import "@preview/elembic:1.1.1" as e
-
-#let prefix = "@local/justypdocs,v0"
+#import "types.typ": prefix
 
 // Highlighted content block.
 #let callout = e.element.declare(
@@ -14,9 +13,12 @@
   doc: "A highlighted documentation callout.",
   display: it => block(it.body),
   fields: (
-    e.field("body", content, doc: "Callout body.", required: true),
-    e.field("kind", str, doc: "Callout kind.", default: "note"),
-    e.field("title", e.types.option(str), doc: "Optional callout title.", default: none),
+    e.field("body", content, required: true,
+      doc: "Callout body."),
+    e.field("kind", str, default: "note",
+      doc: "Callout kind."),
+    e.field("title", e.types.option(str), default: none,
+      doc: "Optional callout title."),
   ),
 )
 
@@ -27,9 +29,12 @@
   doc: "A styled action link/button.",
   display: it => link(it.href)[#it.body],
   fields: (
-    e.field("body", content, doc: "Button contents.", required: true),
-    e.field("href", str, doc: "Button target URL.", default: "#"),
-    e.field("variant", str, doc: "Button visual variant.", default: "default"),
+    e.field("body", content, required: true,
+      doc: "Button contents."),
+    e.field("href", str, default: "#",
+      doc: "Button target URL."),
+    e.field("variant", str, default: "default",
+      doc: "Button visual variant."),
   ),
 )
 
@@ -40,8 +45,10 @@
   doc: "An inline label or badge.",
   display: it => text(size: 0.8em)[#it.body],
   fields: (
-    e.field("body", content, doc: "Label contents.", required: true),
-    e.field("variant", str, doc: "Label visual variant.", default: "default"),
+    e.field("body", content, required: true,
+      doc: "Label contents."),
+    e.field("variant", str, default: "default",
+      doc: "Label visual variant."),
   ),
 )
 
@@ -52,7 +59,9 @@
   doc: "A bordered card container.",
   display: it => block(it.body),
   fields: (
-    e.field("body", content, doc: "Card contents.", required: true),
-    e.field("title", e.types.option(content), doc: "Optional card title.", default: none),
+    e.field("body", content, required: true,
+      doc: "Card contents."),
+    e.field("title", e.types.option(content), default: none,
+      doc: "Optional card title."),
   ),
 )
