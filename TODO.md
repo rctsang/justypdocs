@@ -37,17 +37,17 @@
 
 ## 4. Implement Nav Model Helpers
 
-- [ ] Detect/cast page nodes.
-- [ ] Detect/cast section nodes.
-- [ ] Recursively traverse nav.
-- [ ] Implement `pages-from-nav(nav)`.
-- [ ] Implement `entry-by-id(id, nav)`.
-- [ ] Have `entry-by-id(id, nav)` return `(entry: node, trail: ids)`.
-- [ ] Ensure `trail` is an array of nav node ids only.
-- [ ] Implement internal `emit-documents(nav)` using `pages-from-nav(nav)`.
-- [ ] Defer path-based helpers.
-- [ ] Defer dedicated breadcrumb/children helpers; breadcrumbs should resolve ids through `entry-by-id`.
-- [ ] Use dynamic `include page.src`, since dynamic include/import works.
+- [x] Detect/cast page nodes.
+- [x] Detect/cast section nodes.
+- [x] Recursively traverse nav.
+- [x] Implement `pages-from-nav(nav)`.
+- [x] Implement `entry-by-id(id, nav)`.
+- [x] Have `entry-by-id(id, nav)` return `(entry: node, trail: ids)`.
+- [x] Ensure `trail` is an array of nav node ids only.
+- [x] Implement internal `emit-documents(nav)` using `pages-from-nav(nav)`.
+- [x] Defer path-based helpers.
+- [x] Defer dedicated breadcrumb/children helpers; breadcrumbs should resolve ids through `entry-by-id`.
+- [x] Use dynamic `include page.src`, since dynamic include/import works.
 
 ## 5. Implement `jtd.site(...)`
 
