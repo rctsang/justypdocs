@@ -1,3 +1,5 @@
+#import "@preview/oxifmt:1.0.0": strfmt
+
 // Theme token definitions.
 //
 // Built-in themes are functions so users can customize them with Typst's
@@ -46,24 +48,24 @@
   table-background: "#302d36",
 )
 
-// Convert a configured theme function or raw dictionary into concrete tokens.
-#let tokens(theme) = if type(theme) == function {
-  theme()
-} else if type(theme) == dictionary {
-  theme
-} else {
-  assert(false, message: "justypdocs.theme: expected theme function or dictionary, found " + repr(type(theme)))
-}
 
 // Generate CSS custom properties for the configured theme.
-#let render-theme-css(theme) = {
-  let theme = tokens(theme)
-  let css = ":root {\n"
+#let render-theme-css(theme: none) = {
+  let theme = if type(theme) == function {
+    theme()
+  } else if type(theme) == dictionary {
+    theme
+  } else {
+    assert(false, message: strfmt(
+      "expected theme function or dictionary, found {}",
+      repr(type(theme))))
+  }
+
+  let defs = ""
   for (key, value) in theme {
     if key != "with" {
-      css += "  --jtd-" + key + ": " + str(value) + ";\n"
+      defs += strfmt("  --jtd-{}: {};\n", key, str(value))
     }
   }
-  css += "}\n"
-  css
+  strfmt(":root {{\n{}\n}}\n", defs)
 }
