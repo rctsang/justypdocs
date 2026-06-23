@@ -6,6 +6,17 @@
 
 #import "@preview/elembic:1.1.1" as e
 #import "types.typ"
+#import "nav.typ": pages-from-nav
+
+// Internal bundle document emission helper used by `jtd.site`.
+#let emit-documents(nav) = {
+  for page in pages-from-nav(nav) {
+    document(page.path)[
+      #metadata((kind: "jtd-current-page", id: page.id))
+      #include page.src
+    ]
+  }
+}
 
 #let site = e.element.declare(
   "site",

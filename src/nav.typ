@@ -6,17 +6,13 @@
 #import "@preview/elembic:1.1.1" as e
 #import "types.typ"
 
-#let normalized(nav) = {
-  let (ok, value) = e.types.cast(nav, types.nav)
-  assert(ok, message: "justypdocs.nav: invalid nav: " + repr(value))
-  value
-}
+// Recursively extract pages from nav
+#let pages-from-nav(nav) = {
+  let (ok, nav) = e.types.cast(nav, types.nav)
+  assert(ok, message: "justypdocs.nav: invalid nav: " + repr(nav))
 
-#let _nodes(nav) = normalized(nav).nodes
-
-#let _pages-from-nodes(nodes) = {
   let pages = ()
-  for node in nodes {
+  for node in nav.nodes {
     if "children" in node {
       pages += _pages-from-nodes(node.children)
     } else {
@@ -26,9 +22,7 @@
   pages
 }
 
-// Return all page nodes in site/nav order.
-#let pages-from-nav(nav) = _pages-from-nodes(_nodes(nav))
-
+// Recursive helper function for searching for a node in the nav tree
 #let _entry-by-id(id, nodes, trail: ()) = {
   for node in nodes {
     let next-trail = trail + (node.id,)
@@ -52,17 +46,11 @@
 // Returns `(entry: node, trail: ids)`, where `trail` contains only nav ids from
 // the root to the matched node.
 #let entry-by-id(id, nav) = {
-  let found = _entry-by-id(id, _nodes(nav))
+  let (ok, nav) = e.types.cast(nav, types.nav)
+  assert(ok, message: "justypdocs.nav: invalid nav: " + repr(nav))
+
+  let found = _entry-by-id(id, nav.nodes)
   assert(found != none, message: "justypdocs.nav: no nav entry with id " + repr(id))
   found
 }
 
-// Internal bundle document emission helper used by `jtd.site`.
-#let emit-documents(nav) = {
-  for page in pages-from-nav(nav) {
-    document(page.path)[
-      #metadata((kind: "jtd-current-page", id: page.id))
-      #include page.src
-    ]
-  }
-}
