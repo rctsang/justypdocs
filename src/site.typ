@@ -7,6 +7,7 @@
 #import "@preview/elembic:1.1.1" as e
 #import "types.typ"
 #import "nav.typ": pages-from-nav
+#import "assets.typ": emit-assets
 
 // Internal bundle document emission helper used by `jtd.site`.
 #let emit-documents(nav) = {
@@ -29,7 +30,12 @@
       doc: "Navigation tree and page emission source."),
   ),
   display: it => {
-    // TODO: Emit site/nav metadata, assets, and documents in later tasks.
-    none
+    metadata((
+      kind: "justypdocs-site",
+      config: it.config,
+      nav: it.nav,
+    ))
+    emit-assets(it.config)
+    emit-documents(it.nav)
   },
 )

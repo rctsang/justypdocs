@@ -46,5 +46,24 @@
   table-background: "#302d36",
 )
 
-// TODO: Implement generated CSS variable output in task 9.
-#let render-theme-css(theme) = ""
+// Convert a configured theme function or raw dictionary into concrete tokens.
+#let tokens(theme) = if type(theme) == function {
+  theme()
+} else if type(theme) == dictionary {
+  theme
+} else {
+  assert(false, message: "justypdocs.theme: expected theme function or dictionary, found " + repr(type(theme)))
+}
+
+// Generate CSS custom properties for the configured theme.
+#let render-theme-css(theme) = {
+  let theme = tokens(theme)
+  let css = ":root {\n"
+  for (key, value) in theme {
+    if key != "with" {
+      css += "  --jtd-" + key + ": " + str(value) + ";\n"
+    }
+  }
+  css += "}\n"
+  css
+}

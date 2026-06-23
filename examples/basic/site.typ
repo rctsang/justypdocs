@@ -12,7 +12,7 @@
   (
     id: "home",
     title: "Home",
-    src: "pages/home.typ",
+    src: "/examples/basic/pages/home.typ",
     path: "index.html",
   ),
   (
@@ -22,7 +22,7 @@
       (
         id: "guide-install",
         title: "Install",
-        src: "pages/guide/install.typ",
+        src: "/examples/basic/pages/guide/install.typ",
         path: "guide/install.html",
       ),
     ),

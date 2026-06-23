@@ -6,13 +6,10 @@
 #import "@preview/elembic:1.1.1" as e
 #import "types.typ"
 
-// Recursively extract pages from nav
-#let pages-from-nav(nav) = {
-  let (ok, nav) = e.types.cast(nav, types.nav)
-  assert(ok, message: "justypdocs.nav: invalid nav: " + repr(nav))
-
+// Recursively extract page nodes from normalized nav nodes.
+#let _pages-from-nodes(nodes) = {
   let pages = ()
-  for node in nav.nodes {
+  for node in nodes {
     if "children" in node {
       pages += _pages-from-nodes(node.children)
     } else {
@@ -20,6 +17,14 @@
     }
   }
   pages
+}
+
+// Recursively extract pages from nav.
+#let pages-from-nav(nav) = {
+  let (ok, nav) = e.types.cast(nav, types.nav)
+  assert(ok, message: "justypdocs.nav: invalid nav: " + repr(nav))
+
+  _pages-from-nodes(nav.nodes)
 }
 
 // Recursive helper function for searching for a node in the nav tree
@@ -53,4 +58,3 @@
   assert(found != none, message: "justypdocs.nav: no nav entry with id " + repr(id))
   found
 }
-

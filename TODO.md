@@ -51,19 +51,19 @@
 
 ## 5. Implement `jtd.site(...)`
 
-- [ ] Accept `config` and `nav`.
-- [ ] Implement as an Elembic element display function.
-- [ ] Cast/validate config and nav with Elembic types where possible.
+- [x] Accept `config` and `nav`.
+- [x] Implement as an Elembic element display function.
+- [x] Cast/validate config and nav with Elembic types where possible.
 - [x] Validate that every nav page node has `id`, `title`, `src`, and `path`.
 - [x] Validate that every nav section node has `id`, `title`, and `children`.
 - [x] Validate that all nav node ids are unique.
-- [ ] Expose config/nav via metadata or another queryable mechanism.
-- [ ] Emit shared CSS assets.
-- [ ] Emit shared JS assets.
-- [ ] Emit generated theme CSS variables.
-- [ ] Recursively emit one `document(page.path)[#include page.src]` per nav page node.
-- [ ] Emit/query metadata associating each generated document with `page.id` if useful.
-- [ ] Do not use nav `title` as the page title.
+- [x] Expose config/nav via metadata or another queryable mechanism.
+- [x] Emit shared CSS assets.
+- [x] Emit shared JS assets.
+- [x] Emit generated theme CSS variables.
+- [x] Recursively emit one `document(page.path)[#include page.src]` per nav page node.
+- [x] Emit/query metadata associating each generated document with `page.id` if useful.
+- [x] Do not use nav `title` as the page title.
 
 ## 6. Implement Page Lookup/Context
 
