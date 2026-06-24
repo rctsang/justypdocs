@@ -29,13 +29,13 @@
     e.field("nav", types.nav, required: true, named: true,
       doc: "Navigation tree and page emission source."),
   ),
-  display: it => {
-    metadata((
+  display: it => [
+    #metadata((
       kind: "justypdocs-site",
       config: it.config,
       nav: it.nav,
-    ))
-    emit-assets(it.config)
-    emit-documents(it.nav)
-  },
+    )) <jtd-site>
+    #emit-assets(it.config)
+    #emit-documents(it.nav)
+  ],
 )

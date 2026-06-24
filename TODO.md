@@ -67,12 +67,12 @@
 
 ## 6. Implement Page Lookup/Context
 
-- [ ] Let the `jtd.page` element retrieve site config/nav.
-- [ ] Let the `jtd.page` element identify the current nav page by `id`.
-- [ ] Validate that `jtd.page.with(id: ...)` exists in the registered nav metadata when building a site.
-- [ ] Use `entry-by-id(id, nav).trail` for active nav and breadcrumb context.
-- [ ] Use `jtd.page.with(path: ...)` only as an optional fallback/debug aid if needed.
-- [ ] Document standalone page compilation behavior in source comments.
+- [x] Let the `jtd.page` element retrieve site config/nav.
+- [x] Let the `jtd.page` element identify the current nav page by `id`.
+- [x] Validate that `jtd.page.with(id: ...)` exists in the registered nav metadata when building a site.
+- [x] Use `entry-by-id(id, nav).trail` for active nav and breadcrumb context.
+- [x] Use `jtd.page.with(path: ...)` only as an optional fallback/debug aid if needed.
+- [x] Document standalone page compilation behavior in source comments.
 
 ## 7. Implement `jtd.page(...)`
 

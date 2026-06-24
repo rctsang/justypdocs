@@ -9,6 +9,6 @@
   asset("assets/css/navigation.css", read("../assets/css/navigation.css"))
   asset("assets/css/content.css", read("../assets/css/content.css"))
   asset("assets/css/components.css", read("../assets/css/components.css"))
-  asset("assets/css/theme.css", theme.render-theme-css(config.theme))
+  asset("assets/css/theme.css", theme.render-theme-css(theme: config.theme))
   asset("assets/js/site.js", read("../assets/js/site.js"))
 }

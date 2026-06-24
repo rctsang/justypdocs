@@ -5,6 +5,28 @@
 
 #import "@preview/elembic:1.1.1" as e
 #import "types.typ"
+#import "nav.typ": entry-by-id
+
+// Query site-level metadata emitted by `jtd.site`.
+// When a page is compiled standalone, this metadata is unavailable; in that
+// case page rendering falls back to page-local metadata and nav-derived
+// features are skipped until the full site bundle is compiled.
+#let site-context(id) = {
+  let sites = query(<jtd-site>)
+  if sites == () {
+    return none
+  }
+
+  let site = sites.first().value
+  let nav-context = entry-by-id(id, site.nav)
+
+  (
+    config: site.config,
+    nav: site.nav,
+    entry: nav-context.entry,
+    trail: nav-context.trail,
+  )
+}
 
 #let page = e.element.declare(
   "page",
@@ -28,19 +50,31 @@
     e.field("categories", e.types.array(str), default: (),
       doc: "Future-facing page categories."),
   ),
-  display: it => [
-    #metadata((
-      kind: "justypdocs-page",
-      id: it.id,
-      title: it.title,
-      layout: it.layout,
-      description: it.description,
-      path: it.path,
-      tags: it.tags,
-      categories: it.categories,
-    ))
+  display: it => context {
+    let ctx = site-context(it.id)
+    let resolved-path = if it.path != none {
+      it.path
+    } else if ctx != none and "path" in ctx.entry {
+      ctx.entry.path
+    } else {
+      none
+    }
 
-    // TODO: Dispatch layouts in task 7. For now, pass content through.
-    #it.body
-  ],
+    [
+      #metadata((
+        kind: "justypdocs-page",
+        id: it.id,
+        title: it.title,
+        layout: it.layout,
+        description: it.description,
+        path: resolved-path,
+        tags: it.tags,
+        categories: it.categories,
+        site: ctx,
+      )) <jtd-page>
+
+      // TODO: Dispatch layouts in task 7. For now, pass content through.
+      #it.body
+    ]
+  },
 )
