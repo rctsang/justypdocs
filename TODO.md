@@ -135,17 +135,17 @@
 
 ## 12. Port Core CSS
 
-- [ ] Add base typography and colors.
-- [ ] Add layout/sidebar styles.
-- [ ] Add navigation styles.
-- [ ] Add breadcrumb styles.
-- [ ] Add main content styles.
-- [ ] Add code block styles.
-- [ ] Add table styles.
-- [ ] Add blockquote styles.
-- [ ] Add button, label, callout, and card styles.
-- [ ] Add responsive behavior.
-- [ ] Add basic print styles.
+- [x] Add base typography and colors.
+- [x] Add layout/sidebar styles.
+- [x] Add navigation styles.
+- [x] Add breadcrumb styles.
+- [x] Add main content styles.
+- [x] Add code block styles.
+- [x] Add table styles.
+- [x] Add blockquote styles.
+- [x] Add button, label, callout, and card styles.
+- [x] Add responsive behavior.
+- [x] Add basic print styles.
 
 ## 13. Add JavaScript
 

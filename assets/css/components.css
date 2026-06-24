@@ -10,6 +10,7 @@
 
 .jtd-callout {
   background: var(--jtd-feedback);
+  border-left: 4px solid var(--jtd-link);
 }
 
 .jtd-callout-title,
@@ -23,9 +24,22 @@
   display: inline-block;
   color: var(--jtd-link);
   background: var(--jtd-base-button);
+  border: 1px solid transparent;
   border-radius: var(--jtd-border-radius);
   padding: 0.3em 1em;
   text-decoration: none;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.jtd-button:hover {
+  text-decoration: none;
+  filter: brightness(0.98);
+}
+
+.jtd-button-primary {
+  color: var(--jtd-body-background);
+  background: var(--jtd-link);
 }
 
 .jtd-label {
@@ -35,4 +49,24 @@
   border-radius: var(--jtd-border-radius);
   padding: 0.1em 0.4em;
   font-size: 0.8em;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.jtd-card-body > :first-child,
+.jtd-callout-body > :first-child {
+  margin-top: 0;
+}
+
+.jtd-card-body > :last-child,
+.jtd-callout-body > :last-child {
+  margin-bottom: 0;
+}
+
+@media print {
+  .jtd-button {
+    color: inherit;
+    background: transparent;
+    border-color: var(--jtd-border);
+  }
 }
