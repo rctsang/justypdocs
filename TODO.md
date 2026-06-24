@@ -113,17 +113,17 @@
 
 ## 10. Implement Default Layout
 
-- [ ] Render skip link.
-- [ ] Render sidebar.
-- [ ] Render site title.
-- [ ] Render recursive nav tree.
-- [ ] Use nav titles in sidebar.
-- [ ] Render active nav state.
-- [ ] Render mobile header.
-- [ ] Render breadcrumbs using nav titles.
-- [ ] Render main content wrapper.
-- [ ] Render page title from `jtd.page.with(title: ...)` where layout requires it.
-- [ ] Render footer.
+- [x] Render skip link.
+- [x] Render sidebar.
+- [x] Render site title.
+- [x] Render recursive nav tree.
+- [x] Use nav titles in sidebar.
+- [x] Render active nav state.
+- [x] Render mobile header.
+- [x] Render breadcrumbs using nav titles.
+- [x] Render main content wrapper.
+- [x] Render page title from `jtd.page.with(title: ...)` where layout requires it.
+- [x] Render footer.
 
 ## 11. Implement Minimal Layout
 

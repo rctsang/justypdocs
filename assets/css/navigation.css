@@ -1,15 +1,47 @@
 /* Sidebar navigation, active states, breadcrumbs, and nav groups. */
 
 .jtd-nav a,
-.nav-list-link {
+.nav-list-link,
+.jtd-nav-link {
   color: var(--jtd-link);
 }
 
 .jtd-nav .active,
-.nav-list-link.active {
+.nav-list-link.active,
+.jtd-nav-link.active {
   background: var(--jtd-feedback);
+}
+
+.jtd-nav-list,
+.breadcrumb-nav-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.jtd-nav-link,
+.jtd-nav-section {
+  display: block;
+  padding: 0.35rem var(--jtd-spacing-unit);
+  text-decoration: none;
+}
+
+.jtd-nav-section {
+  color: var(--jtd-body-heading);
+  font-weight: 600;
 }
 
 .breadcrumb-nav {
   color: var(--jtd-body-text);
+  margin-bottom: var(--jtd-spacing-unit);
+}
+
+.breadcrumb-nav-list-item {
+  display: inline;
+}
+
+.breadcrumb-nav-list-item + .breadcrumb-nav-list-item::before {
+  content: "/";
+  padding-inline: 0.5rem;
+  color: var(--jtd-border);
 }
