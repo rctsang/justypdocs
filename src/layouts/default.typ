@@ -1,7 +1,6 @@
 // Default documentation layout.
 
-#import "../nav.typ": entry-by-id
-#import "utils.typ": classes, page-href, rooted-url, shared-assets, site-footer, site-title
+#import "utils.typ": classes, page-href, render-breadcrumbs, rooted-url, shared-assets, site-footer, site-title
 
 #let nav-link(node, ctx, active: false) = html.elem(
   "a",
@@ -37,28 +36,6 @@
     #for node in nav.nodes { render-nav-node(node, trail, ctx) }
   ]
 ]
-
-#let render-breadcrumbs(ctx) = {
-  if ctx == none or ctx.trail.len() <= 1 {
-    return none
-  }
-  html.elem(
-    "nav", attrs: (class: "breadcrumb-nav", "aria-label": "Breadcrumb"),
-  )[
-    #html.elem("ol", attrs: (class: "breadcrumb-nav-list"))[
-      #for id in ctx.trail {
-        let entry = entry-by-id(id, ctx.nav).entry
-        html.elem("li", attrs: (class: "breadcrumb-nav-list-item"))[
-          #if "path" in entry {
-            html.elem("a", attrs: (href: page-href(ctx, entry.path)))[#entry.title]
-          } else {
-            html.elem("span")[#entry.title]
-          }
-        ]
-      }
-    ]
-  ]
-}
 
 #let default(page, ctx: none, body) = [
   #shared-assets(ctx)

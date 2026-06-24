@@ -52,7 +52,7 @@
   padding: var(--jtd-spacing-unit);
 }
 
-.jtd-minimal {
+.main-minimal {
   max-width: var(--jtd-content-width);
   margin-inline: auto;
 }

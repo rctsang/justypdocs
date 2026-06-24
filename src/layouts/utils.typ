@@ -1,6 +1,7 @@
 // Shared layout helpers.
 
 #import "../assets.typ"
+#import "../nav.typ": entry-by-id
 
 #let classes(..items) = {
   items.pos()
@@ -40,6 +41,28 @@
 ]
 
 #let page-href(ctx, path) = rooted-url(ctx, path)
+
+#let render-breadcrumbs(ctx) = {
+  if ctx == none or ctx.trail.len() <= 1 {
+    return none
+  }
+  html.elem(
+    "nav", attrs: (class: "breadcrumb-nav", "aria-label": "Breadcrumb"),
+  )[
+    #html.elem("ol", attrs: (class: "breadcrumb-nav-list"))[
+      #for id in ctx.trail {
+        let entry = entry-by-id(id, ctx.nav).entry
+        html.elem("li", attrs: (class: "breadcrumb-nav-list-item"))[
+          #if "path" in entry {
+            html.elem("a", attrs: (href: page-href(ctx, entry.path)))[#entry.title]
+          } else {
+            html.elem("span")[#entry.title]
+          }
+        ]
+      }
+    ]
+  ]
+}
 
 #let site-title(ctx) = if ctx != none {
   ctx.config.title

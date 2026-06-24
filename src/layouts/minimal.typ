@@ -1,13 +1,25 @@
 // Minimal page layout.
 
-#import "utils.typ": shared-assets
+#import "utils.typ": render-breadcrumbs, shared-assets, site-title
 
 #let minimal(page, ctx: none, body) = [
   #shared-assets(ctx)
-  #html.elem("div", attrs: (class: "jtd-minimal", id: "top"))[
-    #html.elem("main", attrs: (class: "jtd-page jtd-page-minimal", id: "main-content"))[
-      #heading(level: 1)[#page.title]
-      #body
+  #html.elem("a", attrs: (
+    class: "skip-to-main",
+    href: "#main-content",
+  ))[Skip to main content]
+  #html.elem("div", attrs: (class: "main main-minimal", id: "top"))[
+    #html.elem("div", attrs: (class: "main-header main-header-minimal", id: "main-header"))[
+      #html.elem("div", attrs: (class: "main-header-title"))[#site-title(ctx)]
+    ]
+    #html.elem("div", attrs: (class: "main-content-wrap"))[
+      #render-breadcrumbs(ctx)
+      #html.elem("div", attrs: (class: "main-content", id: "main-content"))[
+        #html.elem("main", attrs: (class: "jtd-page jtd-page-minimal"))[
+          #heading(level: 1)[#page.title]
+          #body
+        ]
+      ]
     ]
   ]
 ]
