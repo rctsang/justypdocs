@@ -91,15 +91,15 @@
 
 ## 8. Implement Core Elembic Components
 
-- [ ] Add `callout`.
-- [ ] Add `button`.
-- [ ] Add `label`.
-- [ ] Add `card`.
-- [ ] Add typed fields for each component.
-- [ ] Add default styling hooks/classes.
-- [ ] Support customization with Elembic set/show rules.
-- [ ] Consider `page-header`, `breadcrumb`, `children-nav`, and `aux-nav` only if useful for the layout implementation.
-- [ ] Comment source with usage docs for each public component.
+- [x] Add `callout`.
+- [x] Add `button`.
+- [x] Add `label`.
+- [x] Add `card`.
+- [x] Add typed fields for each component.
+- [x] Add default styling hooks/classes.
+- [x] Support customization with Elembic set/show rules.
+- [x] Consider `page-header`, `breadcrumb`, `children-nav`, and `aux-nav` only if useful for the layout implementation.
+- [x] Comment source with usage docs for each public component.
 
 ## 9. Implement Theme System
 

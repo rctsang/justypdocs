@@ -1,17 +1,30 @@
 // Public Elembic components.
 //
-// These placeholder elements establish the public API. Rendering and styling
-// behavior will be expanded in the component implementation task.
+// Components render explicit HTML elements with stable `jtd-*` classes so the
+// authored CSS files can style them predictably.
 
 #import "@preview/elembic:1.1.1" as e
 #import "types.typ": prefix
+
+#let classes(..items) = items.pos().filter(item => item != none and item != "").join(" ")
 
 // Highlighted content block.
 #let callout = e.element.declare(
   "callout",
   prefix: prefix,
   doc: "A highlighted documentation callout.",
-  display: it => block(it.body),
+  display: it => html.elem(
+    "aside",
+    attrs: (
+      class: classes("jtd-callout", "jtd-callout-" + it.kind),
+      "data-kind": it.kind,
+    ),
+  )[
+    #if it.title != none {
+      html.elem("div", attrs: (class: "jtd-callout-title"))[#it.title]
+    }
+    #html.elem("div", attrs: (class: "jtd-callout-body"))[#it.body]
+  ],
   fields: (
     e.field("body", content, required: true,
       doc: "Callout body."),
@@ -27,7 +40,13 @@
   "button",
   prefix: prefix,
   doc: "A styled action link/button.",
-  display: it => link(it.href)[#it.body],
+  display: it => html.elem(
+    "a",
+    attrs: (
+      class: classes("jtd-button", "jtd-button-" + it.variant),
+      href: it.href,
+    ),
+  )[#it.body],
   fields: (
     e.field("body", content, required: true,
       doc: "Button contents."),
@@ -43,7 +62,10 @@
   "label",
   prefix: prefix,
   doc: "An inline label or badge.",
-  display: it => text(size: 0.8em)[#it.body],
+  display: it => html.elem(
+    "span",
+    attrs: (class: classes("jtd-label", "jtd-label-" + it.variant)),
+  )[#it.body],
   fields: (
     e.field("body", content, required: true,
       doc: "Label contents."),
@@ -57,7 +79,12 @@
   "card",
   prefix: prefix,
   doc: "A bordered card container.",
-  display: it => block(it.body),
+  display: it => html.elem("section", attrs: (class: "jtd-card"))[
+    #if it.title != none {
+      html.elem("div", attrs: (class: "jtd-card-title"))[#it.title]
+    }
+    #html.elem("div", attrs: (class: "jtd-card-body"))[#it.body]
+  ],
   fields: (
     e.field("body", content, required: true,
       doc: "Card contents."),
