@@ -13,13 +13,19 @@
 #let render-nav-node(node, trail, ctx) = {
   let active = node.id in trail
   let item-class = classes("jtd-nav-item", if active { "active" })
+  let list-id = "jtd-nav-children-" + node.id
 
   html.elem("li", attrs: (class: item-class, "data-nav-id": node.id))[
     #if "children" in node {
       html.elem("div", attrs: (class: "jtd-nav-section"))[
-        #node.title
+        #html.elem("button", attrs: (
+          class: "jtd-nav-section-toggle",
+          type: "button",
+          "aria-expanded": if active { "true" } else { "false" },
+          "aria-controls": list-id,
+        ))[#node.title]
       ]
-      html.elem("ul", attrs: (class: "jtd-nav-list"))[
+      html.elem("ul", attrs: (class: "jtd-nav-list", id: list-id))[
         #for child in node.children { render-nav-node(child, trail, ctx) }
       ]
     } else {

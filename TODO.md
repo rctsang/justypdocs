@@ -149,22 +149,22 @@
 
 ## 13. Add JavaScript
 
-- [ ] Implement mobile nav toggle.
-- [ ] Implement nested nav expand/collapse.
-- [ ] Optionally make scrollable code blocks focusable.
-- [ ] Optionally add copy-code behavior.
-- [ ] Keep search out of scope.
+- [x] Implement mobile nav toggle.
+- [x] Implement nested nav expand/collapse.
+- [x] Optionally make scrollable code blocks focusable.
+- [x] Optionally add copy-code behavior.
+- [x] Keep search out of scope.
 
 ## 14. Build Examples
 
-- [ ] Create a basic light-theme site.
-- [ ] Create a dark-theme or custom-theme example.
-- [ ] Include nested nav pages.
-- [ ] Include default and minimal layout pages.
-- [ ] Demonstrate differing nav title and page title.
-- [ ] Demonstrate matching nav page node id and `jtd.page.with(id: ...)`.
-- [ ] Demonstrate page tags/categories/frontmatter metadata.
-- [ ] Demonstrate callouts, buttons, labels, cards, code, and tables.
+- [x] Create a basic light-theme site.
+- [x] Create a dark-theme or custom-theme example.
+- [x] Include nested nav pages.
+- [x] Include default and minimal layout pages.
+- [x] Demonstrate differing nav title and page title.
+- [x] Demonstrate matching nav page node id and `jtd.page.with(id: ...)`.
+- [x] Demonstrate page tags/categories/frontmatter metadata.
+- [x] Demonstrate callouts, buttons, labels, cards, code, and tables.
 
 ## 15. Verify Bundle Output
 

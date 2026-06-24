@@ -49,6 +49,40 @@
   font-size: 0.75rem;
 }
 
+.jtd-nav-section-toggle {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+  letter-spacing: inherit;
+  text-align: left;
+  text-transform: inherit;
+}
+
+.jtd-nav-section-toggle::after {
+  content: "";
+  width: 0.4rem;
+  height: 0.4rem;
+  border-right: 1px solid currentcolor;
+  border-bottom: 1px solid currentcolor;
+  transform: rotate(45deg);
+  transition: transform 120ms ease;
+}
+
+.jtd-nav-section-toggle[aria-expanded="true"]::after {
+  transform: rotate(-135deg);
+}
+
+.jtd-js .jtd-nav-item.is-collapsed > .jtd-nav-list {
+  display: none;
+}
+
 .breadcrumb-nav {
   color: var(--jtd-body-text);
   margin-bottom: var(--jtd-spacing-unit);

@@ -127,6 +127,13 @@
   }
 }
 
+@media (max-width: 49.999rem) {
+  .jtd-js .side-bar:not(.nav-open) .jtd-nav,
+  .jtd-js .side-bar:not(.nav-open) .site-footer {
+    display: none;
+  }
+}
+
 @media print {
   .side-bar,
   .main-header,

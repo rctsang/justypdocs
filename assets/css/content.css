@@ -70,10 +70,33 @@ code {
 }
 
 pre {
+  position: relative;
   overflow-x: auto;
   border: 1px solid var(--jtd-border);
   border-radius: var(--jtd-border-radius);
   padding: var(--jtd-spacing-unit);
+}
+
+pre:focus {
+  outline: 2px solid var(--jtd-link);
+  outline-offset: 2px;
+}
+
+.jtd-code-wrap {
+  position: relative;
+}
+
+.jtd-copy-code {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  padding: 0.2rem 0.45rem;
+  color: var(--jtd-link);
+  background: var(--jtd-body-background);
+  border: 1px solid var(--jtd-border);
+  border-radius: var(--jtd-border-radius);
+  cursor: pointer;
+  font-size: 0.75rem;
 }
 
 pre code {

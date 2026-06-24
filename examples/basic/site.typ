@@ -25,6 +25,36 @@
         src: "/examples/basic/pages/guide/install.typ",
         path: "guide/install.html",
       ),
+      (
+        id: "guide-components",
+        title: "Components",
+        src: "/examples/basic/pages/guide/components.typ",
+        path: "guide/components.html",
+      ),
+    ),
+  ),
+  (
+    id: "reference",
+    title: "Reference",
+    children: (
+      (
+        id: "reference-metadata",
+        title: "Metadata",
+        src: "/examples/basic/pages/reference/metadata.typ",
+        path: "reference/metadata.html",
+      ),
+    ),
+  ),
+  (
+    id: "demo",
+    title: "Demos",
+    children: (
+      (
+        id: "demo-minimal",
+        title: "Minimal layout",
+        src: "/examples/basic/pages/demo/minimal.typ",
+        path: "demo/minimal.html",
+      ),
     ),
   ),
 )
