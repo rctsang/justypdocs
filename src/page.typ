@@ -6,6 +6,7 @@
 #import "@preview/elembic:1.1.1" as e
 #import "types.typ"
 #import "nav.typ": entry-by-id
+#import "layouts.typ"
 
 // Query site-level metadata emitted by `jtd.site`.
 // When a page is compiled standalone, this metadata is unavailable; in that
@@ -60,21 +61,24 @@
       none
     }
 
+    let page-data = (
+      id: it.id,
+      title: it.title,
+      layout: it.layout,
+      description: it.description,
+      path: resolved-path,
+      tags: it.tags,
+      categories: it.categories,
+    )
+
     [
       #metadata((
         kind: "justypdocs-page",
-        id: it.id,
-        title: it.title,
-        layout: it.layout,
-        description: it.description,
-        path: resolved-path,
-        tags: it.tags,
-        categories: it.categories,
+        ..page-data,
         site: ctx,
       )) <jtd-page>
 
-      // TODO: Dispatch layouts in task 7. For now, pass content through.
-      #it.body
+      #layouts.render(page-data, ctx: ctx, it.body)
     ]
   },
 )

@@ -76,18 +76,18 @@
 
 ## 7. Implement `jtd.page(...)`
 
-- [ ] Implement as an Elembic element with a required `body` field.
-- [ ] Support page usage via `#show: jtd.page.with(id: ..., title: ...)`.
-- [ ] Require `id`.
-- [ ] Require `title`.
-- [ ] Accept `layout`, `description`, optional `path`, `tags`, `categories`, and future-oriented metadata fields.
-- [ ] Emit/queryable frontmatter-like metadata from the element display function for future features.
-- [ ] Use page `title` for page-level layout rendering and metadata where supported.
-- [ ] Do not infer page title from nav.
-- [ ] Retrieve nav title only for navigation UI.
-- [ ] Look up nav metadata by page `id`.
-- [ ] Dispatch to selected layout.
-- [ ] Support initial layouts: `default` and `minimal`.
+- [x] Implement as an Elembic element with a required `body` field.
+- [x] Support page usage via `#show: jtd.page.with(id: ..., title: ...)`.
+- [x] Require `id`.
+- [x] Require `title`.
+- [x] Accept `layout`, `description`, optional `path`, `tags`, `categories`, and future-oriented metadata fields.
+- [x] Emit/queryable frontmatter-like metadata from the element display function for future features.
+- [x] Use page `title` for page-level layout rendering and metadata where supported.
+- [x] Do not infer page title from nav.
+- [x] Retrieve nav title only for navigation UI.
+- [x] Look up nav metadata by page `id`.
+- [x] Dispatch to selected layout.
+- [x] Support initial layouts: `default` and `minimal`.
 
 ## 8. Implement Core Elembic Components
 
