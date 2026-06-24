@@ -7,7 +7,11 @@
 #import "@preview/elembic:1.1.1" as e
 #import "types.typ"
 #import "nav.typ": pages-from-nav
-#import "assets.typ": emit-assets
+#import "assets.typ": manifest
+
+#let emit-assets(config) = {
+  for item in manifest(config) { asset(item.path, item.data) }
+}
 
 // Internal bundle document emission helper used by `jtd.site`.
 #let emit-documents(nav) = {

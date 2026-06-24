@@ -2,13 +2,34 @@
 
 #import "theme.typ"
 
-// Emit authored CSS/JS assets and generated theme CSS.
-#let emit-assets(config) = {
-  asset("assets/css/base.css", read("../assets/css/base.css"))
-  asset("assets/css/layout.css", read("../assets/css/layout.css"))
-  asset("assets/css/navigation.css", read("../assets/css/navigation.css"))
-  asset("assets/css/content.css", read("../assets/css/content.css"))
-  asset("assets/css/components.css", read("../assets/css/components.css"))
-  asset("assets/css/theme.css", theme.render-theme-css(theme: config.theme))
-  asset("assets/js/site.js", read("../assets/js/site.js"))
-}
+// Enumerate required asset data
+#let manifest(config) = (
+  (
+    path: "assets/css/base.css",
+    data: read("../assets/css/base.css"),
+  ),
+  (
+    path: "assets/css/layout.css",
+    data: read("../assets/css/layout.css"),
+  ),
+  (
+    path: "assets/css/navigation.css",
+    data: read("../assets/css/navigation.css"),
+  ),
+  (
+    path: "assets/css/content.css",
+    data: read("../assets/css/content.css"),
+  ),
+  (
+    path: "assets/css/components.css",
+    data: read("../assets/css/components.css"),
+  ),
+  (
+    path: "assets/css/theme.css",
+    data: theme.render-theme-css(theme: config.theme),
+  ),
+  (
+    path: "assets/js/site.js",
+    data: read("../assets/js/site.js"),
+  ),
+)
