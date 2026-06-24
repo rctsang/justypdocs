@@ -127,11 +127,11 @@
 
 ## 11. Implement Minimal Layout
 
-- [ ] Render a simpler page shell.
-- [ ] Include shared CSS/JS.
-- [ ] Render page title from `jtd.page.with(title: ...)` where appropriate.
-- [ ] Render content without full sidebar.
-- [ ] Preserve theme typography and colors.
+- [x] Render a simpler page shell.
+- [x] Include shared CSS/JS.
+- [x] Render page title from `jtd.page.with(title: ...)` where appropriate.
+- [x] Render content without full sidebar.
+- [x] Preserve theme typography and colors.
 
 ## 12. Port Core CSS
 

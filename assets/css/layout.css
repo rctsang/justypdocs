@@ -52,6 +52,15 @@
   padding: var(--jtd-spacing-unit);
 }
 
+.jtd-minimal {
+  max-width: var(--jtd-content-width);
+  margin-inline: auto;
+}
+
+.jtd-page-minimal {
+  min-height: 100vh;
+}
+
 @media (min-width: 50rem) {
   .side-bar {
     position: fixed;

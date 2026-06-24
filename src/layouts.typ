@@ -8,15 +8,46 @@
     .join(" ")
 }
 
-#let nav-link(node, active: false) = html.elem(
+#let asset-prefix(page) = {
+  if page.path == none {
+    return ""
+  }
+
+  let parts = page.path.split("/")
+  if parts.len() <= 1 {
+    ""
+  } else {
+    range(0, parts.len() - 1).map(_ => "../").join("")
+  }
+}
+
+#let asset-href(page, path) = asset-prefix(page) + path
+
+#let shared-assets(page) = [
+  #for path in (
+    "assets/css/base.css",
+    "assets/css/theme.css",
+    "assets/css/layout.css",
+    "assets/css/navigation.css",
+    "assets/css/content.css",
+    "assets/css/components.css",
+  ) {
+    html.elem("link", attrs: (rel: "stylesheet", href: asset-href(page, path)))
+  }
+  #html.elem("script", attrs: (src: asset-href(page, "assets/js/site.js")))[]
+]
+
+#let page-href(page, path) = asset-prefix(page) + path
+
+#let nav-link(node, page, active: false) = html.elem(
   "a",
   attrs: (
     class: classes("jtd-nav-link", if active { "active" }),
-    href: if "path" in node { node.path } else { "#" },
+    href: if "path" in node { page-href(page, node.path) } else { "#" },
   ),
 )[#node.title]
 
-#let render-nav-node(node, trail) = {
+#let render-nav-node(node, trail, page) = {
   let active = node.id in trail
   let item-class = classes("jtd-nav-item", if active { "active" })
 
@@ -26,24 +57,24 @@
         #node.title
       ]
       html.elem("ul", attrs: (class: "jtd-nav-list"))[
-        #for child in node.children { render-nav-node(child, trail) }
+        #for child in node.children { render-nav-node(child, trail, page) }
       ]
     } else {
-      nav-link(node, active: active)
+      nav-link(node, page, active: active)
     }
   ]
 }
 
-#let render-nav(nav, trail) = html.elem(
+#let render-nav(nav, trail, page) = html.elem(
   "nav",
   attrs: (class: "jtd-nav", "aria-label": "Main"),
 )[
   #html.elem("ul", attrs: (class: "jtd-nav-list"))[
-    #for node in nav.nodes { render-nav-node(node, trail) }
+    #for node in nav.nodes { render-nav-node(node, trail, page) }
   ]
 ]
 
-#let render-breadcrumbs(ctx) = {
+#let render-breadcrumbs(ctx, page) = {
   if ctx == none or ctx.trail.len() <= 1 {
     return none
   }
@@ -55,7 +86,7 @@
         let entry = entry-by-id(id, ctx.nav).entry
         html.elem("li", attrs: (class: "breadcrumb-nav-list-item"))[
           #if "path" in entry {
-            html.elem("a", attrs: (href: entry.path))[#entry.title]
+            html.elem("a", attrs: (href: page-href(page, entry.path)))[#entry.title]
           } else {
             html.elem("span")[#entry.title]
           }
@@ -75,6 +106,7 @@
 } else { none }
 
 #let default(page, ctx: none, body) = [
+  #shared-assets(page)
   #html.elem("a", attrs: (
     class: "skip-to-main",
     href: "#main-content",
@@ -89,7 +121,7 @@
         "aria-expanded": "false",
       ))[Menu]
     ]
-    #if ctx != none { render-nav(ctx.nav, ctx.trail) }
+    #if ctx != none { render-nav(ctx.nav, ctx.trail, page) }
     #let footer = site-footer(ctx)
     #if footer != none {
       html.elem("div", attrs: (class: "site-footer"))[#footer]
@@ -100,7 +132,7 @@
       #html.elem("div", attrs: (class: "main-header-title"))[#site-title(ctx)]
     ]
     #html.elem("div", attrs: (class: "main-content-wrap"))[
-      #render-breadcrumbs(ctx)
+      #render-breadcrumbs(ctx, page)
       #html.elem("div", attrs: (class: "main-content", id: "main-content"))[
         #html.elem("main", attrs: (class: "jtd-page"))[
           #heading(level: 1)[#page.title]
@@ -112,8 +144,13 @@
 ]
 
 #let minimal(page, ctx: none, body) = [
-  #heading(level: 1)[#page.title]
-  #body
+  #shared-assets(page)
+  #html.elem("div", attrs: (class: "jtd-minimal", id: "top"))[
+    #html.elem("main", attrs: (class: "jtd-page jtd-page-minimal", id: "main-content"))[
+      #heading(level: 1)[#page.title]
+      #body
+    ]
+  ]
 ]
 
 #let render(page, ctx: none, body) = {
