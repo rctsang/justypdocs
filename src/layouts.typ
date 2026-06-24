@@ -14,11 +14,9 @@
 ]
 
 #let render(page, ctx: none, body) = {
-  if page.layout == "default" {
-    default(page, ctx: ctx, body)
-  } else if page.layout == "minimal" {
+  if page.layout == "minimal" {
     minimal(page, ctx: ctx, body)
   } else {
-    assert(false, message: "justypdocs.page: unknown layout " + repr(page.layout))
+    default(page, ctx: ctx, body)
   }
 }
