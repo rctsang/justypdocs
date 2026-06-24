@@ -1,1 +1,26 @@
 /* Base typography and document defaults. */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  color: var(--jtd-body-text);
+  background: var(--jtd-body-background);
+  font-family: system-ui, -apple-system, blinkmacsystemfont, "Segoe UI", sans-serif;
+  line-height: 1.4;
+}
+
+a {
+  color: var(--jtd-link);
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--jtd-border);
+}

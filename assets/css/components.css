@@ -1,1 +1,38 @@
 /* Reusable component styles: callouts, buttons, labels, and cards. */
+
+.jtd-callout,
+.jtd-card {
+  border: 1px solid var(--jtd-border);
+  border-radius: var(--jtd-border-radius);
+  padding: var(--jtd-spacing-unit);
+  margin-block: var(--jtd-spacing-unit);
+}
+
+.jtd-callout {
+  background: var(--jtd-feedback);
+}
+
+.jtd-callout-title,
+.jtd-card-title {
+  color: var(--jtd-body-heading);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.jtd-button {
+  display: inline-block;
+  color: var(--jtd-link);
+  background: var(--jtd-base-button);
+  border-radius: var(--jtd-border-radius);
+  padding: 0.3em 1em;
+  text-decoration: none;
+}
+
+.jtd-label {
+  display: inline-block;
+  color: var(--jtd-body-heading);
+  border: 1px solid var(--jtd-border);
+  border-radius: var(--jtd-border-radius);
+  padding: 0.1em 0.4em;
+  font-size: 0.8em;
+}

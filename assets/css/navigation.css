@@ -1,1 +1,15 @@
 /* Sidebar navigation, active states, breadcrumbs, and nav groups. */
+
+.jtd-nav a,
+.nav-list-link {
+  color: var(--jtd-link);
+}
+
+.jtd-nav .active,
+.nav-list-link.active {
+  background: var(--jtd-feedback);
+}
+
+.breadcrumb-nav {
+  color: var(--jtd-body-text);
+}

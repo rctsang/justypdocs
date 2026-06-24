@@ -1,1 +1,30 @@
 /* Main content typography, code, tables, lists, and blockquotes. */
+
+.main-content,
+.jtd-content {
+  line-height: 1.6;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--jtd-body-heading);
+  line-height: 1.25;
+}
+
+code,
+pre {
+  background: var(--jtd-code-background);
+}
+
+table {
+  background: var(--jtd-table-background);
+}
+
+blockquote {
+  border-left: 3px solid var(--jtd-border);
+  padding-left: var(--jtd-spacing-unit);
+}

@@ -1,1 +1,17 @@
 /* Page shell, sidebar, header, and responsive layout styles. */
+
+.jtd-page,
+.main {
+  max-width: var(--jtd-content-width);
+  margin-inline: auto;
+}
+
+.side-bar {
+  background: var(--jtd-sidebar);
+  border-color: var(--jtd-border);
+}
+
+.main-header {
+  min-height: var(--jtd-header-height);
+  border-bottom: 1px solid var(--jtd-border);
+}

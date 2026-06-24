@@ -103,13 +103,13 @@
 
 ## 9. Implement Theme System
 
-- [ ] Define `themes.light`.
-- [ ] Define `themes.dark`.
-- [ ] Support `.with(...)` customization.
-- [ ] Generate `assets/css/theme.css` from `config.theme`.
-- [ ] Ensure authored CSS consumes CSS custom properties.
-- [ ] Keep bulk CSS in real `.css` files.
-- [ ] Comment source with theme token docs.
+- [x] Define `themes.light`.
+- [x] Define `themes.dark`.
+- [x] Support `.with(...)` customization.
+- [x] Generate `assets/css/theme.css` from `config.theme`.
+- [x] Ensure authored CSS consumes CSS custom properties.
+- [x] Keep bulk CSS in real `.css` files.
+- [x] Comment source with theme token docs.
 
 ## 10. Implement Default Layout
 
