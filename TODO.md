@@ -244,7 +244,11 @@
   - [x] Re-check minimal layout has no nav-only controls.
   - [x] Rebuild the basic bundle and representative standalone pages.
 
-## 18. Deferred Search
+
+
+# Future Work
+
+## Deferred Search
 
 - [ ] Design future `justypdocs-index dist` postprocessor.
 - [ ] Parse emitted HTML.
