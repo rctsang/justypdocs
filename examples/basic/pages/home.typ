@@ -1,4 +1,4 @@
-#import "../../../src/lib.typ" as jtd
+#import "@local/justypdocs:0.0.1" as jtd
 
 #show: jtd.page.with(
   id: "home",

@@ -1,4 +1,4 @@
-#import "../../src/lib.typ" as jtd
+#import "@local/justypdocs:0.0.1" as jtd
 
 // Build this example with:
 // typst compile --root "." --features bundle,html --format bundle examples/custom/site.typ dist-custom
