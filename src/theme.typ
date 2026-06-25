@@ -68,6 +68,7 @@
 
 
 // Generate CSS custom properties for the configured theme.
+// The site asset manifest writes this output to `assets/css/theme.css`.
 #let render-theme-css(theme: none) = {
   let theme = if type(theme) == function {
     theme()

@@ -1,7 +1,11 @@
 // Page-level wrapper element.
 //
 // Public API: `#show: jtd.page.with(id: ..., title: ..., layout: "default")`.
-// Page title is independent from the matching nav node's title.
+// The `id` must match a nav page node when building through `jtd.site`; this is
+// the stable lookup key for active nav and breadcrumbs. The page `title` is
+// independent from the matching nav node's `title`, which is only a navigation
+// label. `description`, `tags`, and `categories` are emitted as metadata for
+// future indexing/search tooling.
 
 #import "@preview/elembic:1.1.1" as e
 #import "types.typ"

@@ -168,36 +168,36 @@
 
 ## 15. Verify Bundle Output
 
-- [ ] Run `typst compile --features bundle,html --format bundle examples/basic/site.typ dist`.
-- [ ] Verify all HTML pages are emitted from nav.
-- [ ] Verify users do not manually declare page `document(...)` elements.
-- [ ] Verify duplicate nav node ids fail with a useful error.
-- [ ] Verify missing `jtd.page.with(id: ...)` fails with a useful error.
-- [ ] Verify unknown `jtd.page.with(id: ...)` fails with a useful error when building a site.
-- [ ] Verify CSS/JS assets are emitted.
-- [ ] Verify nested page asset paths work.
-- [ ] Verify nav titles appear in navigation.
-- [ ] Verify page titles appear in page layouts/metadata.
-- [ ] Verify nav title and page title can differ.
-- [ ] Verify page lookup by id drives nav-derived features.
-- [ ] Verify page metadata is emitted/queryable for future features.
-- [ ] Verify active nav state and breadcrumbs.
-- [ ] Verify mobile menu behavior.
-- [ ] Verify theme overrides.
+- [x] Run `typst compile --features bundle,html --format bundle examples/basic/site.typ dist`.
+- [x] Verify all HTML pages are emitted from nav.
+- [x] Verify users do not manually declare page `document(...)` elements.
+- [x] Verify duplicate nav node ids fail with a useful error.
+- [x] Verify missing `jtd.page.with(id: ...)` fails with a useful error.
+- [x] Verify unknown `jtd.page.with(id: ...)` fails with a useful error when building a site.
+- [x] Verify CSS/JS assets are emitted.
+- [x] Verify nested page asset paths work.
+- [x] Verify nav titles appear in navigation.
+- [x] Verify page titles appear in page layouts/metadata.
+- [x] Verify nav title and page title can differ.
+- [x] Verify page lookup by id drives nav-derived features.
+- [x] Verify page metadata is emitted/queryable for future features.
+- [x] Verify active nav state and breadcrumbs.
+- [x] Verify mobile menu behavior.
+- [x] Verify theme overrides.
 
 ## 16. Source Documentation
 
-- [ ] Add source comments for `site.typ` API.
-- [ ] Add source comments for `page.typ` API.
-- [ ] Add source comments for config schema.
-- [ ] Add source comments for nav section/page node schemas.
-- [ ] Document that every nav node `id` is required, globally unique, and intended to be stable.
-- [ ] Explicitly comment that nav `title` and page `title` are separate.
-- [ ] Add source comments for layouts.
-- [ ] Add source comments for theme customization.
-- [ ] Add source comments for components.
-- [ ] Add source comments for build/watch commands where examples live.
-- [ ] Keep external docs minimal until API stabilizes.
+- [x] Add source comments for `site.typ` API.
+- [x] Add source comments for `page.typ` API.
+- [x] Add source comments for config schema.
+- [x] Add source comments for nav section/page node schemas.
+- [x] Document that every nav node `id` is required, globally unique, and intended to be stable.
+- [x] Explicitly comment that nav `title` and page `title` are separate.
+- [x] Add source comments for layouts.
+- [x] Add source comments for theme customization.
+- [x] Add source comments for components.
+- [x] Add source comments for build/watch commands where examples live.
+- [x] Keep external docs minimal until API stabilizes.
 
 ## 17. Deferred Search
 

@@ -1,5 +1,10 @@
 #import "../../src/lib.typ" as jtd
 
+// Build this example with:
+// typst compile --root "." --features bundle,html --format bundle examples/basic/site.typ dist
+// Page documents are emitted from nav; individual pages only declare
+// `#show: jtd.page.with(id: ..., title: ...)`.
+
 #let config = (
   title: "Justypdocs Example",
   description: "A basic justypdocs example site.",

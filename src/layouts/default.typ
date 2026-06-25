@@ -1,4 +1,8 @@
 // Default documentation layout.
+// Renders the Just-the-Docs-style shell: skip link, fixed sidebar, recursive
+// navigation, site footer, mobile menu button, breadcrumbs, page title, and the
+// page body. Navigation labels come from nav nodes; page titles come from
+// `jtd.page.with(title: ...)`.
 
 #import "utils.typ": classes, page-href, render-breadcrumbs, rooted-url, shared-assets, site-footer, site-title
 

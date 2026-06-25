@@ -9,6 +9,8 @@
 #let prefix = "@local/justypdocs:0.0.1"
 
 // Site configuration passed to `jtd.site(config: ...)`.
+// `base-url` is applied to emitted asset and page links, so generated HTML does
+// not depend on relative paths from nested output directories.
 #let config = e.types.declare(
   "justypdocs-config",
   prefix: prefix,
@@ -32,6 +34,8 @@
 // Page nodes may eventually gain `children`, allowing pages to act as nav
 // parents. For the initial implementation, page routing stays explicit with a
 // required `path`, and only section nodes contain children.
+// Required fields: globally unique stable `id`, navigation-only `title`, source
+// `src`, and output `path`.
 #let nav-page = e.types.declare(
   "justypdocs-nav-page",
   prefix: prefix,
@@ -49,7 +53,8 @@
   casts: ((from: dictionary),),
 )
 
-// Section nodes group other nav nodes. Children are validated recursively later.
+// Section nodes group other nav nodes. Required fields: globally unique stable
+// `id`, navigation-only `title`, and recursive `children`.
 #let nav-section = e.types.declare(
   "justypdocs-nav-section",
   prefix: prefix,
@@ -105,6 +110,8 @@
 }
 
 // Recursive navigation tree. This is the authoritative public nav type.
+// Duplicate ids fail during casting so page lookup, active nav, and breadcrumb
+// generation can all use a single stable id namespace.
 #let nav = e.types.declare(
   "justypdocs-nav",
   prefix: prefix,
@@ -125,6 +132,8 @@
 )
 
 // Metadata declared by each page with `jtd.page(...)`.
+// This mirrors the public page fields so later post-processing can read emitted
+// page title, tags, categories, and descriptions from generated HTML.
 #let page-metadata = e.types.declare(
   "justypdocs-page-metadata",
   prefix: prefix,

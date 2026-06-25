@@ -1,4 +1,7 @@
 // Minimal page layout.
+// Uses the same shared assets and content styling as the default layout, but it
+// intentionally disables the sidebar/nav shell. Breadcrumbs still render when a
+// page is built inside a site and has nav context.
 
 #import "utils.typ": render-breadcrumbs, shared-assets, site-title
 

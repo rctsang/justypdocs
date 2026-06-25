@@ -1,8 +1,11 @@
 // Site-level bundle generation.
 //
 // Public API: `#jtd.site(config: ..., nav: ...)`.
-// `site` is an Elembic element. Its display function will eventually emit
-// assets and all documents described by nav.
+// `site` is an Elembic element that owns static-site bundle generation.
+// Users declare config/nav once, then `site` emits shared CSS/JS/theme assets
+// plus one `document(page.path)` for every page node in the nav tree. Page
+// source files should use `#show: jtd.page.with(id: ..., title: ...)`; users do
+// not manually declare page `document(...)` elements.
 
 #import "@preview/elembic:1.1.1" as e
 #import "types.typ"
@@ -14,6 +17,8 @@
 }
 
 // Internal bundle document emission helper used by `jtd.site`.
+// Each emitted document includes the page source declared by the matching nav
+// page node. The page element then resolves nav context by stable `id`.
 #let emit-documents(nav) = {
   for page in pages-from-nav(nav) {
     document(page.path)[

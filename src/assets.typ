@@ -1,8 +1,10 @@
-// Static asset emission helpers.
+// Static asset manifest.
+// `jtd.site` emits every entry into the bundle, and layouts use the same
+// manifest to link the authored CSS/JS files plus generated theme CSS.
 
 #import "theme.typ"
 
-// Enumerate required asset data
+// Enumerate required asset data.
 #let manifest(config) = (
   (
     path: "assets/css/base.css",
