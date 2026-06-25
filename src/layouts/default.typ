@@ -4,7 +4,7 @@
 // page body. Navigation labels come from nav nodes; page titles come from
 // `jtd.page.with(title: ...)`.
 
-#import "utils.typ": classes, page-href, render-breadcrumbs, rooted-url, shared-assets, site-footer, site-title
+#import "utils.typ": classes, icon, page-href, render-breadcrumbs, rooted-url, shared-assets, site-footer, site-title
 
 #let nav-link(node, ctx, active: false) = html.elem(
   "a",
@@ -27,7 +27,10 @@
           type: "button",
           "aria-expanded": if active { "true" } else { "false" },
           "aria-controls": list-id,
-        ))[#node.title]
+        ))[
+          #html.elem("span", attrs: (class: "jtd-nav-section-title"))[#node.title]
+          #icon(ctx, "chevron-right")
+        ]
       ]
       html.elem("ul", attrs: (class: "jtd-nav-list", id: list-id))[
         #for child in node.children { render-nav-node(child, trail, ctx) }
@@ -56,12 +59,6 @@
   #html.elem("header", attrs: (class: "side-bar"))[
     #html.elem("div", attrs: (class: "site-header"))[
       #html.elem("a", attrs: (class: "site-title", href: rooted-url(ctx, "")))[#site-title(ctx)]
-      #html.elem("button", attrs: (
-        class: "site-button",
-        id: "menu-button",
-        "aria-label": "Menu",
-        "aria-expanded": "false",
-      ))[Menu]
     ]
     #if ctx != none { render-nav(ctx.nav, ctx.trail, ctx) }
     #let footer = site-footer(ctx)
@@ -71,7 +68,17 @@
   ]
   #html.elem("div", attrs: (class: "main", id: "top"))[
     #html.elem("div", attrs: (class: "main-header", id: "main-header"))[
-      #html.elem("div", attrs: (class: "main-header-title"))[#site-title(ctx)]
+      #if ctx != none {
+        html.elem("button", attrs: (
+          class: "site-button",
+          id: "menu-button",
+          "aria-label": "Menu",
+          "aria-expanded": "false",
+        ))[
+          #icon(ctx, "menu")
+          #html.elem("span", attrs: (class: "site-button-label"))[Menu]
+        ]
+      }
     ]
     #html.elem("div", attrs: (class: "main-content-wrap"))[
       #render-breadcrumbs(ctx)

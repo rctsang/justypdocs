@@ -42,6 +42,16 @@
 
 #let page-href(ctx, path) = rooted-url(ctx, path)
 
+#let icon(ctx, name) = html.elem(
+  "svg",
+  attrs: (
+    class: "jtd-icon jtd-icon-" + name,
+    "aria-hidden": "true",
+  ),
+)[
+  #html.elem("use", attrs: (href: rooted-url(ctx, "assets/icons/symbols.svg#" + name)))[]
+]
+
 #let render-breadcrumbs(ctx) = {
   if ctx == none or ctx.trail.len() <= 1 {
     return none
@@ -50,6 +60,9 @@
     "nav", attrs: (class: "breadcrumb-nav", "aria-label": "Breadcrumb"),
   )[
     #html.elem("ol", attrs: (class: "breadcrumb-nav-list"))[
+      #html.elem("li", attrs: (class: "breadcrumb-nav-list-item breadcrumb-nav-root"))[
+        #html.elem("a", attrs: (href: rooted-url(ctx, "")))[Home]
+      ]
       #for id in ctx.trail {
         let entry = entry-by-id(id, ctx.nav).entry
         html.elem("li", attrs: (class: "breadcrumb-nav-list-item"))[

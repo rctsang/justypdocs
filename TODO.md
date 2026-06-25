@@ -203,46 +203,46 @@
 
 ### 17.1 Vendor likely SVG symbols
 
-  - [ ] Add a small SVG symbol set for layout icons.
-  - [ ] Include likely initial symbols: `menu`, `chevron-right`, `copy`, and `check`.
-  - [ ] Keep `external-link` and `search` as likely future symbols, but do not wire search yet.
-  - [ ] Decide whether symbols are emitted as a standalone asset or inlined where needed.
-  - [ ] Replace text-only menu and generated chevrons with SVG icon usage where practical.
+  - [x] Add a small SVG symbol set for layout icons.
+  - [x] Include likely initial symbols: `menu`, `chevron-right`, `copy`, and `check`.
+  - [x] Keep `external-link` and `search` as likely future symbols, but do not wire search yet.
+  - [x] Decide whether symbols are emitted as a standalone asset or inlined where needed.
+  - [x] Replace text-only menu and generated chevrons with SVG icon usage where practical.
 
 ### 17.2 Add a breadcrumb root link
 
-  - [ ] Add a root breadcrumb link back to the homepage.
-  - [ ] Keep homepage breadcrumbs non-redundant.
+  - [x] Add a root breadcrumb link back to the homepage.
+  - [x] Keep homepage breadcrumbs non-redundant.
 
 ### 17.3 Move the menu button into the main header
 
-  - [ ] Move the mobile menu button from the sidebar header to the main header.
-  - [ ] Hide or omit the menu button when nav/sidebar is unavailable, including the minimal layout.
-  - [ ] Keep the mobile menu button visible only below the desktop breakpoint.
-  - [ ] Update JavaScript to continue toggling the sidebar from the main-header menu button.
+  - [x] Move the mobile menu button from the sidebar header to the main header.
+  - [x] Hide or omit the menu button when nav/sidebar is unavailable, including the minimal layout.
+  - [x] Keep the mobile menu button visible only below the desktop breakpoint.
+  - [x] Update JavaScript to continue toggling the sidebar from the main-header menu button.
 
 ### 17.4 Align header and sidebar boundaries
 
-  - [ ] Align the site-header and main-header bottom borders.
-  - [ ] Ensure the sidebar site title and main header use the same header height on desktop.
+  - [x] Align the site-header and main-header bottom borders.
+  - [x] Ensure the sidebar site title and main header use the same header height on desktop.
 
 ### 17.5 Add Just-the-Docs-like hover gradients
 
-  - [ ] Add horizontal gradient hover styles for sidebar links.
-  - [ ] Add matching hover styles for the site title and main-header home link/title.
-  - [ ] Add matching hover styles for nav section toggles and the menu button.
+  - [x] Add horizontal gradient hover styles for sidebar links.
+  - [x] Add matching hover styles for the sidebar site title.
+  - [x] Add matching hover styles for nav section toggles and the menu button.
 
 ### 17.6 Remove the main-header title
 
-  - [ ] Remove `.main-header-title` from the default layout.
-  - [ ] Keep the site title only in the navigation/sidebar header.
-  - [ ] Ensure the main header only contains controls such as the mobile menu button.
+  - [x] Remove `.main-header-title` from the default layout.
+  - [x] Keep the site title only in the navigation/sidebar header.
+  - [x] Ensure the main header only contains controls such as the mobile menu button.
 
 ### 17.7 Verify layout polish
 
-  - [ ] Re-check default layout on desktop and mobile.
-  - [ ] Re-check minimal layout has no nav-only controls.
-  - [ ] Rebuild the basic bundle and representative standalone pages.
+  - [x] Re-check default layout on desktop and mobile.
+  - [x] Re-check minimal layout has no nav-only controls.
+  - [x] Rebuild the basic bundle and representative standalone pages.
 
 ## 18. Deferred Search
 

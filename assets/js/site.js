@@ -2,6 +2,21 @@
 (function () {
   document.documentElement.classList.add("jtd-js");
 
+  var currentScript = document.currentScript;
+  var iconHref = currentScript && currentScript.src
+    ? currentScript.src.replace(/assets\/js\/site\.js(?:\?.*)?$/, "assets/icons/symbols.svg")
+    : "/assets/icons/symbols.svg";
+
+  function icon(name) {
+    var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    var use = document.createElementNS("http://www.w3.org/2000/svg", "use");
+    svg.setAttribute("class", "jtd-icon jtd-icon-" + name);
+    svg.setAttribute("aria-hidden", "true");
+    use.setAttribute("href", iconHref + "#" + name);
+    svg.appendChild(use);
+    return svg;
+  }
+
   var menuButton = document.getElementById("menu-button");
   var sideBar = document.querySelector(".side-bar");
 
@@ -48,14 +63,15 @@
     var button = document.createElement("button");
     button.className = "jtd-copy-code";
     button.type = "button";
-    button.textContent = "Copy";
+    button.appendChild(icon("copy"));
+    button.appendChild(document.createTextNode("Copy"));
     wrap.appendChild(button);
 
     button.addEventListener("click", function () {
       navigator.clipboard.writeText(pre.innerText).then(function () {
-        button.textContent = "Copied";
+        button.replaceChildren(icon("check"), document.createTextNode("Copied"));
         window.setTimeout(function () {
-          button.textContent = "Copy";
+          button.replaceChildren(icon("copy"), document.createTextNode("Copy"));
         }, 1500);
       });
     });

@@ -90,6 +90,9 @@ pre:focus {
   position: absolute;
   top: 0.5rem;
   right: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
   padding: 0.2rem 0.45rem;
   color: var(--jtd-link);
   background: var(--jtd-body-background);

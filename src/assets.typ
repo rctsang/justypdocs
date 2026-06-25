@@ -34,4 +34,8 @@
     path: "assets/js/site.js",
     data: read("../assets/js/site.js"),
   ),
+  (
+    path: "assets/icons/symbols.svg",
+    data: read("../assets/icons/symbols.svg"),
+  ),
 )

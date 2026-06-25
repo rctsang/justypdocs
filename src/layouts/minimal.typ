@@ -3,7 +3,7 @@
 // intentionally disables the sidebar/nav shell. Breadcrumbs still render when a
 // page is built inside a site and has nav context.
 
-#import "utils.typ": render-breadcrumbs, shared-assets, site-title
+#import "utils.typ": render-breadcrumbs, shared-assets
 
 #let minimal(page, ctx: none, body) = [
   #shared-assets(ctx)
@@ -12,9 +12,6 @@
     href: "#main-content",
   ))[Skip to main content]
   #html.elem("div", attrs: (class: "main main-minimal", id: "top"))[
-    #html.elem("div", attrs: (class: "main-header main-header-minimal", id: "main-header"))[
-      #html.elem("div", attrs: (class: "main-header-title"))[#site-title(ctx)]
-    ]
     #html.elem("div", attrs: (class: "main-content-wrap"))[
       #render-breadcrumbs(ctx)
       #html.elem("div", attrs: (class: "main-content", id: "main-content"))[
