@@ -241,8 +241,8 @@ def component_variants(ctx: Context) -> None:
         "--jtd-button-primary:",
     ]:
         assert_contains(theme, token, f"theme token {token}")
-    assert_contains(theme, "--jtd-link: #087f5b", "dark teal default link color")
-    assert_contains(theme, "--jtd-button-primary: #087f5b", "dark teal primary button color")
+    assert_contains(theme, "--jtd-link: #15aabf", "cyan default link color")
+    assert_contains(theme, "--jtd-button-primary: #15aabf", "cyan primary button color")
     for klass in [
         "jtd-callout-warning",
         "jtd-callout-danger",
