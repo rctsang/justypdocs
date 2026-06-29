@@ -25,7 +25,7 @@
         #html.elem("button", attrs: (
           class: "jtd-nav-section-toggle",
           type: "button",
-          "aria-expanded": if active { "true" } else { "false" },
+          "aria-expanded": "true",
           "aria-controls": list-id,
         ))[
           #html.elem("span", attrs: (class: "jtd-nav-section-title"))[#node.title]

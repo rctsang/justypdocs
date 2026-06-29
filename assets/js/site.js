@@ -20,6 +20,25 @@
   function init() {
     var menuButton = document.getElementById("menu-button");
     var sideBar = document.querySelector(".side-bar");
+    var storageKey = "justypdocs.navState";
+
+    function loadNavState() {
+      try {
+        return JSON.parse(localStorage.getItem(storageKey) || "{}");
+      } catch (error) {
+        return {};
+      }
+    }
+
+    function saveNavState(state) {
+      try {
+        localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (error) {
+        // Ignore storage failures; nav toggles should still work per page.
+      }
+    }
+
+    var navState = loadNavState();
 
     if (menuButton && sideBar) {
       menuButton.addEventListener("click", function () {
@@ -31,6 +50,8 @@
 
     document.querySelectorAll(".jtd-nav-section-toggle").forEach(function (toggle) {
       var item = toggle.closest(".jtd-nav-item");
+      var id = item ? item.getAttribute("data-nav-id") : null;
+      var hasActiveChild = item ? item.querySelector(".jtd-nav-link.active") !== null : false;
 
       function syncItem() {
         if (item) {
@@ -38,11 +59,23 @@
         }
       }
 
+      if (id && Object.prototype.hasOwnProperty.call(navState, id) && !hasActiveChild) {
+        toggle.setAttribute("aria-expanded", String(navState[id]));
+      }
+
+      if (hasActiveChild) {
+        toggle.setAttribute("aria-expanded", "true");
+      }
+
       syncItem();
 
       toggle.addEventListener("click", function () {
         var expanded = toggle.getAttribute("aria-expanded") === "true";
         toggle.setAttribute("aria-expanded", String(!expanded));
+        if (id) {
+          navState[id] = !expanded;
+          saveNavState(navState);
+        }
         syncItem();
       });
     });
