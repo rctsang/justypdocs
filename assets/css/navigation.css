@@ -64,10 +64,6 @@
   text-transform: inherit;
 }
 
-.jtd-nav-section-toggle:hover {
-  background-image: linear-gradient(-90deg, var(--jtd-feedback) 0%, var(--jtd-feedback) 100%);
-}
-
 .jtd-nav-section-toggle .jtd-icon-chevron-right {
   transition: transform 120ms ease;
 }

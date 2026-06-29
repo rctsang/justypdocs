@@ -199,8 +199,10 @@ def layout_css_regressions(ctx: Context) -> None:
     components = read(ctx.basic / "assets/css/components.css")
     assert_not_contains(navigation, ".jtd-nav .active", "section-wide active selector")
     assert_contains(components, ".jtd-callout {\n  background: transparent;", "transparent callout background")
+    assert_contains(components, "border-color: var(--jtd-link);", "highlight-colored callout border")
     assert_contains(layout, ".site-title:hover {\n  background: var(--jtd-feedback);", "solid title hover")
     assert_contains(layout, ".site-header {\n  display: none;", "mobile hidden sidebar header")
+    assert_not_contains(navigation, ".jtd-nav-section-toggle:hover", "section header hover fill")
 
 
 @test

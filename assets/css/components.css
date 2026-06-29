@@ -10,7 +10,8 @@
 
 .jtd-callout {
   background: transparent;
-  border-left: 4px solid var(--jtd-link);
+  border-color: var(--jtd-link);
+  border-left-width: 4px;
 }
 
 .jtd-callout-title,
