@@ -206,6 +206,17 @@ def layout_css_regressions(ctx: Context) -> None:
 
 
 @test
+def javascript_initializes_after_markup(ctx: Context) -> None:
+    # Shared scripts are emitted before layout markup, so DOM-dependent behavior
+    # must initialize after DOMContentLoaded. Otherwise nav section collapse and
+    # mobile menu bindings silently miss their target elements.
+    js = read(ctx.basic / "assets/js/site.js")
+    assert_contains(js, "DOMContentLoaded", "deferred DOM initialization")
+    assert_contains(js, "document.readyState", "ready-state guard")
+    assert_contains(js, "is-collapsed", "section collapse class")
+
+
+@test
 def nested_path_asset_urls(ctx: Context) -> None:
     # Nested output pages must use base-url-rooted asset references, not fragile
     # relative paths like `../assets/...`.
