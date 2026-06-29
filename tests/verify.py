@@ -200,6 +200,7 @@ def layout_css_regressions(ctx: Context) -> None:
     assert_not_contains(navigation, ".jtd-nav .active", "section-wide active selector")
     assert_contains(components, "background: transparent;", "transparent callout background")
     assert_contains(components, "border-color: var(--jtd-callout-color);", "highlight-colored callout border")
+    assert_contains(components, "filter: brightness(1.08);", "lighter solid button hover")
     assert_contains(layout, ".site-title:hover {\n  background: var(--jtd-feedback);", "solid title hover")
     assert_contains(layout, ".site-header {\n  display: none;", "mobile hidden sidebar header")
     assert_not_contains(navigation, ".jtd-nav-section-toggle:hover", "section header hover fill")
@@ -239,6 +240,8 @@ def component_variants(ctx: Context) -> None:
         "--jtd-button-primary:",
     ]:
         assert_contains(theme, token, f"theme token {token}")
+    assert_contains(theme, "--jtd-link: #0ca678", "teal default link color")
+    assert_contains(theme, "--jtd-button-primary: #0ca678", "teal primary button color")
     for klass in [
         "jtd-callout-warning",
         "jtd-callout-danger",

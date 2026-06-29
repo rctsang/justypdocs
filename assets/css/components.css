@@ -65,7 +65,7 @@
 
 .jtd-button:hover {
   text-decoration: none;
-  filter: brightness(0.98);
+  filter: brightness(1.08);
 }
 
 .jtd-button-primary {
@@ -82,6 +82,7 @@
 
 .jtd-button-outline:hover {
   --jtd-button-border: var(--jtd-link);
+  filter: none;
 }
 
 .jtd-button-purple {

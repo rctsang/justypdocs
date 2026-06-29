@@ -1,5 +1,9 @@
 #import "@preview/oxifmt:1.0.0": strfmt
 
+#let open-color = json("../assets/open-color.json")
+#let oc(name, step) = open-color.at(name).at(step)
+#let named-color(name) = open-color.at(name)
+
 // Theme token definitions.
 //
 // Built-in themes are functions so users can customize them with Typst's
@@ -20,24 +24,24 @@
 
 #let light(
   color-scheme: "light",
-  body-background: "#fff",
-  body-heading: "#27262b",
-  body-text: "#5c5962",
-  link: "#7253ed",
-  sidebar: "#f5f6fa",
-  border: "#eeebee",
-  code-background: "#fff",
-  table-background: "#fff",
-  base-button: "#f7f7f7",
-  feedback: "#eeebee",
-  component-blue: "#2f80ed",
-  component-green: "#038761",
-  component-purple: "#7253ed",
-  component-red: "#dd2e44",
-  component-yellow: "#f7c948",
-  component-yellow-text: "#27262b",
-  component-white: "#fff",
-  button-primary: "#7253ed",
+  body-background: named-color("white"),
+  body-heading: oc("gray", 9),
+  body-text: oc("gray", 7),
+  link: oc("teal", 7),
+  sidebar: oc("gray", 0),
+  border: oc("gray", 2),
+  code-background: named-color("white"),
+  table-background: named-color("white"),
+  base-button: oc("gray", 0),
+  feedback: oc("gray", 2),
+  component-blue: oc("blue", 6),
+  component-green: oc("green", 7),
+  component-purple: oc("violet", 7),
+  component-red: oc("red", 7),
+  component-yellow: oc("yellow", 5),
+  component-yellow-text: oc("gray", 9),
+  component-white: named-color("white"),
+  button-primary: oc("teal", 7),
   nav-width: "16.5rem",
   content-width: "50rem",
   header-height: "3.75rem",
@@ -73,23 +77,23 @@
 
 #let dark = light.with(
   color-scheme: "dark",
-  body-background: "#27262b",
-  body-heading: "#f5f6fa",
-  body-text: "#e6e1e8",
-  link: "#5ca0fb",
-  sidebar: "#27262b",
-  border: "#44434d",
-  code-background: "#0d1117",
-  table-background: "#302d36",
-  base-button: "#302d36",
-  feedback: "#302d36",
-  component-blue: "#5ca0fb",
-  component-green: "#41c78a",
-  component-purple: "#a78bfa",
-  component-red: "#ff6b6b",
-  component-yellow: "#f4d35e",
-  component-yellow-text: "#27262b",
-  button-primary: "#5ca0fb",
+  body-background: oc("gray", 9),
+  body-heading: oc("gray", 0),
+  body-text: oc("gray", 2),
+  link: oc("teal", 4),
+  sidebar: oc("gray", 9),
+  border: oc("gray", 7),
+  code-background: named-color("black"),
+  table-background: oc("gray", 8),
+  base-button: oc("gray", 8),
+  feedback: oc("gray", 8),
+  component-blue: oc("blue", 4),
+  component-green: oc("green", 4),
+  component-purple: oc("violet", 3),
+  component-red: oc("red", 5),
+  component-yellow: oc("yellow", 3),
+  component-yellow-text: oc("gray", 9),
+  button-primary: oc("teal", 4),
 )
 
 
