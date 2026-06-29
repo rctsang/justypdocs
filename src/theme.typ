@@ -10,6 +10,9 @@
 // Core color tokens:
 // - `body-background`, `body-heading`, `body-text`, `link`, `sidebar`, `border`
 // - `code-background`, `table-background`, `base-button`, `feedback`
+// Component palette tokens:
+// - `component-blue`, `component-green`, `component-purple`, `component-red`
+// - `component-yellow`, `component-yellow-text`, `component-white`, `button-primary`
 // Core layout tokens:
 // - `nav-width`, `content-width`, `header-height`
 // Core shape/spacing tokens:
@@ -27,6 +30,14 @@
   table-background: "#fff",
   base-button: "#f7f7f7",
   feedback: "#eeebee",
+  component-blue: "#2f80ed",
+  component-green: "#038761",
+  component-purple: "#7253ed",
+  component-red: "#dd2e44",
+  component-yellow: "#f7c948",
+  component-yellow-text: "#27262b",
+  component-white: "#fff",
+  button-primary: "#7253ed",
   nav-width: "16.5rem",
   content-width: "50rem",
   header-height: "3.75rem",
@@ -45,6 +56,14 @@
   table-background: table-background,
   base-button: base-button,
   feedback: feedback,
+  component-blue: component-blue,
+  component-green: component-green,
+  component-purple: component-purple,
+  component-red: component-red,
+  component-yellow: component-yellow,
+  component-yellow-text: component-yellow-text,
+  component-white: component-white,
+  button-primary: button-primary,
   nav-width: nav-width,
   content-width: content-width,
   header-height: header-height,
@@ -64,6 +83,13 @@
   table-background: "#302d36",
   base-button: "#302d36",
   feedback: "#302d36",
+  component-blue: "#5ca0fb",
+  component-green: "#41c78a",
+  component-purple: "#a78bfa",
+  component-red: "#ff6b6b",
+  component-yellow: "#f4d35e",
+  component-yellow-text: "#27262b",
+  button-primary: "#5ca0fb",
 )
 
 

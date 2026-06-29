@@ -198,8 +198,8 @@ def layout_css_regressions(ctx: Context) -> None:
     navigation = read(ctx.basic / "assets/css/navigation.css")
     components = read(ctx.basic / "assets/css/components.css")
     assert_not_contains(navigation, ".jtd-nav .active", "section-wide active selector")
-    assert_contains(components, ".jtd-callout {\n  background: transparent;", "transparent callout background")
-    assert_contains(components, "border-color: var(--jtd-link);", "highlight-colored callout border")
+    assert_contains(components, "background: transparent;", "transparent callout background")
+    assert_contains(components, "border-color: var(--jtd-callout-color);", "highlight-colored callout border")
     assert_contains(layout, ".site-title:hover {\n  background: var(--jtd-feedback);", "solid title hover")
     assert_contains(layout, ".site-header {\n  display: none;", "mobile hidden sidebar header")
     assert_not_contains(navigation, ".jtd-nav-section-toggle:hover", "section header hover fill")
@@ -214,6 +214,39 @@ def javascript_initializes_after_markup(ctx: Context) -> None:
     assert_contains(js, "DOMContentLoaded", "deferred DOM initialization")
     assert_contains(js, "document.readyState", "ready-state guard")
     assert_contains(js, "is-collapsed", "section collapse class")
+
+
+@test
+def component_variants(ctx: Context) -> None:
+    # Components expose visual options through existing `kind`/`variant` element
+    # fields. The authored CSS and theme output should include representative
+    # variants, and the example page should emit the expected variant classes.
+    css = read(ctx.basic / "assets/css/components.css")
+    theme = read(ctx.basic / "assets/css/theme.css")
+    html = read(ctx.basic / "guide/components.html")
+    for selector in [
+        ".jtd-callout-warning",
+        ".jtd-callout-danger",
+        ".jtd-button-outline",
+        ".jtd-button-green",
+        ".jtd-label-yellow",
+    ]:
+        assert_contains(css, selector, f"component selector {selector}")
+    for token in [
+        "--jtd-component-blue:",
+        "--jtd-component-green:",
+        "--jtd-component-yellow:",
+        "--jtd-button-primary:",
+    ]:
+        assert_contains(theme, token, f"theme token {token}")
+    for klass in [
+        "jtd-callout-warning",
+        "jtd-callout-danger",
+        "jtd-button-outline",
+        "jtd-button-green",
+        "jtd-label-yellow",
+    ]:
+        assert_contains(html, klass, f"example class {klass}")
 
 
 @test

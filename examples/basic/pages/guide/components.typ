@@ -10,20 +10,46 @@
 
 = Components
 
-#jtd.label(variant: "default")[Stable API]
+#jtd.label(variant: "default")[Stable]
+#jtd.label(variant: "green")[New]
+#jtd.label(variant: "purple")[Beta]
+#jtd.label(variant: "red")[Breaking]
+#jtd.label(variant: "yellow")[Warning]
 
 #jtd.callout(kind: "note", title: "Callout")[
   Use callouts for short supporting notes that should stand apart from body content.
 ]
 
+#jtd.callout(kind: "tip", title: "Tip")[
+  Use `kind: "tip"` for positive guidance.
+]
+
+#jtd.callout(kind: "warning", title: "Warning")[
+  Use `kind: "warning"` when readers should slow down before continuing.
+]
+
+#jtd.callout(kind: "danger", title: "Danger")[
+  Use `kind: "danger"` for destructive or high-risk actions.
+]
+
+#jtd.callout(kind: "important", title: "Important")[
+  Use `kind: "important"` for details that should stand out from normal notes.
+]
+
+#jtd.button(href: "/reference/metadata.html")[Default]
+#jtd.button(href: "/reference/metadata.html", variant: "outline")[Outline]
+#jtd.button(href: "/reference/metadata.html", variant: "primary")[Primary]
+#jtd.button(href: "/reference/metadata.html", variant: "green")[Green]
+#jtd.button(href: "/reference/metadata.html", variant: "yellow")[Yellow]
+
 #jtd.card(title: [Example card])[
   Cards can group related links or short summaries.
 
-  #jtd.button(href: "/reference/metadata.html")[Read metadata reference]
+  #jtd.button(href: "/reference/metadata.html", variant: "blue")[Read metadata reference]
 ]
 
 ```typst
-#jtd.callout(title: "Note")[Important supporting content.]
+#jtd.callout(kind: "warning", title: "Warning")[Important supporting content.]
 ```
 
 #table(
