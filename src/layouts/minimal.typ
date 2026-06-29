@@ -7,10 +7,6 @@
 
 #let minimal(page, ctx: none, body) = [
   #shared-assets(ctx)
-  #html.elem("a", attrs: (
-    class: "skip-to-main",
-    href: "#main-content",
-  ))[Skip to main content]
   #html.elem("div", attrs: (class: "main main-minimal", id: "top"))[
     #html.elem("div", attrs: (class: "main-content-wrap"))[
       #render-breadcrumbs(ctx)

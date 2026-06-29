@@ -9,7 +9,7 @@
 }
 
 .jtd-callout {
-  background: var(--jtd-feedback);
+  background: transparent;
   border-left: 4px solid var(--jtd-link);
 }
 

@@ -165,6 +165,8 @@ def default_layout_html(ctx: Context) -> None:
     assert_contains(html, 'class="site-title"', "sidebar site title")
     assert_contains(html, 'id="menu-button"', "main-header menu button")
     assert_contains(html, 'jtd-icon-menu', "menu icon")
+    assert_not_contains(html, 'Skip to main content', "removed skip link")
+    assert_not_contains(html, '<span class="site-button-label">Menu</span>', "visible menu button text")
     assert_contains(html, 'jtd-nav-link active', "active nav link")
     assert_contains(html, 'breadcrumb-nav-root', "breadcrumb root item")
     assert_contains(html, '<a href="/">Home</a>', "breadcrumb home link")
@@ -181,9 +183,24 @@ def minimal_layout_html(ctx: Context) -> None:
     html = read(ctx.basic / "demo/minimal.html")
     assert_contains(html, 'jtd-page-minimal', "minimal page class")
     assert_contains(html, 'breadcrumb-nav-root', "minimal breadcrumb root")
+    assert_not_contains(html, 'Skip to main content', "minimal removed skip link")
     assert_not_contains(html, 'class="side-bar"', "minimal sidebar")
     assert_not_contains(html, 'id="menu-button"', "minimal menu button")
     assert_not_contains(html, 'main-header-title', "minimal duplicate header title")
+
+
+@test
+def layout_css_regressions(ctx: Context) -> None:
+    # These checks protect visual layout fixes that are easier to assert in CSS:
+    # section containers should not look selected, callouts should use a border
+    # treatment instead of a darker fill, and sidebar title hover should be solid.
+    layout = read(ctx.basic / "assets/css/layout.css")
+    navigation = read(ctx.basic / "assets/css/navigation.css")
+    components = read(ctx.basic / "assets/css/components.css")
+    assert_not_contains(navigation, ".jtd-nav .active", "section-wide active selector")
+    assert_contains(components, ".jtd-callout {\n  background: transparent;", "transparent callout background")
+    assert_contains(layout, ".site-title:hover {\n  background: var(--jtd-feedback);", "solid title hover")
+    assert_contains(layout, ".site-header {\n  display: none;", "mobile hidden sidebar header")
 
 
 @test

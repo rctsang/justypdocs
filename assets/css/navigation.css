@@ -6,8 +6,6 @@
   color: var(--jtd-link);
 }
 
-.jtd-nav .active,
-.nav-list-link.active,
 .jtd-nav-link.active {
   background-image: linear-gradient(-90deg, var(--jtd-feedback) 0%, var(--jtd-feedback) 80%, transparent 100%);
 }

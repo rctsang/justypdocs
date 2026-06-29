@@ -1,5 +1,5 @@
 // Default documentation layout.
-// Renders the Just-the-Docs-style shell: skip link, fixed sidebar, recursive
+// Renders the Just-the-Docs-style shell: fixed sidebar, recursive
 // navigation, site footer, mobile menu button, breadcrumbs, page title, and the
 // page body. Navigation labels come from nav nodes; page titles come from
 // `jtd.page.with(title: ...)`.
@@ -52,10 +52,6 @@
 
 #let default(page, ctx: none, body) = [
   #shared-assets(ctx)
-  #html.elem("a", attrs: (
-    class: "skip-to-main",
-    href: "#main-content",
-  ))[Skip to main content]
   #html.elem("header", attrs: (class: "side-bar"))[
     #html.elem("div", attrs: (class: "site-header"))[
       #html.elem("a", attrs: (class: "site-title", href: rooted-url(ctx, "")))[#site-title(ctx)]
@@ -76,7 +72,6 @@
           "aria-expanded": "false",
         ))[
           #icon(ctx, "menu")
-          #html.elem("span", attrs: (class: "site-button-label"))[Menu]
         ]
       }
     ]
