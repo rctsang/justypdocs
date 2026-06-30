@@ -98,14 +98,13 @@
       button.className = "jtd-copy-code";
       button.type = "button";
       button.appendChild(icon("copy"));
-      button.appendChild(document.createTextNode("Copy"));
       wrap.appendChild(button);
 
       button.addEventListener("click", function () {
         navigator.clipboard.writeText(pre.innerText).then(function () {
-          button.replaceChildren(icon("check"), document.createTextNode("Copied"));
+          button.replaceChildren(icon("check"));
           window.setTimeout(function () {
-            button.replaceChildren(icon("copy"), document.createTextNode("Copy"));
+            button.replaceChildren(icon("copy"));
           }, 1500);
         });
       });
