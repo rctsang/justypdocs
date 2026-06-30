@@ -8,6 +8,9 @@
   description: "A custom-theme justypdocs example site.",
   base-url: "/",
   footer: [Custom theme example],
+  header-links: (
+    (title: "GitHub", href: "https://github.com/"),
+  ),
   theme: jtd.themes.dark.with(
     theme-accent: "#9cdcfe",
     feedback: "#243447",

@@ -4,7 +4,7 @@
 // page body. Navigation labels come from nav nodes; page titles come from
 // `jtd.page.with(title: ...)`.
 
-#import "utils.typ": classes, icon, page-href, render-breadcrumbs, rooted-url, shared-assets, site-footer, site-title
+#import "utils.typ": classes, icon, page-href, render-breadcrumbs, render-header-links, rooted-url, shared-assets, site-footer, site-title
 
 #let nav-link(node, ctx, active: false) = html.elem(
   "a",
@@ -64,6 +64,7 @@
   ]
   #html.elem("div", attrs: (class: "main", id: "top"))[
     #html.elem("div", attrs: (class: "main-header", id: "main-header"))[
+      #render-header-links(ctx)
       #if ctx != none {
         html.elem("button", attrs: (
           class: "site-button",

@@ -10,6 +10,10 @@
   description: "A basic justypdocs example site.",
   base-url: "/",
   footer: [Built with justypdocs],
+  header-links: (
+    (title: "GitHub", href: "https://github.com/"),
+    (title: "Reference", href: "/reference/metadata.html"),
+  ),
   theme: jtd.themes.light,
 )
 

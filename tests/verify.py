@@ -165,6 +165,9 @@ def default_layout_html(ctx: Context) -> None:
     assert_contains(html, 'class="site-title"', "sidebar site title")
     assert_contains(html, 'id="menu-button"', "main-header menu button")
     assert_contains(html, 'jtd-icon-menu', "menu icon")
+    assert_contains(html, 'class="header-links"', "default header links")
+    assert_contains(html, '<a class="header-link" href="https://github.com/">GitHub</a>', "absolute header link")
+    assert_contains(html, '<a class="header-link" href="/reference/metadata.html">Reference</a>', "rooted header link")
     assert_not_contains(html, 'Skip to main content', "removed skip link")
     assert_not_contains(html, '<span class="site-button-label">Menu</span>', "visible menu button text")
     assert_contains(html, 'jtd-nav-link active', "active nav link")
@@ -183,6 +186,7 @@ def minimal_layout_html(ctx: Context) -> None:
     html = read(ctx.basic / "demo/minimal.html")
     assert_contains(html, 'jtd-page-minimal', "minimal page class")
     assert_contains(html, 'breadcrumb-nav-root', "minimal breadcrumb root")
+    assert_contains(html, 'class="header-links"', "minimal header links")
     assert_not_contains(html, 'Skip to main content', "minimal removed skip link")
     assert_not_contains(html, 'class="side-bar"', "minimal sidebar")
     assert_not_contains(html, 'id="menu-button"', "minimal menu button")
@@ -204,6 +208,8 @@ def layout_css_regressions(ctx: Context) -> None:
     assert_contains(components, "--jtd-button-hover-filter: brightness(1.08);", "lighter solid button hover")
     assert_contains(layout, ".site-title:hover {\n  background: var(--jtd-feedback);", "solid title hover")
     assert_contains(layout, ".site-header {\n  display: none;", "mobile hidden sidebar header")
+    assert_contains(layout, "@media (min-width: 70rem)", "wide centered layout breakpoint")
+    assert_contains(layout, "calc((100% - var(--jtd-nav-width) - var(--jtd-content-width)) / 2 + var(--jtd-nav-width))", "centered sidebar offset")
     assert_not_contains(navigation, ".jtd-nav-section-toggle:hover", "section header hover fill")
 
 

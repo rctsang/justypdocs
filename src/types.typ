@@ -8,6 +8,20 @@
 
 #let prefix = "@local/justypdocs:0.0.1"
 
+// Link rendered in the right side of layouts' main header.
+#let header-link = e.types.declare(
+  "justypdocs-header-link",
+  prefix: prefix,
+  doc: "A global main-header link.",
+  fields: (
+    e.field("title", str, required: true, named: true,
+      doc: "Visible link label."),
+    e.field("href", str, required: true, named: true,
+      doc: "Link target URL."),
+  ),
+  casts: ((from: dictionary),),
+)
+
 // Site configuration passed to `jtd.site(config: ...)`.
 // `base-url` is applied to emitted asset and page links, so generated HTML does
 // not depend on relative paths from nested output directories.
@@ -24,6 +38,8 @@
       doc: "Base URL used for generated links."),
     e.field("footer", e.types.option(content), default: none,
       doc: "Footer content."),
+    e.field("header-links", e.types.array(header-link), default: (),
+      doc: "Global links rendered in the main header."),
     e.field("theme", e.types.any, default: (:),
       doc: "Theme token dictionary."),
   ),

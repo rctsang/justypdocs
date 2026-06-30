@@ -14,6 +14,10 @@
 } else { "" }
 
 #let rooted-url(ctx, path) = {
+  if path.starts-with("http://") or path.starts-with("https://") or path.starts-with("mailto:") or path.starts-with("#") {
+    return path
+  }
+
   let base = base-url(ctx)
   if base == "" {
     return path
@@ -71,6 +75,22 @@
           } else {
             html.elem("span")[#entry.title]
           }
+        ]
+      }
+    ]
+  ]
+}
+
+#let render-header-links(ctx) = {
+  if ctx == none or ctx.config.header-links.len() == 0 {
+    return none
+  }
+
+  html.elem("nav", attrs: (class: "header-links", "aria-label": "Auxiliary"))[
+    #html.elem("ul", attrs: (class: "header-links-list"))[
+      #for link in ctx.config.header-links {
+        html.elem("li", attrs: (class: "header-links-item"))[
+          #html.elem("a", attrs: (class: "header-link", href: rooted-url(ctx, link.href)))[#link.title]
         ]
       }
     ]
