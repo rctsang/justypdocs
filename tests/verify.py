@@ -184,6 +184,7 @@ def minimal_layout_html(ctx: Context) -> None:
     # Minimal layout keeps shared assets/content/breadcrumbs but must not include
     # nav-only chrome such as the sidebar, menu button, or main header title.
     html = read(ctx.basic / "demo/minimal.html")
+    assert_contains(html, 'class="main-header main-header-minimal"', "minimal main header")
     assert_contains(html, 'jtd-page-minimal', "minimal page class")
     assert_contains(html, 'breadcrumb-nav-root', "minimal breadcrumb root")
     assert_contains(html, 'class="header-links"', "minimal header links")
@@ -208,6 +209,8 @@ def layout_css_regressions(ctx: Context) -> None:
     assert_contains(components, "--jtd-button-hover-filter: brightness(1.08);", "lighter solid button hover")
     assert_contains(layout, ".site-title:hover {\n  background: var(--jtd-feedback);", "solid title hover")
     assert_contains(layout, ".site-header {\n  display: none;", "mobile hidden sidebar header")
+    assert_contains(layout, "list-style: none !important;", "unbulleted header links")
+    assert_contains(layout, ".header-links-item + .header-links-item {\n  margin-top: 0;", "horizontal header link spacing")
     assert_contains(layout, "@media (min-width: 70rem)", "wide centered layout breakpoint")
     assert_contains(layout, "calc((100% - var(--jtd-nav-width) - var(--jtd-content-width)) / 2 + var(--jtd-nav-width))", "centered sidebar offset")
     assert_not_contains(navigation, ".jtd-nav-section-toggle:hover", "section header hover fill")

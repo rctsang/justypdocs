@@ -93,13 +93,18 @@
   display: flex;
   align-items: center;
   gap: var(--jtd-spacing-unit);
-  list-style: none;
+  list-style: none !important;
   margin: 0;
   padding: 0 var(--jtd-spacing-unit);
 }
 
 .header-links-item {
+  display: block;
   margin: 0;
+}
+
+.header-links-item + .header-links-item {
+  margin-top: 0;
 }
 
 .header-link {
