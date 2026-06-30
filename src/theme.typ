@@ -12,7 +12,7 @@
 // `assets/css/theme.css` as `--jtd-{token-name}`.
 //
 // Core color tokens:
-// - `body-background`, `body-heading`, `body-text`, `link`, `sidebar`, `border`
+// - `theme-accent`, `body-background`, `body-heading`, `body-text`, `link`, `sidebar`, `border`
 // - `code-background`, `table-background`, `base-button`, `feedback`
 // Component palette tokens:
 // - `component-blue`, `component-green`, `component-purple`, `component-red`
@@ -27,7 +27,7 @@
   body-background: named-color("white"),
   body-heading: oc("gray", 9),
   body-text: oc("gray", 7),
-  link: oc("cyan", 6),
+  link: none,
   sidebar: oc("gray", 0),
   border: oc("gray", 2),
   code-background: named-color("white"),
@@ -41,46 +41,54 @@
   component-yellow: oc("yellow", 5),
   component-yellow-text: oc("gray", 9),
   component-white: named-color("white"),
-  button-primary: oc("cyan", 6),
+  button-primary: none,
   nav-width: "16.5rem",
   content-width: "50rem",
   header-height: "3.75rem",
   border-radius: "4px",
   spacing-unit: "1rem",
   ..tokens,
-) = (
-  color-scheme: color-scheme,
-  body-background: body-background,
-  body-heading: body-heading,
-  body-text: body-text,
-  link: link,
-  sidebar: sidebar,
-  border: border,
-  code-background: code-background,
-  table-background: table-background,
-  base-button: base-button,
-  feedback: feedback,
-  component-blue: component-blue,
-  component-green: component-green,
-  component-purple: component-purple,
-  component-red: component-red,
-  component-yellow: component-yellow,
-  component-yellow-text: component-yellow-text,
-  component-white: component-white,
-  button-primary: button-primary,
-  nav-width: nav-width,
-  content-width: content-width,
-  header-height: header-height,
-  border-radius: border-radius,
-  spacing-unit: spacing-unit,
-) + tokens.named()
+) = {
+  let extra = tokens.named()
+  let accent = extra.at("theme-accent", default: oc("cyan", 6))
+  let link = if link == none { accent } else { link }
+  let button-primary = if button-primary == none { accent } else { button-primary }
+
+  (
+    color-scheme: color-scheme,
+    body-background: body-background,
+    body-heading: body-heading,
+    body-text: body-text,
+    theme-accent: accent,
+    link: link,
+    sidebar: sidebar,
+    border: border,
+    code-background: code-background,
+    table-background: table-background,
+    base-button: base-button,
+    feedback: feedback,
+    component-blue: component-blue,
+    component-green: component-green,
+    component-purple: component-purple,
+    component-red: component-red,
+    component-yellow: component-yellow,
+    component-yellow-text: component-yellow-text,
+    component-white: component-white,
+    button-primary: button-primary,
+    nav-width: nav-width,
+    content-width: content-width,
+    header-height: header-height,
+    border-radius: border-radius,
+    spacing-unit: spacing-unit,
+  ) + extra
+}
 
 #let dark = light.with(
   color-scheme: "dark",
   body-background: oc("gray", 9),
   body-heading: oc("gray", 0),
   body-text: oc("gray", 2),
-  link: oc("teal", 4),
+  theme-accent: oc("cyan", 4),
   sidebar: oc("gray", 9),
   border: oc("gray", 7),
   code-background: named-color("black"),
@@ -93,7 +101,6 @@
   component-red: oc("red", 5),
   component-yellow: oc("yellow", 3),
   component-yellow-text: oc("gray", 9),
-  button-primary: oc("teal", 4),
 )
 
 

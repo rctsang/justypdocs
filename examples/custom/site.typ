@@ -9,7 +9,7 @@
   base-url: "/",
   footer: [Custom theme example],
   theme: jtd.themes.dark.with(
-    link: "#9cdcfe",
+    theme-accent: "#9cdcfe",
     feedback: "#243447",
   ),
 )

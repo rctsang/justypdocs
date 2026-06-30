@@ -238,9 +238,14 @@ def component_variants(ctx: Context) -> None:
         "--jtd-component-blue:",
         "--jtd-component-green:",
         "--jtd-component-yellow:",
+        "--jtd-theme-accent:",
         "--jtd-button-primary:",
     ]:
         assert_contains(theme, token, f"theme token {token}")
+    assert_contains(css, "--jtd-callout-color: var(--jtd-theme-accent);", "accent default callout")
+    assert_contains(css, "--jtd-button-fg: var(--jtd-theme-accent);", "accent default button foreground")
+    assert_contains(css, "--jtd-label-bg: var(--jtd-theme-accent);", "accent default label")
+    assert_contains(theme, "--jtd-theme-accent: #15aabf", "cyan accent color")
     assert_contains(theme, "--jtd-link: #15aabf", "cyan default link color")
     assert_contains(theme, "--jtd-button-primary: #15aabf", "cyan primary button color")
     for klass in [
@@ -274,7 +279,9 @@ def custom_theme_override(ctx: Context) -> None:
     # `assets/css/theme.css` rather than only the default light theme.
     css = read(ctx.custom / "assets/css/theme.css")
     assert_contains(css, "color-scheme: dark", "dark color scheme")
+    assert_contains(css, "--jtd-theme-accent: #9cdcfe", "custom accent color")
     assert_contains(css, "--jtd-link: #9cdcfe", "custom link color")
+    assert_contains(css, "--jtd-button-primary: #9cdcfe", "custom primary color")
     assert_contains(css, "--jtd-feedback: #243447", "custom feedback color")
 
 

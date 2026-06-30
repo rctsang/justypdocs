@@ -9,13 +9,16 @@
 }
 
 .jtd-callout {
-  --jtd-callout-color: var(--jtd-component-blue);
+  --jtd-callout-color: var(--jtd-theme-accent);
   background: transparent;
   border-color: var(--jtd-callout-color);
   border-left-width: 4px;
 }
 
-.jtd-callout-note,
+.jtd-callout-note {
+  --jtd-callout-color: var(--jtd-theme-accent);
+}
+
 .jtd-callout-info {
   --jtd-callout-color: var(--jtd-component-blue);
 }
@@ -49,7 +52,7 @@
 
 .jtd-button {
   --jtd-button-bg: var(--jtd-base-button);
-  --jtd-button-fg: var(--jtd-link);
+  --jtd-button-fg: var(--jtd-theme-accent);
   --jtd-button-border: var(--jtd-button-bg);
   --jtd-button-hover-filter: brightness(0.96);
   display: inline-block;
@@ -123,7 +126,7 @@
 }
 
 .jtd-label {
-  --jtd-label-bg: var(--jtd-component-blue);
+  --jtd-label-bg: var(--jtd-theme-accent);
   --jtd-label-fg: var(--jtd-component-white);
   display: inline-block;
   color: var(--jtd-label-fg);
@@ -137,7 +140,10 @@
   vertical-align: middle;
 }
 
-.jtd-label-default,
+.jtd-label-default {
+  --jtd-label-bg: var(--jtd-theme-accent);
+}
+
 .jtd-label-blue {
   --jtd-label-bg: var(--jtd-component-blue);
 }
