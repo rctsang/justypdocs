@@ -2,6 +2,8 @@
 
 A Typst static documentation-site template inspired by [Just the Docs](https://just-the-docs.com/), built around Typst HTML/bundle export and Elembic elements.
 
+Built with heavy use of GPT5.5
+
 ## Status
 
 Experimental. This project targets Typst `0.15.0` HTML and bundle features, which are still under active development.
