@@ -248,6 +248,42 @@
 
 # Future Work
 
+## Paged/PDF Component Rendering
+
+- [ ] Add target-aware rendering for Elembic components.
+  - Keep existing HTML `html.elem(...)` output for HTML export.
+  - Render native Typst content for paged/PDF export.
+  - Preserve existing public APIs for `callout`, `button`, `label`, and `card`.
+- [ ] Add a shared paged style module.
+  - Create a module such as `src/paged.typ` for PDF component helpers.
+  - Centralize Open Color and variant color resolution there.
+  - Avoid duplicating component palette logic across components.
+- [ ] Mirror HTML component variants in paged output.
+  - [ ] Map callout kinds: `note`, `info`, `tip`, `warning`, `danger`, `important`.
+  - [ ] Map button variants: `default`, `outline`, `primary`, `purple`, `blue`, `green`, `red`, `yellow`.
+  - [ ] Map label variants: `default`, `blue`, `green`, `purple`, `red`, `yellow`.
+- [ ] Add paged theme resolution.
+  - [ ] Add helpers that resolve the same theme dictionaries/functions used for HTML themes.
+  - [ ] Use `themes.light` as the standalone PDF fallback when no site config is available.
+  - Defer deeper config-aware standalone PDF theming unless a clean context mechanism is needed.
+- [ ] Implement native Typst component shapes.
+  - [ ] Render callouts as bordered blocks with transparent fill and colored title/accent.
+  - [ ] Render buttons as styled links.
+  - [ ] Render labels as inline pill badges.
+  - [ ] Render cards as bordered blocks with optional title.
+- [ ] Add a paged layout path for standalone PDF compilation.
+  - [ ] Add a layout such as `src/layouts/paged.typ`.
+  - [ ] Make `layouts.render(...)` choose paged output for PDF/paged targets.
+  - [ ] Render page title and body with consistent document margins and typography.
+  - Avoid emitting HTML sidebar/header/nav chrome in PDF output.
+- [ ] Add smoke verification for PDF compilation.
+  - [ ] Compile `examples/basic/pages/guide/components.typ` to PDF.
+  - [ ] Compile a representative normal page to PDF.
+  - [ ] Assert generated PDF files exist and are non-empty.
+- [ ] Document paged behavior in source comments.
+  - [ ] Comment that components support both HTML and paged output.
+  - [ ] Add example compile commands for individual page PDF output.
+
 ## Deferred Search
 
 - [ ] Design future `justypdocs-index dist` postprocessor.
