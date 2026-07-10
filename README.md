@@ -112,6 +112,12 @@ Build the custom theme example:
 typst compile --root "." --features bundle,html --format bundle examples/custom/site.typ dist-custom
 ```
 
+Compile an individual page to PDF:
+
+```sh
+typst compile --root "." examples/basic/pages/guide/components.typ components.pdf
+```
+
 ## Components
 
 ```typst
@@ -171,5 +177,5 @@ This installs the local package, builds example bundles, checks generated assets
 ## Notes
 
 - Search is intentionally deferred to a future post-processing step.
-- PDF/paged component rendering is planned but not implemented yet.
+- Components render for both HTML and paged/PDF output.
 - Typst HTML/bundle export is experimental, so behavior may change with Typst releases.

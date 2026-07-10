@@ -69,6 +69,17 @@ def compile_bundle(source: str, out: Path) -> None:
     ])
 
 
+def compile_pdf(source: str, out: Path) -> None:
+    if out.exists():
+        out.unlink()
+    run([
+        "typst", "compile",
+        "--root", ".",
+        source,
+        str(out),
+    ])
+
+
 def read(path: Path) -> str:
     return path.read_text(encoding="utf-8")
 
@@ -266,6 +277,21 @@ def component_variants(ctx: Context) -> None:
         "jtd-label-yellow",
     ]:
         assert_contains(html, klass, f"example class {klass}")
+
+
+@test
+def pdf_smoke_tests(ctx: Context) -> None:
+    # Paged/PDF support is target-dispatched through Bullseye. These smoke tests
+    # ensure representative pages compile without HTML site chrome or CSS assets.
+    outputs = [
+        ("examples/basic/pages/guide/components.typ", ctx.tmp / "components.pdf"),
+        ("examples/basic/pages/home.typ", ctx.tmp / "home.pdf"),
+    ]
+    for source, out in outputs:
+        compile_pdf(source, out)
+        assert_exists(out)
+        if out.stat().st_size == 0:
+            raise AssertionError(f"empty generated PDF: {out}")
 
 
 @test
