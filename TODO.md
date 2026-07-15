@@ -248,57 +248,57 @@
 
 ### 18.1 Support custom header link content
 
-  - [ ] Extend `types.header-link` to support custom `body` content.
-  - [ ] Keep simple text links working with `title` and `href`.
-  - [ ] Add optional `aria-label` support for icon-only header links.
-  - [ ] Render `body` inside the header `<a>` when provided, otherwise render `title`.
-  - [ ] Preserve existing global `config.header-links` behavior in default and minimal layouts.
+  - [x] Extend `types.header-link` to support custom `body` content.
+  - [x] Keep simple text links working with `title` and `href`.
+  - [x] Add optional `aria-label` support for icon-only header links.
+  - [x] Render `body` inside the header `<a>` when provided, otherwise render `title`.
+  - [x] Preserve existing global `config.header-links` behavior in default and minimal layouts.
 
 ### 18.2 Add header link attribute pass-through
 
-  - [ ] Enable unknown fields on the `header-link` type.
-  - [ ] Treat unknown fields as HTML attributes on the generated anchor.
-  - [ ] Append custom `class` values to the built-in `header-link` class.
-  - [ ] Preserve built-in `href` rooting for site-relative links.
-  - [ ] Preserve absolute URLs, `mailto:`, and fragment links unchanged.
+  - [x] Enable unknown fields on the `header-link` type.
+  - [x] Treat unknown fields as HTML attributes on the generated anchor.
+  - [x] Append custom `class` values to the built-in `header-link` class.
+  - [x] Preserve built-in `href` rooting for site-relative links.
+  - [x] Preserve absolute URLs, `mailto:`, and fragment links unchanged.
 
 ### 18.3 Enable component argument sinks
 
-  - [ ] Enable unknown fields on `jtd.callout`.
-  - [ ] Enable unknown fields on `jtd.button`.
-  - [ ] Enable unknown fields on `jtd.label`.
-  - [ ] Enable unknown fields on `jtd.card`.
-  - [ ] Pass unknown named arguments through as HTML attributes for HTML output.
-  - [ ] Ignore HTML-only pass-through attributes for paged/PDF output.
+  - [x] Enable unknown fields on `jtd.callout`.
+  - [x] Enable unknown fields on `jtd.button`.
+  - [x] Enable unknown fields on `jtd.label`.
+  - [x] Enable unknown fields on `jtd.card`.
+  - [x] Pass unknown named arguments through as HTML attributes for HTML output.
+  - [x] Ignore HTML-only pass-through attributes for paged/PDF output.
 
 ### 18.4 Preserve generated component classes
 
-  - [ ] Keep built-in classes such as `jtd-callout`, `jtd-button`, `jtd-label`, and `jtd-card`.
-  - [ ] Keep variant classes such as `jtd-callout-warning` and `jtd-button-primary`.
-  - [ ] Append user-provided `class` values instead of replacing built-in classes.
-  - [ ] Add a shared helper for filtering known fields and merging HTML attrs.
+  - [x] Keep built-in classes such as `jtd-callout`, `jtd-button`, `jtd-label`, and `jtd-card`.
+  - [x] Keep variant classes such as `jtd-callout-warning` and `jtd-button-primary`.
+  - [x] Append user-provided `class` values instead of replacing built-in classes.
+  - [x] Add a shared helper for filtering known fields and merging HTML attrs.
 
 ### 18.5 Demonstrate custom HTML and attrs in examples
 
-  - [ ] Add an icon-style header link example in `examples/basic/site.typ`.
-  - [ ] Add a component example with custom `id`, `class`, and `data-*` attrs.
-  - [ ] Demonstrate an anchor/scroll-style use case such as `href: "#target"`.
+  - [x] Add an icon-style header link example in `examples/basic/site.typ`.
+  - [x] Add a component example with custom `id`, `class`, and `data-*` attrs.
+  - [x] Demonstrate an anchor/scroll-style use case such as `href: "#target"`.
 
 ### 18.6 Verify custom HTML and attrs
 
-  - [ ] Assert generated header links can contain custom HTML content.
-  - [ ] Assert header link accessibility attrs such as `aria-label` are emitted.
-  - [ ] Assert header link custom classes and attrs pass through.
-  - [ ] Assert component custom attributes pass through in HTML output.
-  - [ ] Assert built-in component classes remain present with custom classes.
-  - [ ] Assert PDF smoke tests still pass when components receive custom HTML attrs.
+  - [x] Assert generated header links can contain custom HTML content.
+  - [x] Assert header link accessibility attrs such as `aria-label` are emitted.
+  - [x] Assert header link custom classes and attrs pass through.
+  - [x] Assert component custom attributes pass through in HTML output.
+  - [x] Assert built-in component classes remain present with custom classes.
+  - [x] Assert PDF smoke tests still pass when components receive custom HTML attrs.
 
 ### 18.7 Document custom HTML and attr pass-through
 
-  - [ ] Update source comments for `header-link` config fields.
-  - [ ] Update source comments for component argument sinks.
-  - [ ] Update README with simple and custom-content header link examples.
-  - [ ] Update README with component HTML attribute pass-through examples.
+  - [x] Update source comments for `header-link` config fields.
+  - [x] Update source comments for component argument sinks.
+  - [x] Update README with simple and custom-content header link examples.
+  - [x] Update README with component HTML attribute pass-through examples.
 
 
 

@@ -2,6 +2,8 @@
 //
 // Components render explicit HTML elements for HTML export and native Typst
 // shapes for paged/PDF output.
+// Unknown named arguments are forwarded as HTML attributes for HTML export and
+// ignored for paged/PDF output.
 
 #import "@preview/elembic:1.1.1" as e
 #import "@preview/bullseye:0.1.0": html, target
@@ -10,6 +12,22 @@
 
 #let classes(..items) = items.pos().filter(item => item != none and item != "").join(" ")
 
+#let html-attrs(fields, known, base-class: none) = {
+  let attrs = (:)
+  for (key, value) in fields {
+    if key not in known and key != "with" and not key.starts-with("__") and value != none {
+      attrs.insert(key, value)
+    }
+  }
+
+  let user-class = attrs.at("class", default: none)
+  if base-class != none or user-class != none {
+    attrs.class = classes(base-class, user-class)
+  }
+
+  attrs
+}
+
 // Highlighted content block.
 #let callout = e.element.declare(
   "callout",
@@ -17,12 +35,15 @@
   doc: "A highlighted documentation callout.",
   display: it => context {
     if target() == "html" {
+      let attrs = html-attrs(
+        it,
+        ("body", "kind", "title"),
+        base-class: classes("jtd-callout", "jtd-callout-" + it.kind),
+      )
+      attrs.insert("data-kind", it.kind)
       html.elem(
         "aside",
-        attrs: (
-          class: classes("jtd-callout", "jtd-callout-" + it.kind),
-          "data-kind": it.kind,
-        ),
+        attrs: attrs,
       )[
         #if it.title != none {
           html.elem("div", attrs: (class: "jtd-callout-title"))[#it.title]
@@ -41,6 +62,7 @@
     e.field("title", e.types.option(str), default: none,
       doc: "Optional callout title."),
   ),
+  allow-unknown-fields: true,
 )
 
 // Link-like action component.
@@ -50,12 +72,15 @@
   doc: "A styled action link/button.",
   display: it => context {
     if target() == "html" {
+      let attrs = html-attrs(
+        it,
+        ("body", "href", "variant"),
+        base-class: classes("jtd-button", "jtd-button-" + it.variant),
+      )
+      attrs.insert("href", it.href)
       html.elem(
         "a",
-        attrs: (
-          class: classes("jtd-button", "jtd-button-" + it.variant),
-          href: it.href,
-        ),
+        attrs: attrs,
       )[#it.body]
     } else {
       paged.button(variant: it.variant, href: it.href, theme: paged.current-theme(), it.body)
@@ -69,6 +94,7 @@
     e.field("variant", str, default: "default",
       doc: "Button visual variant."),
   ),
+  allow-unknown-fields: true,
 )
 
 // Small inline label/badge.
@@ -78,9 +104,14 @@
   doc: "An inline label or badge.",
   display: it => context {
     if target() == "html" {
+      let attrs = html-attrs(
+        it,
+        ("body", "variant"),
+        base-class: classes("jtd-label", "jtd-label-" + it.variant),
+      )
       html.elem(
         "span",
-        attrs: (class: classes("jtd-label", "jtd-label-" + it.variant)),
+        attrs: attrs,
       )[#it.body]
     } else {
       paged.label(variant: it.variant, theme: paged.current-theme(), it.body)
@@ -92,6 +123,7 @@
     e.field("variant", str, default: "default",
       doc: "Label visual variant."),
   ),
+  allow-unknown-fields: true,
 )
 
 // Generic card container.
@@ -101,7 +133,12 @@
   doc: "A bordered card container.",
   display: it => context {
     if target() == "html" {
-      html.elem("section", attrs: (class: "jtd-card"))[
+      let attrs = html-attrs(
+        it,
+        ("body", "title"),
+        base-class: "jtd-card",
+      )
+      html.elem("section", attrs: attrs)[
         #if it.title != none {
           html.elem("div", attrs: (class: "jtd-card-title"))[#it.title]
         }
@@ -117,4 +154,5 @@
     e.field("title", e.types.option(content), default: none,
       doc: "Optional card title."),
   ),
+  allow-unknown-fields: true,
 )

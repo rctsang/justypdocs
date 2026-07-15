@@ -41,6 +41,22 @@
 #jtd.button(href: "/reference/metadata.html", variant: "primary")[Primary]
 #jtd.button(href: "/reference/metadata.html", variant: "green")[Green]
 #jtd.button(href: "/reference/metadata.html", variant: "yellow")[Yellow]
+#jtd.button(
+  href: "#component-target",
+  variant: "outline",
+  id: "jump-to-component-target",
+  class: "js-scroll-link",
+  data-scroll-to: "component-target",
+)[Jump to target]
+
+#jtd.callout(
+  kind: "info",
+  title: "Custom attributes",
+  id: "component-target",
+  data-example: "attribute-pass-through",
+)[
+  Component elements can pass custom HTML attributes through for scripts and CSS.
+]
 
 #jtd.card(title: [Example card])[
   Cards can group related links or short summaries.

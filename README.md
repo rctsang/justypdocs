@@ -164,6 +164,49 @@ Customize with `.with(...)`:
 
 Theme tokens are emitted as CSS custom properties prefixed with `--jtd-`.
 
+## Header Links
+
+Header links can be plain text links or custom HTML content such as icons:
+
+```typst
+#import "@preview/bullseye:0.1.0": html
+
+#let config = (
+  title: "My Docs",
+  base-url: "/",
+  header-links: (
+    (title: "Reference", href: "/reference/metadata.html"),
+    (
+      href: "https://github.com/",
+      aria-label: "GitHub",
+      class: "header-link-icon",
+      body: html.elem("svg", attrs: (class: "jtd-icon"))[
+        #html.elem("use", attrs: (href: "/assets/icons/symbols.svg#external-link"))[]
+      ],
+    ),
+  ),
+  theme: jtd.themes.light,
+)
+```
+
+Unknown header link fields are passed through as HTML attributes on the generated anchor.
+
+## HTML Attribute Pass-Through
+
+Components accept extra named arguments for HTML attributes. Built-in classes are preserved and custom classes are appended.
+
+```typst
+#jtd.button(
+  href: "#target",
+  variant: "outline",
+  id: "jump-button",
+  class: "js-scroll-link",
+  data-scroll-to: "target",
+)[Jump]
+```
+
+Attribute pass-through applies to HTML output. Paged/PDF output ignores HTML-only attributes.
+
 ## Verification
 
 Run the project verification script:

@@ -1,4 +1,5 @@
 #import "@local/justypdocs:0.0.1" as jtd
+#import "@preview/bullseye:0.1.0": html
 
 // Build this example with:
 // typst compile --root "." --features bundle,html --format bundle examples/basic/site.typ dist
@@ -11,7 +12,16 @@
   base-url: "/",
   footer: [Built with justypdocs],
   header-links: (
-    (title: "GitHub", href: "https://github.com/"),
+    (
+      href: "https://github.com/",
+      aria-label: "GitHub",
+      class: "header-link-icon",
+      target: "_blank",
+      rel: "noreferrer",
+      body: html.elem("svg", attrs: (class: "jtd-icon"))[
+        #html.elem("use", attrs: (href: "/assets/icons/symbols.svg#external-link"))[]
+      ],
+    ),
     (title: "Reference", href: "/reference/metadata.html"),
   ),
   theme: jtd.themes.light,

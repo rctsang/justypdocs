@@ -177,7 +177,10 @@ def default_layout_html(ctx: Context) -> None:
     assert_contains(html, 'id="menu-button"', "main-header menu button")
     assert_contains(html, 'jtd-icon-menu', "menu icon")
     assert_contains(html, 'class="header-links"', "default header links")
-    assert_contains(html, '<a class="header-link" href="https://github.com/">GitHub</a>', "absolute header link")
+    assert_contains(html, 'class="header-link header-link-icon"', "custom header link class")
+    assert_contains(html, 'aria-label="GitHub"', "custom header link aria label")
+    assert_contains(html, 'target="_blank"', "custom header link target")
+    assert_contains(html, 'symbols.svg#external-link', "custom header link SVG content")
     assert_contains(html, '<a class="header-link" href="/reference/metadata.html">Reference</a>', "rooted header link")
     assert_not_contains(html, 'Skip to main content', "removed skip link")
     assert_not_contains(html, '<span class="site-button-label">Menu</span>', "visible menu button text")
@@ -277,6 +280,11 @@ def component_variants(ctx: Context) -> None:
         "jtd-label-yellow",
     ]:
         assert_contains(html, klass, f"example class {klass}")
+    assert_contains(html, 'id="jump-to-component-target"', "component custom id")
+    assert_contains(html, 'class="jtd-button jtd-button-outline js-scroll-link"', "component custom class merged")
+    assert_contains(html, 'data-scroll-to="component-target"', "component custom data attr")
+    assert_contains(html, 'id="component-target"', "callout custom id")
+    assert_contains(html, 'data-example="attribute-pass-through"', "callout custom data attr")
 
 
 @test

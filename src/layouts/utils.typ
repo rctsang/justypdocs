@@ -9,6 +9,22 @@
     .join(" ")
 }
 
+#let html-attrs(fields, known, base-class: none) = {
+  let attrs = (:)
+  for (key, value) in fields {
+    if key not in known and key != "with" and not key.starts-with("__") and value != none {
+      attrs.insert(key, value)
+    }
+  }
+
+  let user-class = attrs.at("class", default: none)
+  if base-class != none or user-class != none {
+    attrs.class = classes(base-class, user-class)
+  }
+
+  attrs
+}
+
 #let base-url(ctx) = if ctx != none {
   ctx.config.base-url
 } else { "" }
@@ -90,7 +106,20 @@
     #html.elem("ul", attrs: (class: "header-links-list"))[
       #for link in ctx.config.header-links {
         html.elem("li", attrs: (class: "header-links-item"))[
-          #html.elem("a", attrs: (class: "header-link", href: rooted-url(ctx, link.href)))[#link.title]
+          #let attrs = html-attrs(
+            link,
+            ("title", "href", "body", "aria-label"),
+            base-class: "header-link",
+          )
+          #attrs.insert("href", rooted-url(ctx, link.href))
+          #if link.at("aria-label") != none { attrs.insert("aria-label", link.at("aria-label")) }
+          #html.elem("a", attrs: attrs)[
+            #if link.body != none {
+              link.body
+            } else {
+              link.title
+            }
+          ]
         ]
       }
     ]

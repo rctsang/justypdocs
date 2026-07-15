@@ -9,16 +9,22 @@
 #let prefix = "@local/justypdocs:0.0.1"
 
 // Link rendered in the right side of layouts' main header.
+// Unknown fields are forwarded as HTML attributes on the generated anchor.
 #let header-link = e.types.declare(
   "justypdocs-header-link",
   prefix: prefix,
   doc: "A global main-header link.",
   fields: (
-    e.field("title", str, required: true, named: true,
-      doc: "Visible link label."),
+    e.field("title", e.types.option(str), default: none,
+      doc: "Visible link label when body is not provided."),
     e.field("href", str, required: true, named: true,
       doc: "Link target URL."),
+    e.field("body", e.types.option(content), default: none,
+      doc: "Custom link body content, such as inline SVG."),
+    e.field("aria-label", e.types.option(str), default: none,
+      doc: "Accessible label for icon-only links."),
   ),
+  allow-unknown-fields: true,
   casts: ((from: dictionary),),
 )
 
