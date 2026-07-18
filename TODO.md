@@ -25,7 +25,7 @@
 
 ## 3. Implement Elembic Nav/Node Types
 
-- [x] Define a page-node type with `id`, `title`, `src`, and `path`.
+- [x] Define a page-node type with `id`, `title`, `body`, and `path`.
 - [x] Define a section-node type with `id`, `title`, and `children`.
 - [x] Plan for page nodes to support `children` later, while keeping it out of scope unless needed.
 - [x] Define a recursive nav type if practical; otherwise validate recursive children manually.
@@ -47,21 +47,21 @@
 - [x] Implement internal `emit-documents(nav)` using `pages-from-nav(nav)`.
 - [x] Defer path-based helpers.
 - [x] Defer dedicated breadcrumb/children helpers; breadcrumbs should resolve ids through `entry-by-id`.
-- [x] Use dynamic `include page.src`, since dynamic include/import works.
+- [x] Use page body content supplied by the user, usually `body: include "page.typ"`.
 
 ## 5. Implement `jtd.site(...)`
 
 - [x] Accept `config` and `nav`.
 - [x] Implement as an Elembic element display function.
 - [x] Cast/validate config and nav with Elembic types where possible.
-- [x] Validate that every nav page node has `id`, `title`, `src`, and `path`.
+- [x] Validate that every nav page node has `id`, `title`, `body`, and `path`.
 - [x] Validate that every nav section node has `id`, `title`, and `children`.
 - [x] Validate that all nav node ids are unique.
 - [x] Expose config/nav via metadata or another queryable mechanism.
 - [x] Emit shared CSS assets.
 - [x] Emit shared JS assets.
 - [x] Emit generated theme CSS variables.
-- [x] Recursively emit one `document(page.path)[#include page.src]` per nav page node.
+- [x] Recursively emit one `document(page.path)[#page.body]` per nav page node.
 - [x] Emit/query metadata associating each generated document with `page.id` if useful.
 - [x] Do not use nav `title` as the page title.
 

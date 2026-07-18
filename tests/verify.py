@@ -343,8 +343,8 @@ def validation_failures(ctx: Context) -> None:
 #import "@local/justypdocs:0.0.1" as jtd
 #let config = (title: "Duplicate", base-url: "/", theme: jtd.themes.light)
 #let nav = (
-  (id: "dup", title: "One", src: "/examples/basic/pages/home.typ", path: "one.html"),
-  (id: "dup", title: "Two", src: "/examples/basic/pages/home.typ", path: "two.html"),
+  (id: "dup", title: "One", body: [One], path: "one.html"),
+  (id: "dup", title: "Two", body: [Two], path: "two.html"),
 )
 #jtd.site(config: config, nav: nav)
 ''')
@@ -353,10 +353,15 @@ def validation_failures(ctx: Context) -> None:
 #show: jtd.page.with(title: "Missing ID")
 = Missing ID
 ''')
+    unknown_page = typst_fixture(ctx.tmp, "unknown-page.typ", '''
+#import "@local/justypdocs:0.0.1" as jtd
+#show: jtd.page.with(id: "unknown-page", title: "Unknown Page")
+= Unknown Page
+''')
     unknown_site = typst_fixture(ctx.tmp, "unknown-site.typ", f'''
 #import "@local/justypdocs:0.0.1" as jtd
 #let config = (title: "Unknown", base-url: "/", theme: jtd.themes.light)
-#let nav = ((id: "known-page", title: "Known", src: "/examples/basic/pages/home.typ", path: "known.html"),)
+#let nav = ((id: "known-page", title: "Known", body: include "{unknown_page}", path: "known.html"),)
 #jtd.site(config: config, nav: nav)
 ''')
 

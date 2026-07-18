@@ -58,7 +58,7 @@ Create a site file:
   (
     id: "home",
     title: "Home",
-    src: "/pages/home.typ",
+    body: include "pages/home.typ",
     path: "index.html",
   ),
   (
@@ -68,7 +68,7 @@ Create a site file:
       (
         id: "guide-install",
         title: "Install",
-        src: "/pages/guide/install.typ",
+        body: include "pages/guide/install.typ",
         path: "guide/install.html",
       ),
     ),

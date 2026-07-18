@@ -56,19 +56,20 @@
 // Page nodes may eventually gain `children`, allowing pages to act as nav
 // parents. For the initial implementation, page routing stays explicit with a
 // required `path`, and only section nodes contain children.
-// Required fields: globally unique stable `id`, navigation-only `title`, source
-// `src`, and output `path`.
+// Required fields: globally unique stable `id`, navigation-only `title`, page
+// `body`, and output `path`. The body should usually be `include "page.typ"`,
+// written in the user's site file so paths resolve from the user's project.
 #let nav-page = e.types.declare(
   "justypdocs-nav-page",
   prefix: prefix,
-  doc: "A navigation page node with bundle source and output paths.",
+  doc: "A navigation page node with bundle body content and output path.",
   fields: (
     e.field("id", str, required: true, named: true,
       doc: "Globally unique stable nav node id."),
     e.field("title", str, required: true, named: true,
       doc: "Navigation label, not the page title."),
-    e.field("src", str, required: true, named: true,
-      doc: "Source Typst file to include."),
+    e.field("body", content, required: true, named: true,
+      doc: "Page content to emit, usually from an include in the site file."),
     e.field("path", str, required: true, named: true,
       doc: "Output path in the generated site."),
   ),

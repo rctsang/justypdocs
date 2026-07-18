@@ -21,7 +21,7 @@
   (
     id: "custom-home",
     title: "Custom Theme",
-    src: "/examples/custom/pages/home.typ",
+    body: include "pages/home.typ",
     path: "index.html",
   ),
 )

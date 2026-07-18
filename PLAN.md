@@ -10,7 +10,7 @@ The initial focus is layout, themes, styling, navigation, and reusable content c
 
 Use `site.typ` as the bundle entrypoint and central site manifest. It should import the package, define site configuration and navigation, and place `jtd.site(...)` once. The `jtd.site` Elembic element should emit all shared assets and recursively generate Typst `document(...)` elements from the navigation data.
 
-Page files should own their page-level title and layout selection by applying `jtd.page.with(...)` as a show rule. `jtd.page` should be an Elembic element with a required body, letting the idiomatic page syntax remain `#show: jtd.page.with(id: ..., title: ...)`. Navigation entries should own navigation labels, source paths, output paths, and stable identifiers. For now, every nav node must have a globally unique `id`, and every page file must declare the id of its corresponding nav page node; titles are required in both places and do not need to match.
+Page files should own their page-level title and layout selection by applying `jtd.page.with(...)` as a show rule. `jtd.page` should be an Elembic element with a required body, letting the idiomatic page syntax remain `#show: jtd.page.with(id: ..., title: ...)`. Navigation entries should own navigation labels, page body content, output paths, and stable identifiers. For now, every nav node must have a globally unique `id`, and every page file must declare the id of its corresponding nav page node; titles are required in both places and do not need to match.
 
 There should not be a separate `config.typ` file in the intended authoring model.
 
@@ -97,7 +97,7 @@ typst watch --features bundle,html --format bundle site.typ dist
   (
     id: "home",
     title: "Home",
-    src: "pages/home.typ",
+    body: include "pages/home.typ",
     path: "index.html",
   ),
   (
@@ -106,13 +106,13 @@ typst watch --features bundle,html --format bundle site.typ dist
       (
         id: "guide-install",
         title: "Install",
-        src: "pages/guide/install.typ",
+        body: include "pages/guide/install.typ",
         path: "guide/install.html",
       ),
       (
         id: "guide-config",
         title: "Config",
-        src: "pages/guide/config.typ",
+        body: include "pages/guide/config.typ",
         path: "guide/config.html",
       ),
     ),
@@ -125,7 +125,7 @@ typst watch --features bundle,html --format bundle site.typ dist
 )
 ```
 
-`site.typ` should not call a page-layout helper around page content and should not manually list page `document(...)` elements. It should define shared site data and call `jtd.site(...)`. The page bundle structure is derived from nav entries with `id`, `title`, `src`, and `path`, where `title` is only the navigation label and `id` is the stable lookup key.
+`site.typ` should not call a page-layout helper around page content and should not manually list page `document(...)` elements. It should define shared site data and call `jtd.site(...)`. The page bundle structure is derived from nav entries with `id`, `title`, `body`, and `path`, where `title` is only the navigation label and `id` is the stable lookup key. The `body` should usually be written as `include "page.typ"` in the user's site file so paths resolve from the user's project.
 
 ## Intended Page Shape
 
@@ -161,7 +161,7 @@ The corresponding nav entry owns:
 
 - The stable nav node id.
 - The navigation title/label.
-- The source Typst file path.
+- The page body content, usually from an `include` in the user's site file.
 - The output path.
 - The fact that the page is part of the bundle.
 
@@ -176,7 +176,7 @@ Responsibilities:
 - Accept `config` and `nav`.
 - Store or expose config/nav so the `jtd.page` element can render layouts for included documents.
 - Recursively walk the `nav` tree.
-- For every page node with `id`, `src`, and `path`, emit a bundle `document(...)`.
+- For every page node with `id`, `body`, and `path`, emit a bundle `document(...)`.
 - Validate that every page node has a unique `id`.
 - Use nav `title` only for navigation UI. Do not treat it as the page title.
 - Emit shared CSS assets.
@@ -202,17 +202,11 @@ Conceptually, page nodes should emit documents like:
 ```typst
 #document(page.path)[
   #metadata((kind: "jtd-current-page", id: page.id))
-  #include page.src
+  #page.body
 ]
 ```
 
-or, if supported by Typst for dynamic paths:
-
-```typst
-#document(page.path)[#include page.src]
-```
-
-Dynamic `include page.src` works and should be used for nav-driven page emission.
+The package intentionally does not dynamically include paths. Users provide the page body content themselves, typically with `body: include "page.typ"`, so include paths are resolved from the project site file.
 
 ## `jtd.page(...)`
 
@@ -391,20 +385,20 @@ Example:
   (
     id: "home",
     title: "Home",
-    src: "pages/home.typ",
+    body: include "pages/home.typ",
     path: "index.html",
   ),
   (id: "guide", title: "Guide", children: (
     (
       id: "guide-install",
       title: "Install",
-      src: "pages/guide/install.typ",
+      body: include "pages/guide/install.typ",
       path: "guide/install.html",
     ),
     (
       id: "guide-config",
       title: "Config",
-      src: "pages/guide/config.typ",
+      body: include "pages/guide/config.typ",
       path: "guide/config.html",
     ),
   )),
@@ -415,7 +409,7 @@ A page node should contain:
 
 - `id`: a globally unique stable identifier used by `jtd.page.with(...)` to look up nav information.
 - `title`: the navigation title/label for the page.
-- `src`: the source Typst file to include.
+- `body`: the page body content, usually `include "page.typ"` evaluated from the user's site file.
 - `path`: the output path in the generated website.
 
 A section node should contain:
@@ -428,7 +422,7 @@ Optional later fields can include `description`, `layout`, `nav-exclude`, `exter
 
 Page titles are not sourced from nav nodes. Each page file should define its own page title with `#show: jtd.page.with(id: ..., title: ...)`. This page title may differ from the nav title.
 
-Each page file should also define its nav lookup id with `jtd.page.with(id: ...)`. This id must match exactly one nav page node and should remain stable even if the page source path, output path, nav label, or page title changes.
+Each page file should also define its nav lookup id with `jtd.page.with(id: ...)`. This id must match exactly one nav page node and should remain stable even if the included file path, output path, nav label, or page title changes.
 
 Implement only the minimal nav helpers needed for v1:
 

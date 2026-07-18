@@ -31,7 +31,7 @@
   (
     id: "home",
     title: "Home",
-    src: "/examples/basic/pages/home.typ",
+    body: include "pages/home.typ",
     path: "index.html",
   ),
   (
@@ -41,13 +41,13 @@
       (
         id: "guide-install",
         title: "Install",
-        src: "/examples/basic/pages/guide/install.typ",
+        body: include "pages/guide/install.typ",
         path: "guide/install.html",
       ),
       (
         id: "guide-components",
         title: "Components",
-        src: "/examples/basic/pages/guide/components.typ",
+        body: include "pages/guide/components.typ",
         path: "guide/components.html",
       ),
     ),
@@ -59,7 +59,7 @@
       (
         id: "reference-metadata",
         title: "Metadata",
-        src: "/examples/basic/pages/reference/metadata.typ",
+        body: include "pages/reference/metadata.typ",
         path: "reference/metadata.html",
       ),
     ),
@@ -71,7 +71,7 @@
       (
         id: "demo-minimal",
         title: "Minimal layout",
-        src: "/examples/basic/pages/demo/minimal.typ",
+        body: include "pages/demo/minimal.typ",
         path: "demo/minimal.html",
       ),
     ),
