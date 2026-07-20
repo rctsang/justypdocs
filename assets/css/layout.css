@@ -109,14 +109,18 @@
 }
 
 .header-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--jtd-header-height);
+  padding-inline: 0.5rem;
   color: var(--jtd-link);
   font-size: 0.875rem;
   text-decoration: none;
 }
 
 .header-link:hover {
-  text-decoration: underline;
-  text-underline-offset: 0.15em;
+  background: var(--jtd-feedback);
+  text-decoration: none;
 }
 
 .main-content-wrap,
