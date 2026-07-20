@@ -229,6 +229,9 @@ def layout_css_regressions(ctx: Context) -> None:
     assert_contains(layout, "margin-left: var(--jtd-nav-width);", "main starts after sidebar")
     assert_contains(layout, "margin-bottom: 20px;", "sidebar title spacing")
     assert_contains(layout, "font-size: 1.125rem;", "larger sidebar title")
+    assert_contains(layout, ".site-button {\n  display: inline-flex;", "site button rule")
+    assert_contains(layout, "margin-left: 0;", "menu button stays after header links")
+    assert_contains(layout, "flex: 0 1 auto;", "header links stay right aligned before menu")
     assert_contains(navigation, "font-weight: 600;", "bold active page link")
     assert_not_contains(navigation, ".jtd-nav-section-toggle:hover", "section header hover fill")
 

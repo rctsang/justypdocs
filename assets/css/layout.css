@@ -47,7 +47,7 @@
   align-items: center;
   gap: 0.35rem;
   min-height: var(--jtd-header-height);
-  margin-left: auto;
+  margin-left: 0;
   padding-inline: var(--jtd-spacing-unit);
   color: var(--jtd-link);
   background: transparent;
@@ -87,6 +87,7 @@
 
 .header-links {
   margin-left: auto;
+  flex: 0 1 auto;
 }
 
 .header-links-list {
