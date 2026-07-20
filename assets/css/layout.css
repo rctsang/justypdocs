@@ -1,8 +1,6 @@
 /* Page shell, sidebar, header, and responsive layout styles. */
 
 .main {
-  max-width: var(--jtd-content-width);
-  margin-inline: auto;
   min-height: 100vh;
 }
 
@@ -24,6 +22,7 @@
   display: none;
   align-items: center;
   min-height: var(--jtd-header-height);
+  margin-bottom: 20px;
 }
 
 .site-title {
@@ -33,6 +32,7 @@
   min-height: var(--jtd-header-height);
   padding-inline: var(--jtd-spacing-unit);
   color: var(--jtd-body-heading);
+  font-size: 1.125rem;
   font-weight: 600;
   text-decoration: none;
   line-height: 1.25;
@@ -128,15 +128,14 @@
 }
 
 .main-minimal {
-  max-width: var(--jtd-content-width);
-  margin-inline: auto;
+  min-height: 100vh;
 }
 
 .jtd-page-minimal {
   min-height: 100vh;
 }
 
-@media (min-width: 70rem) {
+@media (min-width: 66.5rem) {
   .side-bar {
     display: flex;
     flex-direction: column;
@@ -169,34 +168,17 @@
     padding-inline: var(--jtd-spacing-unit);
   }
 
+  .main {
+    margin-left: var(--jtd-nav-width);
+  }
+
   .main-content-wrap,
   .jtd-page {
     padding: calc(var(--jtd-spacing-unit) * 2);
   }
-
-  .main-minimal {
-    margin-inline: auto;
-  }
 }
 
-@media (min-width: 70rem) {
-  .side-bar {
-    width: calc((100% - var(--jtd-content-width)) / 2);
-    align-items: flex-end;
-  }
-
-  .site-header,
-  .jtd-nav,
-  .site-footer {
-    width: var(--jtd-nav-width);
-  }
-
-  .main {
-    margin-inline: auto;
-  }
-}
-
-@media (max-width: 69.999rem) {
+@media (max-width: 66.499rem) {
   .jtd-js .side-bar:not(.nav-open) .jtd-nav,
   .jtd-js .side-bar:not(.nav-open) .site-footer {
     display: none;

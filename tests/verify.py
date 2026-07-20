@@ -225,9 +225,11 @@ def layout_css_regressions(ctx: Context) -> None:
     assert_contains(layout, ".site-header {\n  display: none;", "mobile hidden sidebar header")
     assert_contains(layout, "list-style: none !important;", "unbulleted header links")
     assert_contains(layout, ".header-links-item + .header-links-item {\n  margin-top: 0;", "horizontal header link spacing")
-    assert_contains(layout, "@media (min-width: 70rem)", "wide centered layout breakpoint")
-    assert_contains(layout, "width: calc((100% - var(--jtd-content-width)) / 2);", "sidebar tracks centered content edge")
-    assert_contains(layout, "margin-inline: auto;", "centered main content")
+    assert_contains(layout, "@media (min-width: 66.5rem)", "sidebar appears at content plus nav width")
+    assert_contains(layout, "margin-left: var(--jtd-nav-width);", "main starts after sidebar")
+    assert_contains(layout, "margin-bottom: 20px;", "sidebar title spacing")
+    assert_contains(layout, "font-size: 1.125rem;", "larger sidebar title")
+    assert_contains(navigation, "font-weight: 600;", "bold active page link")
     assert_not_contains(navigation, ".jtd-nav-section-toggle:hover", "section header hover fill")
 
 
