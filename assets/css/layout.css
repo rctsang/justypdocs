@@ -19,10 +19,9 @@
 }
 
 .site-header {
-  display: none;
+  display: flex;
   align-items: center;
   min-height: var(--jtd-header-height);
-  margin-bottom: 20px;
 }
 
 .site-title {
@@ -156,10 +155,15 @@
     display: flex;
     height: var(--jtd-header-height);
     max-height: var(--jtd-header-height);
+    margin-bottom: 32px;
     border-bottom: 1px solid var(--jtd-border);
   }
 
   .site-button {
+    display: none;
+  }
+
+  .side-bar > .header-links {
     display: none;
   }
 
@@ -184,7 +188,12 @@
 }
 
 @media (max-width: 66.499rem) {
+  .main-header-default {
+    display: none;
+  }
+
   .jtd-js .side-bar:not(.nav-open) .jtd-nav,
+  .jtd-js .side-bar:not(.nav-open) > .header-links,
   .jtd-js .side-bar:not(.nav-open) .site-footer {
     display: none;
   }

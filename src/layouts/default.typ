@@ -55,16 +55,7 @@
   #html.elem("header", attrs: (class: "side-bar"))[
     #html.elem("div", attrs: (class: "site-header"))[
       #html.elem("a", attrs: (class: "site-title", href: rooted-url(ctx, "")))[#site-title(ctx)]
-    ]
-    #if ctx != none { render-nav(ctx.nav, ctx.trail, ctx) }
-    #let footer = site-footer(ctx)
-    #if footer != none {
-      html.elem("div", attrs: (class: "site-footer"))[#footer]
-    }
-  ]
-  #html.elem("div", attrs: (class: "main", id: "top"))[
-    #html.elem("div", attrs: (class: "main-header", id: "main-header"))[
-      #render-header-links(ctx, trailing: if ctx != none {
+      #if ctx != none {
         html.elem("button", attrs: (
           class: "site-button",
           id: "menu-button",
@@ -73,7 +64,18 @@
         ))[
           #icon(ctx, "menu")
         ]
-      } else { none })
+      }
+    ]
+    #if ctx != none { render-nav(ctx.nav, ctx.trail, ctx) }
+    #render-header-links(ctx)
+    #let footer = site-footer(ctx)
+    #if footer != none {
+      html.elem("div", attrs: (class: "site-footer"))[#footer]
+    }
+  ]
+  #html.elem("div", attrs: (class: "main", id: "top"))[
+    #html.elem("div", attrs: (class: "main-header main-header-default", id: "main-header"))[
+      #render-header-links(ctx)
     ]
     #html.elem("div", attrs: (class: "main-content-wrap"))[
       #render-breadcrumbs(ctx)
