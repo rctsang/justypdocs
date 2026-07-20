@@ -236,6 +236,7 @@ def layout_css_regressions(ctx: Context) -> None:
     assert_contains(layout, "margin-left: 0;", "menu button stays after header links")
     assert_contains(layout, "flex: 0 1 auto;", "header links stay right aligned before menu")
     assert_contains(layout, ".main-header-default {\n    display: none;", "default main header hidden on mobile")
+    assert_contains(layout, ".side-bar .site-footer {\n    display: none;", "mobile sidebar footer hidden")
     assert_contains(layout, ".jtd-js .side-bar:not(.nav-open) > .header-links", "mobile sidebar header links collapsed")
     assert_contains(layout, ".header-link:hover {\n  background: var(--jtd-feedback);", "shaded header link hover")
     assert_contains(navigation, "font-weight: 600;", "bold active page link")

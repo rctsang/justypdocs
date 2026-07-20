@@ -192,6 +192,10 @@
     display: none;
   }
 
+  .side-bar .site-footer {
+    display: none;
+  }
+
   .jtd-js .side-bar:not(.nav-open) .jtd-nav,
   .jtd-js .side-bar:not(.nav-open) > .header-links,
   .jtd-js .side-bar:not(.nav-open) .site-footer {
