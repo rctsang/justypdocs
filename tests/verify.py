@@ -225,6 +225,8 @@ def layout_css_regressions(ctx: Context) -> None:
     assert_contains(layout, ".site-header {\n  display: none;", "mobile hidden sidebar header")
     assert_contains(layout, "list-style: none !important;", "unbulleted header links")
     assert_contains(layout, ".header-links-item + .header-links-item {\n  margin-top: 0;", "horizontal header link spacing")
+    assert_contains(layout, "padding: 0 0.25rem;", "header link item spacing")
+    assert_not_contains(layout, "gap: var(--jtd-spacing-unit);", "header link hover gaps")
     assert_contains(layout, "@media (min-width: 66.5rem)", "sidebar appears at content plus nav width")
     assert_contains(layout, "margin-left: var(--jtd-nav-width);", "main starts after sidebar")
     assert_contains(layout, "margin-bottom: 20px;", "sidebar title spacing")
