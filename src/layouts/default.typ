@@ -64,8 +64,7 @@
   ]
   #html.elem("div", attrs: (class: "main", id: "top"))[
     #html.elem("div", attrs: (class: "main-header", id: "main-header"))[
-      #render-header-links(ctx)
-      #if ctx != none {
+      #render-header-links(ctx, trailing: if ctx != none {
         html.elem("button", attrs: (
           class: "site-button",
           id: "menu-button",
@@ -74,7 +73,7 @@
         ))[
           #icon(ctx, "menu")
         ]
-      }
+      } else { none })
     ]
     #html.elem("div", attrs: (class: "main-content-wrap"))[
       #render-breadcrumbs(ctx)

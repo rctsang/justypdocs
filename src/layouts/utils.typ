@@ -97,14 +97,15 @@
   ]
 }
 
-#let render-header-links(ctx) = {
-  if ctx == none or ctx.config.header-links.len() == 0 {
+#let render-header-links(ctx, trailing: none) = {
+  let links = if ctx == none { () } else { ctx.config.header-links }
+  if links.len() == 0 and trailing == none {
     return none
   }
 
   html.elem("nav", attrs: (class: "header-links", "aria-label": "Auxiliary"))[
     #html.elem("ul", attrs: (class: "header-links-list"))[
-      #for link in ctx.config.header-links {
+      #for link in links {
         html.elem("li", attrs: (class: "header-links-item"))[
           #let attrs = html-attrs(
             link,
@@ -121,6 +122,9 @@
             }
           ]
         ]
+      }
+      #if trailing != none {
+        html.elem("li", attrs: (class: "header-links-item header-links-control"))[#trailing]
       }
     ]
   ]
