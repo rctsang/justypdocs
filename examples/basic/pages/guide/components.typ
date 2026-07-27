@@ -85,6 +85,15 @@
   #jtd.button(href: "/reference/metadata.html", variant: "blue")[Read metadata reference]
 ]
 
+#jtd.image(
+  src: "assets/component-demo.svg",
+  alt: "Component demo graphic",
+  data: read("assets/component-demo.svg", encoding: none),
+  format: "svg",
+  class: "component-demo-image",
+  data-example: "target-aware-image",
+)
+
 ```typst
 #jtd.callout(kind: "warning", title: "Warning")[Important supporting content.]
 ```

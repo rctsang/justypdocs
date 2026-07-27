@@ -156,3 +156,53 @@
   ),
   allow-unknown-fields: true,
 )
+
+// Target-aware image component.
+// HTML output renders an `<img>` with pass-through attributes. Paged/PDF output
+// renders Typst's native image element with optional sizing.
+#let image = e.element.declare(
+  "image",
+  prefix: prefix,
+  doc: "A target-aware image for HTML and paged/PDF output.",
+  display: it => context {
+    if target() == "html" {
+      let attrs = html-attrs(
+        it,
+        ("src", "alt", "data", "format", "width", "height", "fit"),
+        base-class: "jtd-image",
+      )
+      attrs.insert("src", it.src)
+      attrs.insert("alt", it.alt)
+      if it.width != none { attrs.insert("width", it.width) }
+      if it.height != none { attrs.insert("height", it.height) }
+      html.elem("img", attrs: attrs)[]
+    } else {
+      paged.render-image(
+        it.src,
+        alt: it.alt,
+        data: it.data,
+        format: it.format,
+        width: it.width,
+        height: it.height,
+        fit: it.fit,
+      )
+    }
+  },
+  fields: (
+    e.field("src", str, required: true, named: true,
+      doc: "Image source URL/path."),
+    e.field("alt", str, default: "",
+      doc: "Alternative text for HTML output."),
+    e.field("data", e.types.option(e.types.any), default: none,
+      doc: "Optional image data for paged/PDF output, usually read(..., encoding: none)."),
+    e.field("format", e.types.option(e.types.any), default: none,
+      doc: "Optional native Typst image format for paged/PDF output."),
+    e.field("width", e.types.option(e.types.any), default: none,
+      doc: "Optional image width."),
+    e.field("height", e.types.option(e.types.any), default: none,
+      doc: "Optional image height."),
+    e.field("fit", e.types.option(str), default: none,
+      doc: "Optional native Typst image fit mode for paged/PDF output."),
+  ),
+  allow-unknown-fields: true,
+)

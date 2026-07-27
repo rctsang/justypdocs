@@ -1,4 +1,4 @@
-/* Reusable component styles: callouts, buttons, labels, and cards. */
+/* Reusable component styles: callouts, buttons, labels, cards, and images. */
 
 .jtd-callout,
 .jtd-card {
@@ -173,6 +173,13 @@
 .jtd-card-body > :last-child,
 .jtd-callout-body > :last-child {
   margin-bottom: 0;
+}
+
+.jtd-image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin-block: var(--jtd-spacing-unit);
 }
 
 @media print {

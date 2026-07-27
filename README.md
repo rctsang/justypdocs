@@ -133,6 +133,13 @@ typst compile --root "." examples/basic/pages/guide/components.typ components.pd
 #jtd.card(title: [Example card])[
   Related content or links.
 ]
+
+#jtd.image(
+  src: "assets/diagram.svg",
+  alt: "Architecture diagram",
+  data: read("assets/diagram.svg", encoding: none),
+  format: "svg",
+)
 ```
 
 Supported callout kinds include `note`, `info`, `tip`, `warning`, `danger`, and `important`.

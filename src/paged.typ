@@ -146,3 +146,13 @@
     #body
   ]
 }
+
+#let render-image(src, alt: "", data: none, format: none, width: none, height: none, fit: none) = {
+  let args = (:)
+  if alt != "" { args.alt = alt }
+  if format != none { args.format = format }
+  if width != none { args.width = width }
+  if height != none { args.height = height }
+  if fit != none { args.fit = fit }
+  image(if data == none { src } else { data }, ..args)
+}
