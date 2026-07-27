@@ -177,7 +177,7 @@
     padding-inline: var(--jtd-spacing-unit);
   }
 
-  .main {
+  .main:not(.main-minimal) {
     margin-left: var(--jtd-nav-width);
   }
 

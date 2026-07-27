@@ -266,6 +266,7 @@ def layout_css_regressions(ctx: Context) -> None:
     assert_contains(components, "--jtd-button-hover-filter: brightness(0.96);", "darker default button hover")
     assert_contains(components, "--jtd-button-hover-filter: brightness(1.08);", "lighter solid button hover")
     assert_contains(layout, ".site-title:hover {\n  background: var(--jtd-feedback);", "solid title hover")
+    assert_contains(layout, ".main:not(.main-minimal) {\n    margin-left: var(--jtd-nav-width);", "sidebar offset excludes minimal layout")
     assert_contains(layout, ".site-header {\n  display: flex;", "mobile sidebar header")
     assert_contains(layout, "list-style: none !important;", "unbulleted header links")
     assert_contains(layout, ".header-links-item + .header-links-item {\n  margin-top: 0;", "horizontal header link spacing")
