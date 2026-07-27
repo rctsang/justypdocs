@@ -1,0 +1,4 @@
+.component-demo-note {
+  border-inline-start: 0.25rem solid var(--jtd-theme-accent);
+  padding-inline-start: 1rem;
+}

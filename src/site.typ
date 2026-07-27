@@ -21,12 +21,19 @@
 // Internal bundle document emission helper used by `jtd.site`.
 // Each emitted document renders the page body declared by the matching nav page
 // node. The page element then resolves nav context by stable `id`.
-#let emit-documents(nav) = {
+#let emit-documents(nav, config) = {
   for page in pages-from-nav(nav) {
     document(page.path)[
-      #metadata((kind: "jtd-current-page", id: page.id))
+      #metadata((kind: "jtd-current-page", id: page.id, path: page.path, config: config)) <jtd-current-page>
       #page.body
     ]
+  }
+}
+
+#let emit-page-assets() = context {
+  for item in query(<jtd-page-asset>) {
+    let value = item.value
+    asset(value.output-path, value.data)
   }
 }
 
@@ -47,6 +54,7 @@
       nav: it.nav,
     )) <jtd-site>
     #emit-assets(it.config)
-    #emit-documents(it.nav)
+    #emit-documents(it.nav, it.config)
+    #emit-page-assets()
   ],
 )

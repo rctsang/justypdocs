@@ -4,7 +4,7 @@
 // page body. Navigation labels come from nav nodes; page titles come from
 // `jtd.page.with(title: ...)`.
 
-#import "utils.typ": classes, icon, page-href, render-breadcrumbs, render-header-links, rooted-url, shared-assets, site-footer, site-title
+#import "utils.typ": classes, icon, page-href, render-breadcrumbs, render-header-links, rooted-url, shared-head, shared-scripts, site-footer, site-title
 
 #let nav-link(node, ctx, active: false) = html.elem(
   "a",
@@ -50,41 +50,44 @@
   ]
 ]
 
-#let default(page, ctx: none, body) = [
-  #shared-assets(ctx)
-  #html.elem("header", attrs: (class: "side-bar"))[
-    #html.elem("div", attrs: (class: "site-header"))[
-      #html.elem("a", attrs: (class: "site-title", href: rooted-url(ctx, "")))[#site-title(ctx)]
-      #if ctx != none {
-        html.elem("button", attrs: (
-          class: "site-button",
-          id: "menu-button",
-          "aria-label": "Menu",
-          "aria-expanded": "false",
-        ))[
-          #icon(ctx, "menu")
-        ]
+#let default(page, ctx: none, body) = html.elem("html", attrs: (lang: "en"))[
+  #html.elem("head")[#shared-head(ctx, page: page)]
+  #html.elem("body")[
+    #html.elem("header", attrs: (class: "side-bar"))[
+      #html.elem("div", attrs: (class: "site-header"))[
+        #html.elem("a", attrs: (class: "site-title", href: rooted-url(ctx, "")))[#site-title(ctx)]
+        #if ctx != none {
+          html.elem("button", attrs: (
+            class: "site-button",
+            id: "menu-button",
+            "aria-label": "Menu",
+            "aria-expanded": "false",
+          ))[
+            #icon(ctx, "menu")
+          ]
+        }
+      ]
+      #if ctx != none { render-nav(ctx.nav, ctx.trail, ctx) }
+      #render-header-links(ctx)
+      #let footer = site-footer(ctx)
+      #if footer != none {
+        html.elem("div", attrs: (class: "site-footer"))[#footer]
       }
     ]
-    #if ctx != none { render-nav(ctx.nav, ctx.trail, ctx) }
-    #render-header-links(ctx)
-    #let footer = site-footer(ctx)
-    #if footer != none {
-      html.elem("div", attrs: (class: "site-footer"))[#footer]
-    }
-  ]
-  #html.elem("div", attrs: (class: "main", id: "top"))[
-    #html.elem("div", attrs: (class: "main-header main-header-default", id: "main-header"))[
-      #render-header-links(ctx)
-    ]
-    #html.elem("div", attrs: (class: "main-content-wrap"))[
-      #render-breadcrumbs(ctx)
-      #html.elem("div", attrs: (class: "main-content", id: "main-content"))[
-        #html.elem("main", attrs: (class: "jtd-page"))[
-          #heading(level: 1)[#page.title]
-          #body
+    #html.elem("div", attrs: (class: "main", id: "top"))[
+      #html.elem("div", attrs: (class: "main-header main-header-default", id: "main-header"))[
+        #render-header-links(ctx)
+      ]
+      #html.elem("div", attrs: (class: "main-content-wrap"))[
+        #render-breadcrumbs(ctx)
+        #html.elem("div", attrs: (class: "main-content", id: "main-content"))[
+          #html.elem("main", attrs: (class: "jtd-page"))[
+            #heading(level: 1)[#page.title]
+            #body
+          ]
         ]
       ]
     ]
+    #shared-scripts(ctx, page: page)
   ]
 ]

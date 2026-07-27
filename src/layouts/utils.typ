@@ -50,13 +50,37 @@
   (theme: (:))
 }
 
-#let shared-assets(ctx) = [
+#let page-assets(page, kind) = {
+  if page == none {
+    return ()
+  }
+
+  query(<jtd-page-asset>)
+    .map(item => item.value)
+    .filter(item => item.at("page-id", default: none) == page.id and item.at("asset-kind", default: none) == kind)
+}
+
+#let shared-head(ctx, page: none) = [
+  #html.elem("meta", attrs: (charset: "utf-8"))[]
+  #html.elem("meta", attrs: (name: "viewport", content: "width=device-width, initial-scale=1"))[]
   #for item in assets.manifest(asset-config(ctx)) {
     if item.path.ends-with(".css") {
       html.elem("link", attrs: (rel: "stylesheet", href: rooted-url(ctx, item.path)))
-    } else if item.path.ends-with(".js") {
+    }
+  }
+  #for item in page-assets(page, "stylesheet") {
+    html.elem("link", attrs: (rel: "stylesheet", href: item.url))
+  }
+]
+
+#let shared-scripts(ctx, page: none) = [
+  #for item in assets.manifest(asset-config(ctx)) {
+    if item.path.ends-with(".js") {
       html.elem("script", attrs: (src: rooted-url(ctx, item.path)))[]
     }
+  }
+  #for item in page-assets(page, "script") {
+    html.elem("script", attrs: (src: item.url))[]
   }
 ]
 

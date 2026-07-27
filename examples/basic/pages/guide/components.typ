@@ -8,6 +8,27 @@
   categories: ("guide",),
 )
 
+#jtd.stylesheet(
+  path: "assets/component-demo.css",
+  data: read("assets/component-demo.css"),
+)
+#jtd.stylesheet(
+  path: "/assets/root-demo.css",
+  data: read("assets/root-demo.css"),
+)
+#jtd.script(
+  path: "assets/component-demo.js",
+  data: read("assets/component-demo.js"),
+)
+#jtd.asset(
+  path: "assets/component-demo.svg",
+  data: read("assets/component-demo.svg"),
+)
+#jtd.asset(
+  path: "/assets/root-demo.txt",
+  data: read("assets/root-demo.txt"),
+)
+
 = Components
 
 #jtd.label(variant: "default")[Stable]

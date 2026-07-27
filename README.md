@@ -20,6 +20,7 @@ Experimental. This project targets Typst `0.15.0` HTML and bundle features, whic
 - Styled callouts, buttons, labels, and cards
 - Mobile nav toggle and collapsible sections
 - Bundle output with CSS, JS, icon, and theme assets
+- Page-local and root-level asset declarations
 - Example light and custom/dark theme sites
 
 ## Local Installation
@@ -139,6 +140,24 @@ Supported callout kinds include `note`, `info`, `tip`, `warning`, `danger`, and 
 Supported button variants include `default`, `outline`, `primary`, `purple`, `blue`, `green`, `red`, and `yellow`.
 
 Supported label variants include `default`, `blue`, `green`, `purple`, `red`, and `yellow`.
+
+## Page Assets
+
+Declare page-scoped assets from page files with explicit `path` and `data` fields:
+
+```typst
+#jtd.stylesheet(path: "assets/page.css", data: read("assets/page.css"))
+#jtd.script(path: "assets/page.js", data: read("assets/page.js"))
+#jtd.asset(path: "assets/diagram.svg", data: read("assets/diagram.svg"))
+```
+
+Relative paths are emitted next to the current page output directory. For `guide/install.html`, `assets/page.css` emits to `guide/assets/page.css` and is linked as `assets/page.css`.
+
+Leading slash paths emit from the site root and use `config.base-url` in generated links:
+
+```typst
+#jtd.stylesheet(path: "/assets/page.css", data: read("assets/page.css"))
+```
 
 ## Themes
 

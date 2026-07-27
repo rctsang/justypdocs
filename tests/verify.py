@@ -161,6 +161,11 @@ def bundle_output_structure(ctx: Context) -> None:
         "assets/css/theme.css",
         "assets/js/site.js",
         "assets/icons/symbols.svg",
+        "guide/assets/component-demo.css",
+        "guide/assets/component-demo.js",
+        "guide/assets/component-demo.svg",
+        "assets/root-demo.css",
+        "assets/root-demo.txt",
     ]
     for rel in expected:
         assert_exists(ctx.basic / rel)
@@ -206,6 +211,45 @@ def minimal_layout_html(ctx: Context) -> None:
     assert_not_contains(html, 'class="side-bar"', "minimal sidebar")
     assert_not_contains(html, 'id="menu-button"', "minimal menu button")
     assert_not_contains(html, 'main-header-title', "minimal duplicate header title")
+
+
+@test
+def html_shell_asset_placement(ctx: Context) -> None:
+    # Layouts own the HTML shell so shared styles live in <head> and shared
+    # scripts load at the end of <body>, leaving room for page-specific assets.
+    html = read(ctx.basic / "guide/install.html")
+    head_start = html.index("<head>")
+    head_end = html.index("</head>")
+    body_start = html.index("<body>")
+    body_end = html.rindex("</body>")
+    css_pos = html.index('/assets/css/base.css')
+    js_pos = html.index('/assets/js/site.js')
+    main_pos = html.index('class="main"')
+    assert head_start < css_pos < head_end < body_start
+    assert body_start < main_pos < js_pos < body_end
+
+
+@test
+def page_asset_paths_and_tags(ctx: Context) -> None:
+    html = read(ctx.basic / "guide/components.html")
+    head_start = html.index("<head>")
+    head_end = html.index("</head>")
+    body_start = html.index("<body>")
+    body_end = html.rindex("</body>")
+    page_css_pos = html.index('href="assets/component-demo.css"')
+    root_css_pos = html.index('href="/assets/root-demo.css"')
+    page_js_pos = html.index('src="assets/component-demo.js"')
+    shared_js_pos = html.index('/assets/js/site.js')
+    main_pos = html.index('class="main"')
+    assert head_start < page_css_pos < head_end < body_start
+    assert head_start < root_css_pos < head_end < body_start
+    assert body_start < main_pos < shared_js_pos < page_js_pos < body_end
+    assert_not_contains(html, "/guide/assets/component-demo.css", "rooted page stylesheet URL")
+    assert_contains(read(ctx.basic / "assets/root-demo.css"), "--component-root-demo", "root stylesheet contents")
+    assert_contains(read(ctx.basic / "assets/root-demo.txt"), "Root-scoped asset fixture.", "root asset contents")
+    assert_contains(read(ctx.basic / "guide/assets/component-demo.css"), ".component-demo-note", "page CSS asset contents")
+    assert_contains(read(ctx.basic / "guide/assets/component-demo.js"), "componentDemo", "page JS asset contents")
+    assert_contains(read(ctx.basic / "guide/assets/component-demo.svg"), "Component demo", "page raw asset contents")
 
 
 @test
