@@ -338,7 +338,7 @@ def component_variants(ctx: Context) -> None:
         "jtd-label-yellow",
     ]:
         assert_contains(html, klass, f"example class {klass}")
-    assert_contains(html, '<img class="jtd-image component-demo-image" data-example="target-aware-image" src="assets/component-demo.svg" alt="Component demo graphic">', "target-aware image html")
+    assert_contains(html, '<img class="jtd-image component-demo-image" data-example="target-aware-image" src="assets/component-demo.svg" alt="Component demo graphic" style="width: 80%; object-fit: contain;">', "target-aware image html")
     assert_contains(html, 'id="jump-to-component-target"', "component custom id")
     assert_contains(html, 'class="jtd-button jtd-button-outline js-scroll-link"', "component custom class merged")
     assert_contains(html, 'data-scroll-to="component-target"', "component custom data attr")

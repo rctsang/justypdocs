@@ -90,6 +90,8 @@
   alt: "Component demo graphic",
   data: read("assets/component-demo.svg", encoding: none),
   format: "svg",
+  width: 80%,
+  fit: "contain",
   class: "component-demo-image",
   data-example: "target-aware-image",
 )

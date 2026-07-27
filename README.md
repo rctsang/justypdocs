@@ -139,8 +139,12 @@ typst compile --root "." examples/basic/pages/guide/components.typ components.pd
   alt: "Architecture diagram",
   data: read("assets/diagram.svg", encoding: none),
   format: "svg",
+  width: 80%,
+  fit: "contain",
 )
 ```
+
+For HTML output, non-integer `width`/`height` values are converted to CSS styles, so Typst values like `80%` remain valid. For paged/PDF output, the same values are passed to Typst's native `image(...)`.
 
 Supported callout kinds include `note`, `info`, `tip`, `warning`, `danger`, and `important`.
 

@@ -28,6 +28,57 @@
   attrs
 }
 
+#let css-value(value) = if type(value) == str { value } else { repr(value) }
+
+#let append-style(attrs, declarations) = {
+  let declarations = declarations.filter(item => item != none)
+  if declarations.len() == 0 {
+    return attrs
+  }
+
+  let existing = attrs.at("style", default: "")
+  let prefix = if existing == "" {
+    ""
+  } else if existing.ends-with(";") {
+    existing + " "
+  } else {
+    existing + "; "
+  }
+  attrs.insert("style", prefix + declarations.join(" "))
+  attrs
+}
+
+#let image-html-attrs(src, alt, width, height, fit, fields) = {
+  let attrs = html-attrs(
+    fields,
+    (),
+    base-class: "jtd-image",
+  )
+  attrs.insert("src", src)
+  attrs.insert("alt", alt)
+
+  let styles = ()
+  if width != none {
+    if type(width) == int {
+      attrs.insert("width", width)
+    } else {
+      styles.push("width: " + css-value(width) + ";")
+    }
+  }
+  if height != none {
+    if type(height) == int {
+      attrs.insert("height", height)
+    } else {
+      styles.push("height: " + css-value(height) + ";")
+    }
+  }
+  if fit != none {
+    styles.push("object-fit: " + fit + ";")
+  }
+
+  append-style(attrs, styles)
+}
+
 // Highlighted content block.
 #let callout = e.element.declare(
   "callout",
@@ -157,52 +208,26 @@
   allow-unknown-fields: true,
 )
 
-// Target-aware image component.
+// Target-aware image function.
 // HTML output renders an `<img>` with pass-through attributes. Paged/PDF output
 // renders Typst's native image element with optional sizing.
-#let image = e.element.declare(
-  "image",
-  prefix: prefix,
-  doc: "A target-aware image for HTML and paged/PDF output.",
-  display: it => context {
-    if target() == "html" {
-      let attrs = html-attrs(
-        it,
-        ("src", "alt", "data", "format", "width", "height", "fit"),
-        base-class: "jtd-image",
-      )
-      attrs.insert("src", it.src)
-      attrs.insert("alt", it.alt)
-      if it.width != none { attrs.insert("width", it.width) }
-      if it.height != none { attrs.insert("height", it.height) }
-      html.elem("img", attrs: attrs)[]
-    } else {
-      paged.render-image(
-        it.src,
-        alt: it.alt,
-        data: it.data,
-        format: it.format,
-        width: it.width,
-        height: it.height,
-        fit: it.fit,
-      )
-    }
-  },
-  fields: (
-    e.field("src", str, required: true, named: true,
-      doc: "Image source URL/path."),
-    e.field("alt", str, default: "",
-      doc: "Alternative text for HTML output."),
-    e.field("data", e.types.option(e.types.any), default: none,
-      doc: "Optional image data for paged/PDF output, usually read(..., encoding: none)."),
-    e.field("format", e.types.option(e.types.any), default: none,
-      doc: "Optional native Typst image format for paged/PDF output."),
-    e.field("width", e.types.option(e.types.any), default: none,
-      doc: "Optional image width."),
-    e.field("height", e.types.option(e.types.any), default: none,
-      doc: "Optional image height."),
-    e.field("fit", e.types.option(str), default: none,
-      doc: "Optional native Typst image fit mode for paged/PDF output."),
-  ),
-  allow-unknown-fields: true,
-)
+#let image(src: none, alt: "", data: none, format: none, width: none, height: none, fit: none, ..fields) = context {
+  if src == none {
+    panic("jtd.image requires a src")
+  }
+
+  if target() == "html" {
+    let attrs = image-html-attrs(src, alt, width, height, fit, fields.named())
+    html.elem("img", attrs: attrs)[]
+  } else {
+    paged.render-image(
+      src,
+      alt: alt,
+      data: data,
+      format: format,
+      width: width,
+      height: height,
+      fit: fit,
+    )
+  }
+}
