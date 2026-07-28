@@ -263,7 +263,7 @@ def flowbite_icon_output(ctx: Context) -> None:
     assert_contains(html, 'class="jtd-icon jtd-icon-flowbite-user-outline component-demo-icon"', "flowbite icon classes")
     assert_contains(html, 'role="img"', "flowbite icon role")
     assert_contains(html, 'aria-label="User"', "flowbite icon label")
-    assert_contains(html, 'style="width: 1.25em; height: 1.25em;"', "flowbite icon sizing")
+    assert_contains(html, 'style="width: 1.25em; height: 1.25em; vertical-align: -0.15em;"', "flowbite icon sizing")
     assert_contains(html, 'href="/assets/icons/flowbite.svg#flowbite-user-outline"', "flowbite sprite href")
     assert_contains(html, '<inline-svg src="assets/component-demo.svg" class="component-demo-inline-svg" data-example="inline-svg-demo"></inline-svg>', "inline-svg demo markup")
 
@@ -282,6 +282,7 @@ def layout_css_regressions(ctx: Context) -> None:
     assert_contains(components, "--jtd-button-hover-filter: brightness(0.96);", "darker default button hover")
     assert_contains(components, "--jtd-button-hover-filter: brightness(1.08);", "lighter solid button hover")
     assert_contains(layout, ".site-title:hover {\n  background: var(--jtd-feedback);", "solid title hover")
+    assert_contains(layout, "vertical-align: -0.125em;", "default icon baseline alignment")
     assert_contains(layout, ".main:not(.main-minimal) {\n    margin-left: var(--jtd-nav-width);", "sidebar offset excludes minimal layout")
     assert_contains(layout, ".site-header {\n  display: flex;", "mobile sidebar header")
     assert_contains(layout, "list-style: none !important;", "unbulleted header links")

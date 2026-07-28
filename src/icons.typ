@@ -48,7 +48,7 @@
   "<svg xmlns=\"http://www.w3.org/2000/svg\" style=\"display: none\">" + symbols.join("") + "</svg>"
 }
 
-#let html-attrs(name, label, title, size, width, height, fields, sprite-path) = {
+#let html-attrs(name, label, title, size, width, height, y, fields, sprite-path) = {
   let attrs = (:)
   for (key, value) in fields {
     if key != "with" and not key.starts-with("__") and value != none {
@@ -71,6 +71,9 @@
     "width: " + css-value(html-width) + ";",
     "height: " + css-value(html-height) + ";",
   )
+  if y != none {
+    styles.push("vertical-align: " + css-value(y) + ";")
+  }
   let existing = attrs.at("style", default: "")
   let prefix = if existing == "" {
     ""
@@ -92,7 +95,7 @@
 //
 // `size` applies to both width and height by default. `width`, `height`, and
 // `y` are forwarded to Iconify for paged/PDF output; HTML output converts
-// sizing to CSS and ignores `y` because baseline alignment is CSS-controlled.
+// sizing and `y` to CSS.
 #let icon(
   name,
   label: none,
@@ -106,7 +109,7 @@
 ) = context {
   if target() == "html" {
     let sprite-path = if sprite-path == none { rooted-url("/assets/icons/flowbite.svg") } else { sprite-path }
-    let data = html-attrs(name, label, title, size, width, height, fields.named(), sprite-path)
+    let data = html-attrs(name, label, title, size, width, height, y, fields.named(), sprite-path)
     html.elem("svg", attrs: data.attrs)[
       #if data.title != none { html.elem("title")[#data.title] }
       #html.elem("use", attrs: (href: data.href))[]

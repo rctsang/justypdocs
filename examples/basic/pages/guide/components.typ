@@ -46,6 +46,7 @@ Target-aware icon: #jtd.icon(
   "flowbite:user-outline",
   label: "User",
   size: 1.25em,
+  y: -0.15em,
   class: "component-demo-icon",
   data-example: "target-aware-icon",
 )
