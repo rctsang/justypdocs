@@ -161,6 +161,7 @@ def bundle_output_structure(ctx: Context) -> None:
         "assets/css/theme.css",
         "assets/js/site.js",
         "assets/icons/symbols.svg",
+        "assets/icons/flowbite.svg",
         "guide/assets/component-demo.css",
         "guide/assets/component-demo.js",
         "guide/assets/component-demo.svg",
@@ -250,6 +251,19 @@ def page_asset_paths_and_tags(ctx: Context) -> None:
     assert_contains(read(ctx.basic / "guide/assets/component-demo.css"), ".component-demo-note", "page CSS asset contents")
     assert_contains(read(ctx.basic / "guide/assets/component-demo.js"), "componentDemo", "page JS asset contents")
     assert_contains(read(ctx.basic / "guide/assets/component-demo.svg"), "Component demo", "page raw asset contents")
+
+
+@test
+def flowbite_icon_output(ctx: Context) -> None:
+    sprite = read(ctx.basic / "assets/icons/flowbite.svg")
+    html = read(ctx.basic / "guide/components.html")
+    assert_contains(sprite, '<symbol id="flowbite-user-outline" viewBox="0 0 24 24">', "flowbite sprite symbol")
+    assert_contains(sprite, 'stroke="currentColor"', "flowbite sprite currentColor")
+    assert_contains(html, 'class="jtd-icon jtd-icon-flowbite-user-outline component-demo-icon"', "flowbite icon classes")
+    assert_contains(html, 'role="img"', "flowbite icon role")
+    assert_contains(html, 'aria-label="User"', "flowbite icon label")
+    assert_contains(html, 'style="width: 1.25em; height: 1.25em;"', "flowbite icon sizing")
+    assert_contains(html, 'href="/assets/icons/flowbite.svg#flowbite-user-outline"', "flowbite sprite href")
 
 
 @test

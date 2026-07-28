@@ -37,6 +37,14 @@
 #jtd.label(variant: "red")[Breaking]
 #jtd.label(variant: "yellow")[Warning]
 
+Target-aware icon: #jtd.icon(
+  "flowbite:user-outline",
+  label: "User",
+  size: 1.25em,
+  class: "component-demo-icon",
+  data-example: "target-aware-icon",
+)
+
 #jtd.callout(kind: "note", title: "Callout")[
   Use callouts for short supporting notes that should stand apart from body content.
 ]

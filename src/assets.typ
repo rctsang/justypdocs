@@ -3,6 +3,7 @@
 // manifest to link the authored CSS/JS files plus generated theme CSS.
 
 #import "theme.typ"
+#import "icons.typ"
 
 // Enumerate required asset data.
 #let manifest(config) = (
@@ -37,5 +38,9 @@
   (
     path: "assets/icons/symbols.svg",
     data: read("../assets/icons/symbols.svg"),
+  ),
+  (
+    path: "assets/icons/flowbite.svg",
+    data: icons.sprite(),
   ),
 )

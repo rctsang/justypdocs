@@ -5,6 +5,7 @@
 // - `page(id: ..., title: ..., layout: ...)`
 // - `themes.light` / `themes.dark`
 // - Elembic components: `callout`, `button`, `label`, `card`, `image`
+// - Target-aware Flowbite icons via `icon`
 // - Page asset declarations: `asset`, `stylesheet`, `script`
 // - `types` module with public Elembic-backed types.
 // - `nav` module with traversal and lookup helpers.
@@ -13,6 +14,7 @@
 #import "page.typ": page
 #import "theme.typ" as themes
 #import "components.typ": callout, button, label, card, image
+#import "icons.typ": icon
 #import "page-assets.typ": asset, stylesheet, script
 #import "types.typ" as types
 #import "nav.typ" as nav

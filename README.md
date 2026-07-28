@@ -18,6 +18,7 @@ Experimental. This project targets Typst `0.15.0` HTML and bundle features, whic
 - Header links
 - Theme customization via Typst dictionaries/functions
 - Styled callouts, buttons, labels, and cards
+- Target-aware Flowbite icons
 - Mobile nav toggle and collapsible sections
 - Bundle output with CSS, JS, icon, and theme assets
 - Page-local and root-level asset declarations
@@ -142,9 +143,13 @@ typst compile --root "." examples/basic/pages/guide/components.typ components.pd
   width: 80%,
   fit: "contain",
 )
+
+#jtd.icon("flowbite:user-outline", label: "User", size: 1.25em)
 ```
 
 For HTML output, non-integer `width`/`height` values are converted to CSS styles, so Typst values like `80%` remain valid. For paged/PDF output, the same values are passed to Typst's native `image(...)`.
+
+`jtd.icon(...)` renders Flowbite icons from the bundled Iconify collection. HTML output uses a generated SVG sprite at `/assets/icons/flowbite.svg`; paged/PDF output delegates to Typst's Iconify package. Use `label` for meaningful icons or leave it as `none` for decorative icons.
 
 Supported callout kinds include `note`, `info`, `tip`, `warning`, `danger`, and `important`.
 
