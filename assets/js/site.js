@@ -17,6 +17,52 @@
     return svg;
   }
 
+  function defineInlineSVG() {
+    if (!window.customElements || customElements.get("inline-svg")) {
+      return;
+    }
+
+    var svgCache = new Map();
+
+    function loadSVG(src) {
+      if (!svgCache.has(src)) {
+        svgCache.set(src, fetch(src)
+          .then(function (response) {
+            if (!response.ok) {
+              throw new Error("Failed to load inline SVG: " + src);
+            }
+            return response.text();
+          })
+          .then(function (text) {
+            return new DOMParser().parseFromString(text, "image/svg+xml").documentElement;
+          }));
+      }
+      return svgCache.get(src);
+    }
+
+    customElements.define("inline-svg", class InlineSVG extends HTMLElement {
+      connectedCallback() {
+        var src = this.getAttribute("src");
+        if (!src || this.dataset.loadedSrc === src) {
+          return;
+        }
+
+        this.dataset.loadedSrc = src;
+        loadSVG(src).then(function (svg) {
+          this.replaceChildren(svg.cloneNode(true));
+          if (location.hash) {
+            requestAnimationFrame(function () {
+              this.querySelector(location.hash)?.scrollIntoView();
+            }.bind(this));
+          }
+        }.bind(this)).catch(function (error) {
+          this.dataset.error = "true";
+          console.error(error);
+        }.bind(this));
+      }
+    });
+  }
+
   function init() {
     var menuButton = document.getElementById("menu-button");
     var sideBar = document.querySelector(".side-bar");
@@ -110,6 +156,8 @@
       });
     });
   }
+
+  defineInlineSVG();
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", init);

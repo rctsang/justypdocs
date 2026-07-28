@@ -311,6 +311,9 @@ def javascript_initializes_after_markup(ctx: Context) -> None:
     assert_contains(js, "DOMContentLoaded", "deferred DOM initialization")
     assert_contains(js, "document.readyState", "ready-state guard")
     assert_contains(js, "is-collapsed", "section collapse class")
+    assert_contains(js, 'customElements.define("inline-svg"', "inline-svg custom element")
+    assert_contains(js, "var svgCache = new Map();", "inline-svg fetch cache")
+    assert_contains(js, "svg.cloneNode(true)", "inline-svg cloned cached svg")
 
 
 @test

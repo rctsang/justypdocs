@@ -151,6 +151,8 @@ For HTML output, non-integer `width`/`height` values are converted to CSS styles
 
 `jtd.icon(...)` renders Flowbite icons from the bundled Iconify collection. HTML output uses a generated SVG sprite at `/assets/icons/flowbite.svg`; paged/PDF output delegates to Typst's Iconify package. Use `label` for meaningful icons or leave it as `none` for decorative icons.
 
+The shared site JavaScript also defines an `<inline-svg src="...">` custom element for cases where an entire SVG document should be embedded inline. SVG files are fetched and parsed once per `src`, then cloned for each element instance.
+
 Supported callout kinds include `note`, `info`, `tip`, `warning`, `danger`, and `important`.
 
 Supported button variants include `default`, `outline`, `primary`, `purple`, `blue`, `green`, `red`, and `yellow`.
