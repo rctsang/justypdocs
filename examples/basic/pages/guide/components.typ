@@ -1,4 +1,5 @@
 #import "@local/justypdocs:0.0.1" as jtd
+#import "@preview/bullseye:0.1.0": html, target
 
 #show: jtd.page.with(
   id: "guide-components",
@@ -37,6 +38,10 @@
 #jtd.label(variant: "red")[Breaking]
 #jtd.label(variant: "yellow")[Warning]
 
+== Icons
+
+`jtd.icon` renders Flowbite icons through an HTML SVG sprite and uses Iconify for paged/PDF output.
+
 Target-aware icon: #jtd.icon(
   "flowbite:user-outline",
   label: "User",
@@ -44,6 +49,8 @@ Target-aware icon: #jtd.icon(
   class: "component-demo-icon",
   data-example: "target-aware-icon",
 )
+
+== Callouts
 
 #jtd.callout(kind: "note", title: "Callout")[
   Use callouts for short supporting notes that should stand apart from body content.
@@ -93,6 +100,8 @@ Target-aware icon: #jtd.icon(
   #jtd.button(href: "/reference/metadata.html", variant: "blue")[Read metadata reference]
 ]
 
+== Images and inline SVG
+
 #jtd.image(
   src: "assets/component-demo.svg",
   alt: "Component demo graphic",
@@ -103,6 +112,14 @@ Target-aware icon: #jtd.icon(
   class: "component-demo-image",
   data-example: "target-aware-image",
 )
+
+#context if target() == "html" {
+  html.elem("inline-svg", attrs: (
+    src: "assets/component-demo.svg",
+    class: "component-demo-inline-svg",
+    data-example: "inline-svg-demo",
+  ))[]
+}
 
 ```typst
 #jtd.callout(kind: "warning", title: "Warning")[Important supporting content.]

@@ -257,6 +257,7 @@ def page_asset_paths_and_tags(ctx: Context) -> None:
 def flowbite_icon_output(ctx: Context) -> None:
     sprite = read(ctx.basic / "assets/icons/flowbite.svg")
     html = read(ctx.basic / "guide/components.html")
+    assert_contains(html, "jtd.icon", "icon demo heading text")
     assert_contains(sprite, '<symbol id="flowbite-user-outline" viewBox="0 0 24 24">', "flowbite sprite symbol")
     assert_contains(sprite, 'stroke="currentColor"', "flowbite sprite currentColor")
     assert_contains(html, 'class="jtd-icon jtd-icon-flowbite-user-outline component-demo-icon"', "flowbite icon classes")
@@ -264,6 +265,7 @@ def flowbite_icon_output(ctx: Context) -> None:
     assert_contains(html, 'aria-label="User"', "flowbite icon label")
     assert_contains(html, 'style="width: 1.25em; height: 1.25em;"', "flowbite icon sizing")
     assert_contains(html, 'href="/assets/icons/flowbite.svg#flowbite-user-outline"', "flowbite sprite href")
+    assert_contains(html, '<inline-svg src="assets/component-demo.svg" class="component-demo-inline-svg" data-example="inline-svg-demo"></inline-svg>', "inline-svg demo markup")
 
 
 @test
